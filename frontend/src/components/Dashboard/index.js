@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import {MDBDataTable} from 'mdbreact';
+import {MDBBtn, MDBDataTable} from 'mdbreact';
 
 const data = {
     columns: [
@@ -129,6 +129,7 @@ class Dashboard extends Component {
         return(
             <div>
                 dash
+                <MDBBtn className="danger-color">kk</MDBBtn>
                 <MDBDataTable
                     striped
                     bordered
