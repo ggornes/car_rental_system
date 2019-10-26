@@ -12,7 +12,7 @@ const Navigation = () => (
                 <Link to={ROUTES.LANDING}>Landing</Link>
             </li>
             <li>
-                <Link to={ROUTES.HOME}>Home</Link>
+                <Link to={ROUTES.DASHBOARD}>Dashboard</Link>
             </li>
             <li>
                 <Link to={ROUTES.ACCOUNT}>Account</Link>
