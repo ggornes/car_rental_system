@@ -24,9 +24,18 @@ CORS(app)
 def get_all_vehicles():
 	cur = mysql.connection.cursor()
 	#cur.execute("SELECT * FROM rental_db.vehicles")	
+	
+	#cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials, created, updated FROM rental_db.vehicles")
+	
 	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials, created, updated FROM rental_db.vehicles")
+
+	
 	rv = cur.fetchall()
 	return jsonify(rv)
+	
+	#result = {"id": id, "makes": make, "model": model, "release_year": release_year, "registration": registration, "fuel": fuel, "tank_size": tank_size, "initials": initials, "created": created, "updated": updated}
+	
+	#return jsonify({"result": result})
 	
 	
 @app.route('/vehicles/add', methods=['POST'])
