@@ -5,6 +5,9 @@ import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import '@fortawesome/fontawesome-free'
+import '@fortawesome/react-fontawesome'
+import '@fortawesome/fontawesome-svg-core'
+import FontAwesome from '@fortawesome/react-fontawesome'
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicles} from "../../VehicleFunctions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -131,10 +134,6 @@ class Browse extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
-
-
-
-
 
 
 
