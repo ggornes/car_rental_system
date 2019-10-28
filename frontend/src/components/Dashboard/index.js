@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import {MDBBtn, MDBDataTable} from 'mdbreact';
+import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
 
 const API = 'https://hn.algolia.com/api/v1/search?query=';
 const DEFAULT_QUERY = 'redux';
@@ -104,7 +104,7 @@ class Dashboard extends Component {
 
 
         return(
-            <div>
+            <div className="grey-text">
 
                 <p></p>
                 <MDBDataTable
@@ -114,6 +114,10 @@ class Dashboard extends Component {
                     data={data2}
 
                 />
+                <MDBBtn className="btn btn-outline-purple" type="submit">
+                    Send
+                    <MDBIcon far icon="paper-plane" className="ml-2" />
+                </MDBBtn>
             </div>
         );
     }

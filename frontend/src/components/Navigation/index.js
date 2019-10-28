@@ -15,7 +15,7 @@ const Navigation = () => (
                 <Link to={ROUTES.DASHBOARD}>Dashboard</Link>
             </li>
             <li>
-                <Link to={ROUTES.ACCOUNT}>Account</Link>
+                <Link to={ROUTES.ADD}>Add</Link>
             </li>
             <li>
                 <Link to={ROUTES.ADMIN}>Admin</Link>
