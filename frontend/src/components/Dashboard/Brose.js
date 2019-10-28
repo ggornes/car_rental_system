@@ -5,11 +5,11 @@ import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
 
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'redux';
+// const API = 'https://hn.algolia.com/api/v1/search?query=';
+// const DEFAULT_QUERY = 'redux';
 
 
-class Dashboard extends Component {
+class Browse extends Component {
 
     constructor(props){
         super(props);
@@ -125,4 +125,4 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard;
+export default Browse;

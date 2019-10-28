@@ -18,7 +18,16 @@ class Add extends Component {
             rego: '',
             fuel: '',
             tank_size: '',
-            initials: ''
+            initials: '',
+            vehicle: {
+                make:'',
+                model:'',
+                year:'',
+                rego: '',
+                fuel: '',
+                tank_size: '',
+                initials: '',
+            }
         }
     }
 
