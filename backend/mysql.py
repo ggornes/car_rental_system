@@ -68,6 +68,34 @@ def add_vehicle():
 	
 	
 	
+@app.route('/vehicles/addd', methods=['POST'])
+def addd_vehicle():
+	cur = mysql.connection.cursor()
+	#id = request.get_json()['id']
+	make = request.get_json()['make']
+	model = request.get_json()['model']
+	release_year = request.get_json()['release_year']
+
+
+	#cur.execute("INSERT INTO `vehicles`(`id`,`make`,`model`,`release_year`,`registration`,`fuel`,`tank_size`,`initials`) VALUES (id +", '" + str(make) +"', '" + str(model) +"', " + release_year + ", '" + str(registration) + "', '" + str(fuel) +"', " + tank_size + ", '" + str(initials) + "'")
+	#cur.execute("INSERT INTO `vtest`(`id`,`make`) VALUES (id, make)")
+	#works cur.execute("INSERT INTO `vtest`(`id`, `make`) VALUES (id, '" +str(make) + "')")
+	#cur.execute("INSERT INTO `vtest3`(`id`, `make`, `model`, `release_year`) VALUES (id, '" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "')")
+	#cur.execute("INSERT INTO `vtest4`(`id`, `make`, `model`, `release_year`, `registration`) VALUES (id, '" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "', '" + str(registration) + "')")
+	#cur.execute("INSERT INTO `vtest5`(`id`, `make`, `model`, `release_year`, `registration`, `fuel`) VALUES (id, '" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "', '" + str(registration) + "', '" + str(fuel) + "')")
+	#cur.execute("INSERT INTO `vtest6`(`id`, `make`, `model`, `release_year`, `registration`, `fuel`, `tank_size`) VALUES (id, '" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "', '" + str(registration) + "', '" + str(fuel) + "', '" + str(tank_size) + "')")
+	
+	
+	#cur.execute("INSERT INTO `vehicles`(`id`, `make`, `model`, `release_year`, `registration`, `fuel`, `tank_size`, `initials`) VALUES (id, '" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "', '" + str(registration) + "', '" + str(fuel) + "', '" + str(tank_size) + "', '" + str(initials) + "')")
+
+	cur.execute("INSERT INTO `vtest3`(`make`, `model`, `release_year`) VALUES ('" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "')")
+	mysql.connection.commit()
+	result = {'make': make, 'model': model, 'release_year': release_year}
+	
+	return jsonify({"result": result})
+	
+	
+	
 @app.route('/vehicles/edit/<id>', methods=['PUT'])
 def edit_vehicle(id):
 	cur = mysql.connection.cursor()
