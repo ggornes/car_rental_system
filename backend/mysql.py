@@ -12,6 +12,7 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'rental_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['JSON_SORT_KEYS'] = False
 #app.config['JWT_SECRET_KEY'] = 'secret'
 
 
@@ -62,7 +63,7 @@ def add_vehicle():
 
 	cur.execute("INSERT INTO `vehicles`(`make`, `model`, `release_year`, `registration`, `fuel`, `tank_size`, `initials`) VALUES ('" + str(make) + "', '" + str(model) + "', '" + str(release_year) + "', '" + str(registration) + "', '" + str(fuel) + "', '" + str(tank_size) + "', '" + str(initials) + "')")
 	mysql.connection.commit()
-	result = {'make': make, 'model': model, 'release_year': release_year, 'registration': registration, 'fuel': fuel, 'tank_size':tank_size, 'initials': initials }
+	result = {'make': make, 'model': model, 'release_year': release_year, 'registration': registration, 'fuel': fuel, 'tank_size':tank_size, 'initials': initials}
 	
 	return jsonify({"result": result})
 	
@@ -106,6 +107,19 @@ def edit_vehicle(id):
 	fuel = request.get_json()['fuel']
 	tank_size = request.get_json()['tank_size']
 	initials = request.get_json()['initials']
+	
+	# #######################################################
+	# ToDo: Validate variables; 
+	# asign default values if variable empty or null;
+	# stringify the SQL statement
+	#
+	# if foo = request.get_json()['var']
+	# is empty or null
+	# foo = null
+	#
+	# 
+	#
+	# ##########################################################
 	
 	#cur.execute("UPDATE `vehicles` SET `make` = '" + str(make) + "' where `id` = " + id)
 	#cur.execute("UPDATE `vehicles` SET `make` = '" + str(make) + "', `model` = '" + str(model) + "' WHERE `id` = " + id)
