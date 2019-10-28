@@ -36,6 +36,12 @@ class Add extends Component {
     };
 
     onSubmit = (e) => {
+
+        // ToDo: Validate fields
+        // if field is empty, var = default;
+        
+
+
         e.preventDefault();
         console.log(this.state.vehicle);
 
