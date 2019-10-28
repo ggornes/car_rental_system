@@ -12,13 +12,6 @@ class Add extends Component {
         super(props);
 
         this.state = {
-            make:'',
-            model:'',
-            year:'',
-            rego: '',
-            fuel: '',
-            tank_size: '',
-            initials: '',
             vehicle: {
                 make:'',
                 model:'',
@@ -28,49 +21,36 @@ class Add extends Component {
                 tank_size: '',
                 initials: '',
             }
-        }
+        };
+
+
     }
 
 
     onChange = (e) => {
+
         const state = this.state;
-        state[e.target.name] = e.target.value;
+        state.vehicle[e.target.name] = e.target.value;
         this.setState(state);
+
     };
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        const {make, model, year, rego, fuel, tank_size, initials} = this.state;
-        const myVehicle = {make, model, year, rego, fuel, tank_size, initials};
-        console.log(myVehicle);
+        console.log(this.state.vehicle);
 
-        addToList2(myVehicle).then(() => {
+
+        addToList2(this.state.vehicle).then(() => {
             //this.getAll()
             // redirect
+            // show success or error message
         })
 
 
-/*
-        this.ref.add({
-            make,
-            model,
-            release_year
-        }).then((docRef)=>{
-            this.setState({
-                make:'',
-                model:'',
-                release_year:''
-            });
-
-            this.props.history.push("/");
-        });
-
- */
     };
 
     render() {
-        const {make, model, year, rego, fuel, tank_size, initials} = this.state;
+
         return(
             <div className="container">
                 <h4>
@@ -84,13 +64,13 @@ class Add extends Component {
 
                                 <div className="form-row">
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="make" value={make} onChange={this.onChange} placeholder="Make"/>
+                                        <input type="text" className="form-control" name="make" value={this.state.vehicle.make} onChange={this.onChange} placeholder="Make"/>
                                     </div>
                                     <div className="col-6">
-                                        <input type="text" className="form-control" name="model" value={model} onChange={this.onChange} placeholder="Model"/>
+                                        <input type="text" className="form-control" name="model" value={this.state.vehicle.model} onChange={this.onChange} placeholder="Model"/>
                                     </div>
                                     <div className="col-2">
-                                        <input type="text" className="form-control" name="year" value={year} onChange={this.onChange} placeholder="Year"/>
+                                        <input type="text" className="form-control" name="year" value={this.state.vehicle.year} onChange={this.onChange} placeholder="Year"/>
                                     </div>
                                 </div>
 
@@ -98,20 +78,20 @@ class Add extends Component {
 
                                 <div className="form-row">
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="rego" value={rego} onChange={this.onChange} placeholder="Registration Number"/>
+                                        <input type="text" className="form-control" name="rego" value={this.state.vehicle.rego} onChange={this.onChange} placeholder="Registration Number"/>
                                     </div>
                                 </div>
                                 <div><br/></div>
 
                                 <div className="form-row">
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="fuel" value={fuel} onChange={this.onChange} placeholder="Fuel Type"/>
+                                        <input type="text" className="form-control" name="fuel" value={this.state.vehicle.fuel} onChange={this.onChange} placeholder="Fuel Type"/>
                                     </div>
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="tank_size" value={tank_size} onChange={this.onChange} placeholder="Tank Size"/>
+                                        <input type="text" className="form-control" name="tank_size" value={this.state.vehicle.tank_size} onChange={this.onChange} placeholder="Tank Size"/>
                                     </div>
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="initials" value={initials} onChange={this.onChange} placeholder="Initials"/>
+                                        <input type="text" className="form-control" name="initials" value={this.state.vehicle.initials} onChange={this.onChange} placeholder="Initials"/>
                                     </div>
                                 </div>
 
@@ -126,20 +106,6 @@ class Add extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             </div>
         );
