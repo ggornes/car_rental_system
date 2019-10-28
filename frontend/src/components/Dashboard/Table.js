@@ -1,31 +1,13 @@
 import React from 'react';
-import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
+import {MDBBtn, MDBDataTable, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
 
 const TablePage = (props) => {
     const columns = [
-        {
-            label: 'Created',
-            field: 'created',
-            sort: 'asc',
-            width: 150
-        },
-        {
-            label: 'Fuel Type',
-            field: 'fuel',
-            sort: 'asc',
-            width: 270
-        },
         {
             label: 'id',
             field: 'id',
             sort: 'asc',
             width: 200
-        },
-        {
-            label: 'Initials',
-            field: 'initials',
-            sort: 'asc',
-            width: 100
         },
         {
             label: 'Make',
@@ -40,22 +22,40 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Rego',
-            field: 'registration',
-            sort: 'asc',
-            width: 100
-        },
-        {
             label: 'Release Year',
             field: 'release_year',
             sort: 'asc',
             width: 100
         },
         {
+            label: 'Rego',
+            field: 'registration',
+            sort: 'asc',
+            width: 100
+        },
+        {
+            label: 'Fuel Type',
+            field: 'fuel',
+            sort: 'asc',
+            width: 270
+        },
+        {
             label: 'Tank Size',
             field: 'tank_size',
             sort: 'asc',
             width: 100
+        },
+        {
+            label: 'Initials',
+            field: 'initials',
+            sort: 'asc',
+            width: 100
+        },
+        {
+            label: 'Created',
+            field: 'created',
+            sort: 'asc',
+            width: 150
         },
         {
             label: 'Updated',
@@ -86,11 +86,12 @@ const TablePage = (props) => {
         }
     ];
 
+    const data = props.data;
+
     return(
-        <MDBTable btn>
-            <MDBTableHead columns={columns} />
-            <MDBTableBody rows={rows_regular_btn} />
-        </MDBTable>
+        <MDBDataTable data={data}>
+
+        </MDBDataTable>
     );
 };
 
