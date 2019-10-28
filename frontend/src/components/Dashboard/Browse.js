@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-//import '@fortawesome'
+import '@fortawesome/fontawesome-free'
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
+import {deleteItem, getVehicles} from "../../VehicleFunctions";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -16,27 +18,6 @@ class Browse extends Component {
     constructor(props){
         super(props);
         this.state = {
-            rows: [],
-            hits: [],
-        };
-
-    }
-
-    componentDidMount() {
-        fetch('http://127.0.0.1:5000/vehicles/show')
-            .then(response => response.json())
-            .then(data=> data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn color="red" size="sm">Delete</MDBBtn> })))
-            .then(data => this.setState({ rows: data })
-            );
-    }
-
-
-    render(){
-        const { rows } = this.state;
-        console.log(rows);
-
-
-        const data2 = {
             columns: [
                 {
                     label: 'id',
@@ -100,6 +81,38 @@ class Browse extends Component {
                 }
 
             ],
+            rows: [],
+        };
+
+    }
+
+
+
+    componentDidMount() {
+        fetch('http://127.0.0.1:5000/vehicles/show')
+            .then(response => response.json())
+            .then(data => data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn> })))
+            .then(data => this.setState({ rows: data })
+            );
+    }
+
+    onDelete = (e) => {
+        console.log(e.target.id);
+        deleteItem(e.target.id);
+        // ToDo: refresh the vehicles table
+
+    };
+
+
+
+
+    render(){
+        const { columns, rows } = this.state;
+        console.log(columns);
+        console.log(rows);
+
+        const data = {
+            columns,
             rows
         };
 
@@ -113,7 +126,7 @@ class Browse extends Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="12">
-                            <TablePage data={data2}/>
+                            <TablePage data={data}/>
 
                         </MDBCol>
                     </MDBRow>
