@@ -29,6 +29,8 @@ export const addToList = term => {
         })
 };
 
+// creates an instance of a HTTP POST request
+// term is the myVehicle
 export const addToList2 = term => {
     return axios
         .post(

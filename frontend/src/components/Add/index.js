@@ -9,6 +9,10 @@ class Add extends Component {
     constructor(props) {
         super();
 
+        // is there something like
+        // this.state = new Vehicle(params) ?
+        //
+        // create an empty instance of vehicle class
         this.state = {
             make:'',
             model:'',
@@ -32,8 +36,18 @@ class Add extends Component {
         console.log(this.state);
         const {make, model, year, rego, fuel, tank_size, initials} = this.state;
         const myVehicle = {make, model, year, rego, fuel, tank_size, initials};
+
+        // should be something like:
+        // const myVehicle = new Vehicle(params);
+        //
+        // create an instance of a Vehicle class ?
+        //
+
         console.log(myVehicle);
 
+
+        // calls /src/VehicleFunctions
+        //
         addToList2(myVehicle).then(() => {
             //this.getAll()
         })
@@ -59,6 +73,8 @@ class Add extends Component {
 
     render() {
         const {make, model, year, rego, fuel, tank_size, initials} = this.state;
+        // creating vehicle object
+        // binding with the html elements
         return(
             <div className="container">
                 <h4>
