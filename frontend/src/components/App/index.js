@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import LandingPage from '../Landing/Landing';
 import AddPage from '../Add/Add'
-import BrowsePage from '../Dashboard/Brose';
+import BrowsePage from '../Dashboard/Browse';
 
 import * as ROUTES from '../../constants/routes';
 

@@ -39,7 +39,7 @@ class Add extends Component {
 
         // ToDo: Validate fields
         // if field is empty, var = default;
-        
+
 
 
         e.preventDefault();
@@ -51,6 +51,24 @@ class Add extends Component {
             // redirect
             // show success or error message
         })
+
+
+    };
+
+    onClear = (e) => {
+        const vehicle = {
+            make:'',
+            model:'',
+            year:'',
+            rego: '',
+            fuel: '',
+            tank_size: '',
+            initials: ''
+        };
+        const state = this.state;
+        this.state.vehicle = vehicle;
+        this.setState(state);
+
 
 
     };
@@ -103,9 +121,8 @@ class Add extends Component {
 
 
                                 <div className="form-row">
-                                    <button type="submit" className="btn btn-primary">
-                                        Save
-                                    </button>
+                                    <MDBBtn type="submit" gradient="aqua">Save</MDBBtn>
+                                    <MDBBtn onClick={this.onClear} gradient="peach">Clear</MDBBtn>
                                 </div>
 
                             </form>
