@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
+//import '@fortawesome'
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
@@ -24,7 +25,7 @@ class Browse extends Component {
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
-            .then(data=> data.map(obj=> ({ ...obj, btnEdit: <MDBBtn color="yellow" size="sm">Edit</MDBBtn>, btnDelete: <MDBBtn color="red" size="sm">Delete</MDBBtn> })))
+            .then(data=> data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn color="red" size="sm">Delete</MDBBtn> })))
             .then(data => this.setState({ rows: data })
             );
     }
