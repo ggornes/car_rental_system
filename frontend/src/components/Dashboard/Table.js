@@ -7,7 +7,7 @@ const TablePage = (props) => {
             label: 'id',
             field: 'id',
             sort: 'asc',
-            width: 200
+            width: 50
         },
         {
             label: 'Make',
@@ -37,7 +37,7 @@ const TablePage = (props) => {
             label: 'Fuel Type',
             field: 'fuel',
             sort: 'asc',
-            width: 270
+            width: 100
         },
         {
             label: 'Tank Size',
@@ -65,31 +65,15 @@ const TablePage = (props) => {
         }
     ];
 
-    const rows_regular_btn = [
-        {
-            'id': 1,
-            'first': <MDBBtn color="purple" size="sm">Button</MDBBtn>,
-            'last': 'Otto',
-            'handle': '@mdo'
-        },
-        {
-            'id': 2,
-            'first': 'Jacob',
-            'last': <MDBBtn color="purple" size="sm">Button</MDBBtn>,
-            'handle': '@fat'
-        },
-        {
-            'id': 3,
-            'first': 'Larry',
-            'last': 'the Bird',
-            'handle': <MDBBtn color="purple" size="sm">Button</MDBBtn>
-        }
-    ];
 
     const data = props.data;
 
     return(
-        <MDBDataTable data={data}>
+        <MDBDataTable
+            striped
+            hover
+            small
+            data={data}>
 
         </MDBDataTable>
     );
