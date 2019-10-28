@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
+import TablePage from './Table'
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
+//import '@fortawesome'
+import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'redux';
+// const API = 'https://hn.algolia.com/api/v1/search?query=';
+// const DEFAULT_QUERY = 'redux';
 
 
-class Dashboard extends Component {
+class Browse extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            board:{},
-            key:'',
             rows: [],
             hits: [],
         };
@@ -25,6 +25,7 @@ class Dashboard extends Component {
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
+            .then(data=> data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn color="red" size="sm">Delete</MDBBtn> })))
             .then(data => this.setState({ rows: data })
             );
     }
@@ -38,28 +39,10 @@ class Dashboard extends Component {
         const data2 = {
             columns: [
                 {
-                    label: 'Created',
-                    field: 'created',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Fuel Type',
-                    field: 'fuel',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
                     label: 'id',
                     field: 'id',
                     sort: 'asc',
                     width: 200
-                },
-                {
-                    label: 'Initials',
-                    field: 'initials',
-                    sort: 'asc',
-                    width: 100
                 },
                 {
                     label: 'Make',
@@ -74,16 +57,22 @@ class Dashboard extends Component {
                     width: 100
                 },
                 {
+                    label: 'Release Year',
+                    field: 'release_year',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
                     label: 'Rego',
                     field: 'registration',
                     sort: 'asc',
                     width: 100
                 },
                 {
-                    label: 'Release Year',
-                    field: 'release_year',
+                    label: 'Fuel Type',
+                    field: 'fuel',
                     sort: 'asc',
-                    width: 100
+                    width: 270
                 },
                 {
                     label: 'Tank Size',
@@ -92,11 +81,24 @@ class Dashboard extends Component {
                     width: 100
                 },
                 {
+                    label: 'Initials',
+                    field: 'initials',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Created',
+                    field: 'created',
+                    sort: 'asc',
+                    width: 150
+                },
+                {
                     label: 'Updated',
                     field: 'updated',
                     sort: 'asc',
                     width: 100
                 }
+
             ],
             rows
         };
@@ -104,20 +106,25 @@ class Dashboard extends Component {
 
 
         return(
-            <div className="grey-text">
+            <div className="container">
+                <h4>
+                    Browse Vehicles
+                </h4>
+                <MDBContainer>
+                    <MDBRow>
+                        <MDBCol md="12">
+                            <TablePage data={data2}/>
 
-                <p></p>
-                <MDBDataTable
-                    striped
-                    bordered
-                    hover
-                    data={data2}
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
 
-                />
-                <MDBBtn className="btn btn-outline-purple" type="submit">
-                    Send
-                    <MDBIcon far icon="paper-plane" className="ml-2" />
-                </MDBBtn>
+
+
+
+
+
+
             </div>
         );
     }
@@ -125,4 +132,4 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard;
+export default Browse;
