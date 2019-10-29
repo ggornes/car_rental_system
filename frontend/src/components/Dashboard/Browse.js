@@ -4,13 +4,10 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import '@fortawesome/fontawesome-free'
-import '@fortawesome/react-fontawesome'
-import '@fortawesome/fontawesome-svg-core'
-import FontAwesome from '@fortawesome/react-fontawesome'
+
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicles} from "../../VehicleFunctions";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Circle} from "styled-spinkit";
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -85,6 +82,7 @@ class Browse extends Component {
 
             ],
             rows: [],
+            isLoading: true
         };
 
     }
@@ -94,8 +92,11 @@ class Browse extends Component {
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
-            .then(data => data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn> })))
-            .then(data => this.setState({ rows: data })
+            .then(data => data.map(obj=> ({
+                ...obj,
+                btnEdit: <i className="fas fa-edit mr-2 grey-text">Edit</i>,
+                btnDelete: <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn> })))
+            .then(data => this.setState({ rows: data, isLoading: false })
             );
     }
 
@@ -125,15 +126,35 @@ class Browse extends Component {
             <div className="container">
                 <h4>
                     Browse Vehicles
-                </h4>
-                <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="12">
-                            <TablePage data={data}/>
 
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+                </h4>
+
+
+                {this.state.isLoading ?
+                    (
+                        <Circle color="blue"
+                                size="80"
+                        />
+
+                    )
+                    :
+                    (
+                        <MDBContainer>
+                            <MDBRow>
+                                <MDBCol md="12">
+                                    <TablePage data={data}/>
+
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBContainer>
+
+                    )
+                }
+
+
+
+
+
 
 
 
