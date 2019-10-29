@@ -1,5 +1,6 @@
 import React from 'react';
 import {MDBBtn, MDBDataTable, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {Link} from "react-router-dom";
 
 const TablePage = (props) => {
     const columns = [
@@ -67,12 +68,19 @@ const TablePage = (props) => {
 
 
     const rows = props.rows;
+    const extras = {
+        btnEdit: '',
+        btnDelete: ''
+    };
+
 
     const data = {
         columns,
         rows
     };
 
+    console.log("TABLE: data ");
+    console.log(data);
     return(
         <MDBDataTable
             striped

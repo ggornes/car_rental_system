@@ -43,12 +43,12 @@ class Browse extends Component {
             })))
             .then(data => this.setState({
                 rows: data,
-                isLoading: false
+                isLoaded: true
             })
 
 
             )
-            .catch(error => this.setState({ error, isLoading: true }));
+            .catch(error => this.setState({ error, isLoaded: false }));
 
     }
 
@@ -90,13 +90,6 @@ class Browse extends Component {
 
                 {this.state.isLoaded ?
                     (
-                        <Circle color="blue"
-                                size="80"
-                        />
-
-                    )
-                    :
-                    (
                         <MDBContainer>
                             <MDBRow>
                                 <MDBCol md="12">
@@ -105,6 +98,13 @@ class Browse extends Component {
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>
+
+                    )
+                    :
+                    (
+                        <Circle color="blue"
+                                size="80"
+                        />
 
                     )
                 }
