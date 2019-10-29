@@ -28,7 +28,7 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Rego',
+            label: 'Registration',
             field: 'registration',
             sort: 'asc',
             width: 100

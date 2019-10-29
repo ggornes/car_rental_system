@@ -16,6 +16,16 @@ export const getVehicles = () => {
         })
 };
 
+export const getVehicleById = item => {
+    return axios
+        .get(`vehicles/show/${item}`,{
+            headers: {"Content-type": "application/json"}
+        })
+        .then(res => {
+            console.log(res.data[0]);
+        })
+};
+
 export const addToList = term => {
     return axios
         .post(

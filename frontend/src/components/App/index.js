@@ -4,6 +4,7 @@ import Navigation from '../Navigation/Navigation';
 import LandingPage from '../Landing/Landing';
 import AddPage from '../Add/Add'
 import BrowsePage from '../Dashboard/Browse';
+import DetailsPage from '../Details/Details'
 
 import * as ROUTES from '../../constants/routes';
 
@@ -15,6 +16,7 @@ const App = () => (
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route path={ROUTES.BROWSE} component={BrowsePage} />
             <Route path={ROUTES.ADD} component={AddPage} />
+            <Route path={ROUTES.DETAILS} component={DetailsPage} />
 
         </Router>
     </div>

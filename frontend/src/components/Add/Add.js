@@ -15,8 +15,8 @@ class Add extends Component {
             vehicle: {
                 make:'',
                 model:'',
-                year:'',
-                rego: '',
+                release_year:'',
+                registration: '',
                 fuel: '',
                 tank_size: '',
                 initials: '',
@@ -59,8 +59,8 @@ class Add extends Component {
         const vehicle = {
             make:'',
             model:'',
-            year:'',
-            rego: '',
+            release_year:'',
+            registration: '',
             fuel: '',
             tank_size: '',
             initials: ''
@@ -94,7 +94,7 @@ class Add extends Component {
                                         <input type="text" className="form-control" name="model" value={this.state.vehicle.model} onChange={this.onChange} placeholder="Model"/>
                                     </div>
                                     <div className="col-2">
-                                        <input type="text" className="form-control" name="year" value={this.state.vehicle.year} onChange={this.onChange} placeholder="Year"/>
+                                        <input type="text" className="form-control" name="release_year" value={this.state.vehicle.release_year} onChange={this.onChange} placeholder="Year"/>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@ class Add extends Component {
 
                                 <div className="form-row">
                                     <div className="col-4">
-                                        <input type="text" className="form-control" name="rego" value={this.state.vehicle.rego} onChange={this.onChange} placeholder="Registration Number"/>
+                                        <input type="text" className="form-control" name="registration" value={this.state.vehicle.registration} onChange={this.onChange} placeholder="Registration Number"/>
                                     </div>
                                 </div>
                                 <div><br/></div>

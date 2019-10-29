@@ -6,7 +6,7 @@ import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
-import {deleteItem, getVehicles} from "../../VehicleFunctions";
+import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
 import {Circle} from "styled-spinkit";
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
@@ -18,8 +18,9 @@ class Browse extends Component {
     constructor(props){
         super(props);
         this.state = {
-            rows: [],
-            isLoading: true
+            error: null,
+            isLoaded: false,
+            rows: []
         };
 
     }
@@ -31,16 +32,36 @@ class Browse extends Component {
             .then(response => response.json())
             .then(data => data.map(obj=> ({
                 ...obj,
-                btnEdit: <i className="fas fa-edit mr-2 grey-text">Edit</i>,
-                btnDelete: <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn> })))
-            .then(data => this.setState({ rows: data, isLoading: false })
-            );
+                btnEdit:
+                    <div>
+                        <Link to={`/details/${obj.id}`}>EDDDIT</Link>
+                        <i className="fas fa-edit mr-2 grey-text">Edit</i>
+                        <MDBBtn id={obj.id} color="yellow" size="sm" onClick={this.onEdit}>Edit</MDBBtn>
+                    </div>,
+                btnDelete:
+                    <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn>
+            })))
+            .then(data => this.setState({
+                rows: data,
+                isLoading: false
+            })
+
+
+            )
+            .catch(error => this.setState({ error, isLoading: true }));
+
     }
 
     onDelete = (e) => {
         console.log(e.target.id);
         deleteItem(e.target.id);
         // ToDo: refresh the vehicles table
+
+    };
+
+    onEdit = (e) => {
+        console.log(e.target.id);
+        getVehicleById(e.target.id);
 
     };
 
@@ -52,6 +73,10 @@ class Browse extends Component {
         const rows = this.state.rows;
         //console.log(columns);
         console.log(rows);
+        if (this.state.error !== null){
+            console.log("error: " + this.error);
+        }
+
 
 
 
@@ -63,7 +88,7 @@ class Browse extends Component {
                 </h4>
 
 
-                {this.state.isLoading ?
+                {this.state.isLoaded ?
                     (
                         <Circle color="blue"
                                 size="80"
