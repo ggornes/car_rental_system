@@ -44,7 +44,7 @@ const TablePage = (props) => {
             field: 'tank_size',
             sort: 'asc',
             width: 100
-        },
+        }/*,
         {
             label: 'Initials',
             field: 'initials',
@@ -62,11 +62,16 @@ const TablePage = (props) => {
             field: 'updated',
             sort: 'asc',
             width: 100
-        }
+        }*/
     ];
 
 
-    const data = props.data;
+    const rows = props.rows;
+
+    const data = {
+        columns,
+        rows
+    };
 
     return(
         <MDBDataTable

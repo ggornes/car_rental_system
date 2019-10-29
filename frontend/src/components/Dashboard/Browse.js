@@ -18,69 +18,6 @@ class Browse extends Component {
     constructor(props){
         super(props);
         this.state = {
-            columns: [
-                {
-                    label: 'id',
-                    field: 'id',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Make',
-                    field: 'make',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Model',
-                    field: 'model',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Release Year',
-                    field: 'release_year',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Rego',
-                    field: 'registration',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Fuel Type',
-                    field: 'fuel',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
-                    label: 'Tank Size',
-                    field: 'tank_size',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Initials',
-                    field: 'initials',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Created',
-                    field: 'created',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Updated',
-                    field: 'updated',
-                    sort: 'asc',
-                    width: 100
-                }
-
-            ],
             rows: [],
             isLoading: true
         };
@@ -90,7 +27,7 @@ class Browse extends Component {
 
 
     componentDidMount() {
-        fetch('http://127.0.0.1:5000/vehicles/show')
+        fetch('http://127.0.0.1:5000/vehicles/show2')
             .then(response => response.json())
             .then(data => data.map(obj=> ({
                 ...obj,
@@ -111,14 +48,10 @@ class Browse extends Component {
 
 
     render(){
-        const { columns, rows } = this.state;
-        console.log(columns);
+        //const { columns, rows } = this.state;
+        const rows = this.state.rows;
+        //console.log(columns);
         console.log(rows);
-
-        const data = {
-            columns,
-            rows
-        };
 
 
 
@@ -142,7 +75,7 @@ class Browse extends Component {
                         <MDBContainer>
                             <MDBRow>
                                 <MDBCol md="12">
-                                    <TablePage data={data}/>
+                                    <TablePage rows={rows}/>
 
                                 </MDBCol>
                             </MDBRow>
