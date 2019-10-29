@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {MDBBadge, MDBBtn, MDBCol, MDBContainer, MDBListGroup, MDBListGroupItem, MDBRow, MDBTooltip} from "mdbreact";
+import {Accordion, Card} from 'react-bootstrap';
 
 
 
@@ -71,20 +72,33 @@ class Details extends Component {
                         </MDBListGroupItem>
                         <MDBListGroupItem>{this.state.vehicle.registration}</MDBListGroupItem>
                         <MDBListGroupItem></MDBListGroupItem>
-                        <MDBListGroupItem color="secondary" className="d-flex justify-content-between align-items-center">Journeys<MDBBadge color="primary" className="ml-2">5</MDBBadge></MDBListGroupItem>
-
-                        <MDBListGroupItem>
-                            <MDBListGroupItem>249 km travelled</MDBListGroupItem>
-                            <MDBListGroupItem>25L of petrol consumed</MDBListGroupItem>
-                            <MDBListGroupItem>10 L / 100 km</MDBListGroupItem>
-                        </MDBListGroupItem>
 
 
-                        <MDBListGroupItem></MDBListGroupItem>
-                        <MDBListGroupItem color="secondary"><MDBBadge color="blue" className="ml-2">4</MDBBadge> services</MDBListGroupItem>
-                        <MDBListGroupItem>
-                            <MDBListGroupItem>Require service: false</MDBListGroupItem>
-                        </MDBListGroupItem>
+                        <Accordion defaultActiveKey="0">
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="0" color="secondary">
+                                        Journeys<MDBBadge color="primary" className="ml-2">5</MDBBadge>
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+
+                                            <MDBListGroupItem>249 km travelled</MDBListGroupItem>
+                                            <MDBListGroupItem>25L of petrol consumed</MDBListGroupItem>
+                                            <MDBListGroupItem>10 L / 100 km</MDBListGroupItem>
+
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="1">
+                                    <MDBBadge color="blue" className="ml-2">4</MDBBadge> services
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="1">
+                                    <Card.Body><MDBListGroupItem>Require service: false</MDBListGroupItem></Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
+
 
                     </MDBListGroup>
                 </MDBContainer>
