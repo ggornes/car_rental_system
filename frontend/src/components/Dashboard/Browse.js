@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import '@fortawesome/fontawesome-free'
-import '@fortawesome/react-fontawesome'
-import '@fortawesome/fontawesome-svg-core'
-import FontAwesome from '@fortawesome/react-fontawesome'
+
+
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicles} from "../../VehicleFunctions";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
