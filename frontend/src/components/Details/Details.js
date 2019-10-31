@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {MDBBadge, MDBBtn, MDBCol, MDBContainer, MDBListGroup, MDBListGroupItem, MDBRow, MDBTooltip} from "mdbreact";
-import {Accordion, Card} from 'react-bootstrap';
+import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
+import TablePage from "../Dashboard/Table";
+import StaticTable from "../Dashboard/StaticTable";
 
 
 
@@ -11,7 +13,7 @@ class Details extends Component {
         this.state = {
             error: null,
             isLoaded: false,
-            id:'',
+            id:'17',
             vehicle: {
                 make:'Holden',
                 model:'Commodore',
@@ -76,7 +78,6 @@ class Details extends Component {
 
 
                                     <MDBRow>
-
                                     </MDBRow>
 
 
