@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+//import {faTasks} from '@fortawesome/free-solid-svg-icons'
+
+import { faHome, faEdit, faTrashAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
@@ -20,7 +25,20 @@ class Browse extends Component {
         this.state = {
             error: null,
             isLoaded: false,
-            rows: []
+            rows: [],
+            vehicle_def: [{
+                id: '11',
+                make:'Holden',
+                model:'Commodore',
+                release_year:'2004',
+                registration: '1VGZ123',
+                fuel: 'Petrol',
+                tank_size: '55',
+                initials: 'LML',
+                btnEdit: <Link to={'/details2/11'}><FontAwesomeIcon icon={faEdit} /></Link>,
+                btnDelete: <Link to={'/details2/11'}><FontAwesomeIcon icon={faInfoCircle} /></Link>,
+
+            }],
         };
 
     }
@@ -48,7 +66,9 @@ class Browse extends Component {
 
 
             )
-            .catch(error => this.setState({ error, isLoaded: false }));
+            //.catch(error => this.setState({ error, isLoaded: false }));
+            // just in case the connection can not be established, we use the vehicle_default
+            .catch(error => this.setState({ error, rows: this.state.vehicle_def, isLoaded: true }));
 
     }
 
@@ -84,6 +104,9 @@ class Browse extends Component {
             <div className="container">
                 <h4>
                     Browse Vehicles
+                    <FontAwesomeIcon icon={faHome} />
+
+
 
                 </h4>
 
