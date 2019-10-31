@@ -28,26 +28,44 @@ class Details extends Component {
                 {
                     id: '1',
                     journey_at: '01/01/2019',
-                    distance: '974Km'
+                    distance: '974Km',
+                    rental_type: 'D'
                 },
                 {
                     id: '2',
                     journey_at: '25/11/2020',
-                    distance: '134Km'}
+                    distance: '134Km',
+                    rental_type: 'K'
+                }
                 ],
             services: {
 
             },
-            fuel_purchases: {
-
-            }
+            fuel_purchases: [
+                {
+                    id: '1',
+                    amount: '50',
+                    price: '75'
+                },
+                {
+                    id: '2',
+                    amount: '35',
+                    price: '50'
+                }
+            ]
         };
     };
 
     componentDidMount() {
         console.log("this.props: " + this.props);
-        const API = 'http://127.0.0.1:5000/vehicles/show/17';
+        const vehicleId = '17';
+        // const API = 'http://127.0.0.1:5000/vehicles/show/17';
+        const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
+
+
+
+        console.log(API);
         fetch(API + DEFAULT_QUERY)
             .then(response => response.json())
 
@@ -80,7 +98,10 @@ class Details extends Component {
                                     <Nav.Link eventKey="second">Journeys</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="third">Services</Nav.Link>
+                                    <Nav.Link eventKey="third">Fuel Purchases</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="fourth">Services</Nav.Link>
                                 </Nav.Item>
                             </Nav>
                         </Col>
@@ -97,27 +118,69 @@ class Details extends Component {
                                     <p><strong>Total Journeys: </strong>2</p>
                                     <p><strong>Distance Travelled: </strong>1,008 Km</p>
                                     <h4>History</h4>
-                                    <StaticTable2 columns={[{
-                                        label: 'id',
-                                        field: 'id',
-                                        sort: 'asc',
-                                        width: 50
-                                    },
-                                        {
-                                            label: 'Date',
-                                            field: 'journey_at',
-                                            sort: 'asc',
-                                            width: 150
-                                        },
-                                        {
-                                            label: 'Distance',
-                                            field: 'distance',
-                                            sort: 'asc',
-                                            width: 100
-                                        }]} rows={this.state.journeys}/>
+                                    <StaticTable2
+                                        columns={
+                                        [
+                                            {
+                                                label: 'id',
+                                                field: 'id',
+                                                sort: 'asc',
+                                                width: 50
+                                            },
+                                            {
+                                                label: 'Date',
+                                                field: 'journey_at',
+                                                sort: 'asc',
+                                                width: 150
+                                            },
+                                            {
+                                                label: 'Distance',
+                                                field: 'distance',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
+                                                label: 'Rental Type',
+                                                field: 'distance',
+                                                sort: 'asc',
+                                                width: 100
+                                            }
+                                        ]
+                                        }
+                                        rows={this.state.journeys}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="third">
-                                    <h4>Services History</h4>
+                                    <h4>Fuel Purchases</h4>
+                                    <p><strong>Total Amount (Liters): </strong>85</p>
+                                    <p><strong>Total Price: </strong>$125</p>
+                                    <h4>History</h4>
+                                    <StaticTable2
+                                        columns={
+                                            [
+                                                {
+                                                    label: 'id',
+                                                    field: 'id',
+                                                    sort: 'asc',
+                                                    width: 50
+                                                },
+                                                {
+                                                    label: 'Amount',
+                                                    field: 'amount',
+                                                    sort: 'asc',
+                                                    width: 150
+                                                },
+                                                {
+                                                    label: 'Price',
+                                                    field: 'price',
+                                                    sort: 'asc',
+                                                    width: 100
+                                                }
+                                            ]
+                                        }
+                                        rows={this.state.fuel_purchases}/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="fourth">
+                                    <h4>Service History</h4>
                                 </Tab.Pane>
                             </Tab.Content>
                         </Col>
