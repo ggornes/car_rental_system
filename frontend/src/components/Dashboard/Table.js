@@ -45,7 +45,7 @@ const TablePage = (props) => {
             field: 'tank_size',
             sort: 'asc',
             width: 100
-        }/*,
+        },
         {
             label: 'Initials',
             field: 'initials',
@@ -53,17 +53,17 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Created',
-            field: 'created',
+            label: '',
+            field: 'btnEdit',
             sort: 'asc',
             width: 150
         },
         {
-            label: 'Updated',
-            field: 'updated',
+            label: '',
+            field: 'btnDelete',
             sort: 'asc',
             width: 100
-        }*/
+        }
     ];
 
 
