@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Circle} from "styled-spinkit";
+import {Circle, WaveLoading} from "styled-spinkit";
 
 
 
@@ -15,6 +15,7 @@ const Landing = () => (
         <Circle color="blue"
                 size="80"
         />
+        <WaveLoading size="80"/>
     </div>
 );
 export default Landing;
