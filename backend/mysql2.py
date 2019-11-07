@@ -191,6 +191,34 @@ def add_vehicle():
 	return jsonify({"result": result})
 	
 	
+
+	
+	
+
+	
+	
+@app.route('/vehicles/rentals/add', methods=['POST'])
+def add_rental():
+	cur = mysql.connection.cursor()
+	#id = request.get_json()['id']
+	vehicle_id = request.get_json()['vehicle_id']
+	odometer_start = request.get_json()['odometer_start']
+	odometer_end = request.get_json()['odometer_end']
+	date_start = request.get_json()['date_start']
+	date_end = request.get_json()['date_end']
+	rental_type = request.get_json()['rental_type']
+
+
+	cur.execute("INSERT INTO `rentals`(`vehicle_id`, `odometer_start`, `odometer_end`, `date_start`, `date_end`, `rental_type`) VALUES ('" + str(vehicle_id) + "', '" + str(odometer_start) + "', '" + str(odometer_end) + "', '" + str(date_start) + "', '" + str(date_end) + "', '" + str(rental_type) + "')")
+	mysql.connection.commit()
+	result = {'vehicle_id': vehicle_id, 'odometer_start': odometer_start, 'odometer_end': odometer_end, 'date_start': date_start, 'date_end': date_end, 'rental_type':rental_type}
+	
+	return jsonify({"result": result})
+	
+	
+	
+	
+	
 	
 @app.route('/vehicles/addd', methods=['POST'])
 def addd_vehicle():
