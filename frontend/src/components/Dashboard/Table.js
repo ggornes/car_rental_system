@@ -1,6 +1,8 @@
 import React from 'react';
 import {MDBBtn, MDBDataTable, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const TablePage = (props) => {
     const columns = [
@@ -47,31 +49,31 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Initials',
-            field: 'initials',
-            sort: 'asc',
-            width: 100
-        },
-        {
-            label: '',
+            label: 'EDIT',
             field: 'btnEdit',
             sort: 'asc',
             width: 150
         },
         {
-            label: '',
+            label: 'DELETE',
             field: 'btnDelete',
             sort: 'asc',
             width: 100
         }
     ];
 
+    // Add edit and delete icons to each element on the rows array
+    const rows = props.rows.map(obj => ({
+            ...obj,
+            btnEdit:
+                <Link to={'/details2/11'}><FontAwesomeIcon icon={faEdit} /></Link>,
+            btnDelete:
+                <Link to={'/details2/11'}><FontAwesomeIcon icon={faInfoCircle} /></Link>
 
-    const rows = props.rows;
-    const extras = {
-        btnEdit: '',
-        btnDelete: ''
-    };
+        })
+    );
+
+
 
 
     const data = {
@@ -79,7 +81,9 @@ const TablePage = (props) => {
         rows
     };
 
-    console.log("TABLE: data ");
+
+
+    console.log("TABLE data: ");
     console.log(data);
     return(
         <MDBDataTable

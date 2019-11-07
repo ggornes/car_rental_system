@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
-import {Circle} from "styled-spinkit";
+import {Circle, WaveLoading} from "styled-spinkit";
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -48,22 +48,10 @@ class Browse extends Component {
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show2')
             .then(response => response.json())
-            .then(data => data.map(obj=> ({
-                ...obj,
-                btnEdit:
-                    <div>
-                        <Link to={`/details/${obj.id}`}>EDDDIT</Link>
-                        <i className="fas fa-edit mr-2 grey-text">Edit</i>
-                        <MDBBtn id={obj.id} color="yellow" size="sm" onClick={this.onEdit}>Edit</MDBBtn>
-                    </div>,
-                btnDelete:
-                    <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn>
-            })))
             .then(data => this.setState({
                 rows: data,
                 isLoaded: true
             })
-
 
             )
             //.catch(error => this.setState({ error, isLoaded: false }));
@@ -125,9 +113,11 @@ class Browse extends Component {
                     )
                     :
                     (
-                        <Circle color="blue"
-                                size="80"
-                        />
+                        <div>
+                            <Circle color="blue"
+                                    size="80"
+                            />
+                        </div>
 
                     )
                 }
