@@ -46,7 +46,7 @@ class Browse extends Component {
 
 
     componentDidMount() {
-        fetch('http://127.0.0.1:5000/vehicles/show2')
+        fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
             .then(data => this.setState({
                 rows: data,
@@ -70,6 +70,10 @@ class Browse extends Component {
     onEdit = (e) => {
         console.log(e.target.id);
         getVehicleById(e.target.id);
+
+    };
+
+    onClick = (e) => {
 
     };
 

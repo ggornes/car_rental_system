@@ -1,8 +1,8 @@
 import React from 'react';
-import {MDBBtn, MDBDataTable, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {MDBBtn, MDBDataTable, MDBRow, MDBCol, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faInfoCircle, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 
 const TablePage = (props) => {
     const columns = [
@@ -49,14 +49,8 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'EDIT',
-            field: 'btnEdit',
-            sort: 'asc',
-            width: 150
-        },
-        {
-            label: 'DELETE',
-            field: 'btnDelete',
+            label: 'buttons',
+            field: 'btns',
             sort: 'asc',
             width: 100
         }
@@ -65,10 +59,16 @@ const TablePage = (props) => {
     // Add edit and delete icons to each element on the rows array
     const rows = props.rows.map(obj => ({
             ...obj,
-            btnEdit:
-                <Link to={'/details2/11'}><FontAwesomeIcon icon={faEdit} /></Link>,
-            btnDelete:
-                <Link to={'/details2/11'}><FontAwesomeIcon icon={faInfoCircle} /></Link>
+            btns:
+                <MDBRow>
+                    <MDBCol><Link to={`/details2/${obj.id}`} onClick={console.log("prrrt")}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
+                    <MDBCol><Link to={{pathname: `/details2/${obj.id}`,vehicle:obj}}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
+                    <MDBCol><Link to={'/details2/11'}><FontAwesomeIcon icon={faTrashAlt} /></Link></MDBCol>
+                    <MDBCol><MDBBtn floating size="lg" gradient="purple"><FontAwesomeIcon icon={faEdit} /></MDBBtn></MDBCol>
+                    <MDBCol><MDBBtn floating size="lg" gradient="purple"><FontAwesomeIcon icon={faInfoCircle} /></MDBBtn></MDBCol>
+                    <MDBCol><MDBBtn floating size="lg" gradient="purple" onClick={console.log("this")}><FontAwesomeIcon icon={faTrashAlt} /></MDBBtn></MDBCol>
+                </MDBRow>
+
 
         })
     );
@@ -80,6 +80,8 @@ const TablePage = (props) => {
         columns,
         rows
     };
+
+
 
 
 
