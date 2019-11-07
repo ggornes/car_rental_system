@@ -60,6 +60,24 @@ export const addToList2 = term => {
         })
 };
 
+export const addNewRental = term => {
+  return axios
+      .post(
+          'http://localhost:5000/vehicles/rentals/add', {
+              vehicle_id: term.vehicle_id,
+              odometer_start: term.odometer_start,
+              odometer_end: term.odometer_end,
+              date_start: term.date_start,
+              date_end: term.date_end,
+              rental_type: term.rental_type
+          }, {
+              headers: { "Content-type": "application/json" }
+          })
+      .then((res) => {
+          console.log(res)
+      })
+};
+
 export const deleteItem = term => {
     axios
         .delete(
