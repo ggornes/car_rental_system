@@ -29,7 +29,7 @@ export const getVehicleById = item => {
 export const addToList = term => {
     return axios
         .post(
-            'vehicles/addd', {
+            'vehicles/add', {
                 make: term
             }, {
                 headers: { "Content-type": "application/json" }
@@ -44,11 +44,11 @@ export const addToList = term => {
 export const addToList2 = term => {
     return axios
         .post(
-            'vehicles/add', {
+            'http://localhost:5000/vehicles/add', {
                 make: term.make,
                 model: term.model,
-                release_year: term.year,
-                registration: term.rego,
+                release_year: term.release_year,
+                registration: term.registration,
                 fuel: term.fuel,
                 tank_size: term.tank_size,
                 initials: term.initials
