@@ -73,7 +73,10 @@ class Details extends Component {
 
     componentDidMount() {
 
-        const vehicleId = '2';
+        const { myid } = this.props.match.params;
+        console.log("myid:", myid);
+
+        const vehicleId = myid;
         // const vehicleId = this.state.elId;
         // const API = 'http://127.0.0.1:5000/vehicles/show/17';
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
