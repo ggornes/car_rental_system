@@ -15,7 +15,7 @@ const Navigation = () => (
                 <Link to={ROUTES.BROWSE}>Browse</Link>
             </li>
             <li>
-                <Link to={ROUTES.ADD}>Add</Link>
+                <Link to={ROUTES.ADD}>Add Vehicle</Link>
             </li>
             <li>
                 <Link to={ROUTES.DETAILS}>Details</Link>
