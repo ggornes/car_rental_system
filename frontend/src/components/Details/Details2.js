@@ -4,6 +4,7 @@ import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
 import TablePage from "../Dashboard/Table";
 import DetailsTable from "../Dashboard/DetailsTable";
 import RentalsTable from "../Dashboard/RentalsTable";
+import Modal from "../Modal/Modal";
 
 
 
@@ -14,6 +15,7 @@ class Details extends Component {
         this.state = {
             error: null,
             isLoaded: false,
+            showModal: false,
             elId: props.pathname,
             id:'17',
             vehicle: {
@@ -163,6 +165,7 @@ class Details extends Component {
                                     <h4>Rentals</h4>
                                     <p><strong>Total Rentals: </strong>{this.state.rentals_summary[0].total_rentals}</p>
                                     <p><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</p>
+                                    <Modal open={this.state.showModal}>...</Modal>
                                     <h4>History</h4>
                                     <RentalsTable
                                         columns={
