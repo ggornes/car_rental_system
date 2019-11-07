@@ -20,9 +20,6 @@ const Navigation = () => (
             <li>
                 <Link to={ROUTES.DETAILS}>Details</Link>
             </li>
-            <li>
-                <Link to={ROUTES.DETAILS2}>Details2</Link>
-            </li>
 
         </ul>
     </div>

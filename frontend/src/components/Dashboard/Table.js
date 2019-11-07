@@ -62,11 +62,8 @@ const TablePage = (props) => {
             btns:
                 <MDBRow>
                     <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
-                    <MDBCol><Link to={{pathname: `/details2/${obj.id}`,vehicle:obj}}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
+                    <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
                     <MDBCol><Link to={'/details2/11'}><FontAwesomeIcon icon={faTrashAlt} /></Link></MDBCol>
-                    <MDBCol><MDBBtn floating size="lg" gradient="purple"><FontAwesomeIcon icon={faEdit} /></MDBBtn></MDBCol>
-                    <MDBCol><MDBBtn floating size="lg" gradient="purple"><FontAwesomeIcon icon={faInfoCircle} /></MDBBtn></MDBCol>
-                    <MDBCol><MDBBtn floating size="lg" gradient="purple"><FontAwesomeIcon icon={faTrashAlt} /></MDBBtn></MDBCol>
                 </MDBRow>
 
 

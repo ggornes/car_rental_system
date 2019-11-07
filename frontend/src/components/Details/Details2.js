@@ -80,9 +80,9 @@ class Details extends Component {
         // const vehicleId = this.state.elId;
         // const API = 'http://127.0.0.1:5000/vehicles/show/17';
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
-        const API2 = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
-        const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
-        const API4 = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
+        const API2 = 'http://127.0.0.1:5000/vehicles/rentals2/' + `${vehicleId}`;
+        const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases2/' + `${vehicleId}`;
+        const API4 = 'http://127.0.0.1:5000/vehicles/services2/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
 
 
@@ -168,16 +168,10 @@ class Details extends Component {
                                         columns={
                                         [
                                             {
-                                                label: 'id',
-                                                field: 'id',
+                                                label: 'Date Start',
+                                                field: 'date_start',
                                                 sort: 'asc',
-                                                width: 50
-                                            },
-                                            {
-                                                label: 'Date',
-                                                field: 'journey_at',
-                                                sort: 'asc',
-                                                width: 150
+                                                width: 100
                                             },
                                             {
                                                 label: 'Distance',
@@ -186,8 +180,14 @@ class Details extends Component {
                                                 width: 100
                                             },
                                             {
+                                                label: 'Date End',
+                                                field: 'date_end',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
                                                 label: 'Rental Type',
-                                                field: 'distance',
+                                                field: 'rental_type',
                                                 sort: 'asc',
                                                 width: 100
                                             }
@@ -204,8 +204,8 @@ class Details extends Component {
                                         columns={
                                             [
                                                 {
-                                                    label: 'id',
-                                                    field: 'id',
+                                                    label: 'Date',
+                                                    field: 'created',
                                                     sort: 'asc',
                                                     width: 50
                                                 },
@@ -231,22 +231,16 @@ class Details extends Component {
                                                   columns={
                                                       [
                                                           {
-                                                              label: 'id',
-                                                              field: 'id',
+                                                              label: 'Date',
+                                                              field: 'created',
                                                               sort: 'asc',
                                                               width: 50
                                                           },
                                                           {
-                                                              label: 'Amount',
-                                                              field: 'amount',
+                                                              label: 'Odometer Reading',
+                                                              field: 'odometer',
                                                               sort: 'asc',
                                                               width: 150
-                                                          },
-                                                          {
-                                                              label: 'Price',
-                                                              field: 'price',
-                                                              sort: 'asc',
-                                                              width: 100
                                                           }
                                                       ]
                                                   }
