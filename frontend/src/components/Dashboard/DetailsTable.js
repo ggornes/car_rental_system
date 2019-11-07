@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
-const StaticTable = props => {
+const DetailsTable = props => {
     const columns = [
         {
             label: 'id',
@@ -85,4 +85,4 @@ const StaticTable = props => {
     );
 };
 
-export default StaticTable;
+export default DetailsTable;

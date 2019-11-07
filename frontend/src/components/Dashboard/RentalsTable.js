@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
-const StaticTable2 = props => {
+const RentalsTable = props => {
     const columns = props.columns;
 
     const rows = props.rows;
@@ -24,4 +24,4 @@ const StaticTable2 = props => {
     );
 };
 
-export default StaticTable2;
+export default RentalsTable;

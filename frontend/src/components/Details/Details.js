@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {MDBBadge, MDBBtn, MDBCol, MDBContainer, MDBListGroup, MDBListGroupItem, MDBRow, MDBTooltip} from "mdbreact";
 import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
 import TablePage from "../Dashboard/Table";
-import StaticTable from "../Dashboard/StaticTable";
+import StaticTable from "../Dashboard/DetailsTable";
 
 
 
