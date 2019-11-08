@@ -1,5 +1,8 @@
 import React from 'react';
-import {MDBBtn, MDBDataTable, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {MDBBtn, MDBDataTable, MDBRow, MDBCol, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faInfoCircle, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 
 const TablePage = (props) => {
     const columns = [
@@ -28,7 +31,7 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Rego',
+            label: 'Registration',
             field: 'registration',
             sort: 'asc',
             width: 100
@@ -46,28 +49,41 @@ const TablePage = (props) => {
             width: 100
         },
         {
-            label: 'Initials',
-            field: 'initials',
-            sort: 'asc',
-            width: 100
-        },
-        {
-            label: 'Created',
-            field: 'created',
-            sort: 'asc',
-            width: 150
-        },
-        {
-            label: 'Updated',
-            field: 'updated',
+            label: 'buttons',
+            field: 'btns',
             sort: 'asc',
             width: 100
         }
     ];
 
+    // Add edit and delete icons to each element on the rows array
+    const rows = props.rows.map(obj => ({
+            ...obj,
+            btns:
+                <MDBRow>
+                    <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
+                    <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
+                    <MDBCol><Link to={'/details2/11'}><FontAwesomeIcon icon={faTrashAlt} /></Link></MDBCol>
+                </MDBRow>
 
-    const data = props.data;
 
+        })
+    );
+
+
+
+
+    const data = {
+        columns,
+        rows
+    };
+
+
+
+
+
+    console.log("TABLE data: ");
+    console.log(data);
     return(
         <MDBDataTable
             striped

@@ -4,11 +4,23 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
+<<<<<<< HEAD
 
 
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicles} from "../../VehicleFunctions";
 
+=======
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+//import {faTasks} from '@fortawesome/free-solid-svg-icons'
+
+import { faHome, faEdit, faTrashAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
+import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
+import {Circle, WaveLoading} from "styled-spinkit";
+>>>>>>> v1.2
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -19,70 +31,22 @@ class Browse extends Component {
     constructor(props){
         super(props);
         this.state = {
-            columns: [
-                {
-                    label: 'id',
-                    field: 'id',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Make',
-                    field: 'make',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Model',
-                    field: 'model',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Release Year',
-                    field: 'release_year',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Rego',
-                    field: 'registration',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Fuel Type',
-                    field: 'fuel',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
-                    label: 'Tank Size',
-                    field: 'tank_size',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Initials',
-                    field: 'initials',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Created',
-                    field: 'created',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Updated',
-                    field: 'updated',
-                    sort: 'asc',
-                    width: 100
-                }
-
-            ],
+            error: null,
+            isLoaded: false,
             rows: [],
+            vehicle_def: [{
+                id: '11',
+                make:'Holden',
+                model:'Commodore',
+                release_year:'2004',
+                registration: '1VGZ123',
+                fuel: 'Petrol',
+                tank_size: '55',
+                initials: 'LML',
+                btnEdit: <Link to={'/details2/11'}><FontAwesomeIcon icon={faEdit} /></Link>,
+                btnDelete: <Link to={'/details2/11'}><FontAwesomeIcon icon={faInfoCircle} /></Link>,
+
+            }],
         };
 
     }
@@ -92,9 +56,16 @@ class Browse extends Component {
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
-            .then(data => data.map(obj=> ({ ...obj, btnEdit: <i className="fas fa-edit mr-2 grey-text" aria-hidden="true">Edit</i>, btnDelete: <MDBBtn id={obj.id} color="red" size="sm" onClick={this.onDelete}>Delete</MDBBtn> })))
-            .then(data => this.setState({ rows: data })
-            );
+            .then(data => this.setState({
+                rows: data,
+                isLoaded: true
+            })
+
+            )
+            //.catch(error => this.setState({ error, isLoaded: false }));
+            // just in case the connection can not be established, we use the vehicle_default
+            .catch(error => this.setState({ error, rows: this.state.vehicle_def, isLoaded: true }));
+
     }
 
     onDelete = (e) => {
@@ -104,18 +75,28 @@ class Browse extends Component {
 
     };
 
+    onEdit = (e) => {
+        console.log(e.target.id);
+        getVehicleById(e.target.id);
+
+    };
+
+    onClick = (e) => {
+
+    };
+
 
 
 
     render(){
-        const { columns, rows } = this.state;
-        console.log(columns);
+        //const { columns, rows } = this.state;
+        const rows = this.state.rows;
+        //console.log(columns);
         console.log(rows);
+        if (this.state.error !== null){
+            console.log("error: " + this.error);
+        }
 
-        const data = {
-            columns,
-            rows
-        };
 
 
 
@@ -123,15 +104,40 @@ class Browse extends Component {
             <div className="container">
                 <h4>
                     Browse Vehicles
-                </h4>
-                <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="12">
-                            <TablePage data={data}/>
+                    <FontAwesomeIcon icon={faHome} />
 
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+
+
+                </h4>
+
+
+                {this.state.isLoaded ?
+                    (
+                        <MDBContainer>
+                            <MDBRow>
+                                <MDBCol md="12">
+                                    <TablePage rows={rows}/>
+
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBContainer>
+
+                    )
+                    :
+                    (
+                        <div>
+                            <Circle color="blue"
+                                    size="80"
+                            />
+                        </div>
+
+                    )
+                }
+
+
+
+
+
 
 
 

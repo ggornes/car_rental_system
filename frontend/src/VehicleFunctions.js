@@ -16,10 +16,20 @@ export const getVehicles = () => {
         })
 };
 
+export const getVehicleById = item => {
+    return axios
+        .get(`vehicles/show/${item}`,{
+            headers: {"Content-type": "application/json"}
+        })
+        .then(res => {
+            console.log(res.data[0]);
+        })
+};
+
 export const addToList = term => {
     return axios
         .post(
-            'vehicles/addd', {
+            'vehicles/add', {
                 make: term
             }, {
                 headers: { "Content-type": "application/json" }
@@ -34,11 +44,11 @@ export const addToList = term => {
 export const addToList2 = term => {
     return axios
         .post(
-            'vehicles/add', {
+            'http://localhost:5000/vehicles/add', {
                 make: term.make,
                 model: term.model,
-                release_year: term.year,
-                registration: term.rego,
+                release_year: term.release_year,
+                registration: term.registration,
                 fuel: term.fuel,
                 tank_size: term.tank_size,
                 initials: term.initials
@@ -48,6 +58,24 @@ export const addToList2 = term => {
         .then((res) => {
             console.log(res)
         })
+};
+
+export const addNewRental = term => {
+  return axios
+      .post(
+          'http://localhost:5000/vehicles/rentals/add', {
+              vehicle_id: term.vehicle_id,
+              odometer_start: term.odometer_start,
+              odometer_end: term.odometer_end,
+              date_start: term.date_start,
+              date_end: term.date_end,
+              rental_type: term.rental_type
+          }, {
+              headers: { "Content-type": "application/json" }
+          })
+      .then((res) => {
+          console.log(res)
+      })
 };
 
 export const deleteItem = term => {
