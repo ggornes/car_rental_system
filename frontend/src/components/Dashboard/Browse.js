@@ -4,13 +4,6 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-<<<<<<< HEAD
-
-
-import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
-import {deleteItem, getVehicles} from "../../VehicleFunctions";
-
-=======
 //import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 //import {faTasks} from '@fortawesome/free-solid-svg-icons'
 
@@ -20,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
 import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
 import {Circle, WaveLoading} from "styled-spinkit";
->>>>>>> v1.2
 
 // const API = 'https://hn.algolia.com/api/v1/search?query=';
 // const DEFAULT_QUERY = 'redux';
