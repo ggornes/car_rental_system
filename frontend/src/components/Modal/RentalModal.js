@@ -3,7 +3,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 import {addNewRental, addToList2} from "../../VehicleFunctions";
 import RentalForm from "../../Forms/RentalForm";
 
-class ModalPage extends Component {
+class RentalModalPage extends Component {
 
     constructor(props) {
         super(props);
@@ -30,8 +30,7 @@ class ModalPage extends Component {
                     <MDBModalHeader toggle={this.toggle(14)}>Add New Rental</MDBModalHeader>
                     <MDBModalBody>
                         <p>Please enter journey details</p>
-                        <p>{this.state.myId}</p>
-                        <RentalForm/>
+                        <RentalForm vehicleId={this.props.vehicleId}/>
 
                     </MDBModalBody>
                     <MDBModalFooter>
@@ -44,4 +43,4 @@ class ModalPage extends Component {
     }
 }
 
-export default ModalPage;
+export default RentalModalPage;

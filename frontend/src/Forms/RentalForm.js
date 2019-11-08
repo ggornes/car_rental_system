@@ -8,7 +8,7 @@ class RentalForm extends Component {
 
         this.state = {
             rental: {
-                vehicle_id: '',
+                vehicle_id: this.props.vehicleId,
                 odometer_start: '',
                 odometer_end: '',
                 date_start: '',
@@ -46,9 +46,6 @@ class RentalForm extends Component {
 
             <form id="newRentalForm" onSubmit={this.onSubmit}>
                 <div className="form-row">
-                    <div className="col-4">
-                        <input type="text" className="form-control" name="vehicle_id" value={this.state.rental.vehicle_id} onChange={this.onChange} placeholder="Vehicle Id"/>
-                    </div>
                     <div className="col-4">
                         <input type="text" className="form-control" name="odometer_start" value={this.state.rental.odometer_start} onChange={this.onChange} placeholder="Odometer Start"/>
                     </div>

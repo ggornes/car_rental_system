@@ -4,7 +4,7 @@ import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
 import TablePage from "../Dashboard/Table";
 import DetailsTable from "../Dashboard/DetailsTable";
 import RentalsTable from "../Dashboard/RentalsTable";
-import Modal from "../Modal/Modal";
+import RentalModal from "../Modal/RentalModal";
 
 
 
@@ -16,8 +16,8 @@ class Details extends Component {
             error: null,
             isLoaded: false,
             showModal: false,
-            elId: props.pathname,
-            id:'17',
+
+            vehicleId: '',
             vehicle: {
                 make:'Holden',
                 model:'Commodore',
@@ -79,7 +79,8 @@ class Details extends Component {
         console.log("myid:", myid);
 
         const vehicleId = myid;
-        // const vehicleId = this.state.elId;
+        this.setState({vehicleId : myid});
+
         // const API = 'http://127.0.0.1:5000/vehicles/show/17';
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
         const API2 = 'http://127.0.0.1:5000/vehicles/rentals2/' + `${vehicleId}`;
@@ -165,7 +166,7 @@ class Details extends Component {
                                     <h4>Rentals</h4>
                                     <p><strong>Total Rentals: </strong>{this.state.rentals_summary[0].total_rentals}</p>
                                     <p><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</p>
-                                    <Modal open={this.state.showModal}>...</Modal>
+                                    <RentalModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</RentalModal>
                                     <h4>History</h4>
                                     <RentalsTable
                                         columns={
