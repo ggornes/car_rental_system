@@ -136,7 +136,7 @@ class Details extends Component {
                     {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                 </h1>
 
-                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                <Tab.Container id="left-tabs-example" defaultActiveKey="details">
                     <Row>
                         <Col sm={3}>
                             <Nav variant="pills" className="flex-column">
@@ -158,6 +158,7 @@ class Details extends Component {
                             <Tab.Content>
                                 <Tab.Pane eventKey="details">
                                     <h4>Vehicle Details</h4>
+                                    <p><strong>Fuel Economy: </strong>{this.state.rentals_summary[0].total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</p>
                                     <ul>
                                         <DetailsTable rows={[this.state.vehicle]}/>
                                     </ul>

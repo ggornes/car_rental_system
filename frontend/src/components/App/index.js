@@ -6,12 +6,14 @@ import AddPage from '../Add/Add'
 import BrowsePage from '../Dashboard/Browse';
 import DetailsPage from '../Details/Details'
 import DetailsPage2 from '../Details/Details2'
+import Navbar from '../Navigation/Navbar';
 
 import * as ROUTES from '../../constants/routes';
 
 const App = () => (
     <div>
         <Router>
+            <Navbar />
             <Navigation />
             <hr />
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
