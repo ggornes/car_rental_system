@@ -217,6 +217,20 @@ def add_rental():
 	
 	
 	
+@app.route('/vehicles/fuel_purchase/add', methods=['POST'])
+def add_fuel_purchase():
+	cur = mysql.connection.cursor()
+	vehicle_id = request.get_json()['vehicle_id']
+	rental_id = request.get_json()['rental_id']
+	amount = request.get_json()['amount']
+	cost = request.get_json()['cost']
+
+
+	cur.execute("INSERT INTO `fuel_purchases`(`vehicle_id`, `rental_id`, `amount`, `cost`) VALUES ('" + str(vehicle_id) + "', '" + str(rental_id) + "', '" + str(amount) + "', '" + str(cost) + "')")
+	mysql.connection.commit()
+	result = {'vehicle_id': vehicle_id, 'rental_id': rental_id, 'amount': amount, 'cost': cost}
+	
+	return jsonify({"result": result})
 	
 	
 	
