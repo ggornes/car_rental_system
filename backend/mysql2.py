@@ -98,7 +98,7 @@ def get_rentals_by_vehicle_id(id):
 def get_rentals_by_vehicle_id2(id):
 	cur = mysql.connection.cursor()
 	
-	cur.execute(" SELECT date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
+	cur.execute(" SELECT date_format(date_start, '%Y-%m-%d') as date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_format(date_end, '%Y-%m-%d') as date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
 	
 	rv = cur.fetchall()
 	
@@ -131,7 +131,7 @@ def get_fuel_purchases_by_vehicle_id(id):
 def get_fuel_purchases_by_vehicle_id2(id):
 	cur = mysql.connection.cursor()
 	
-	cur.execute(" SELECT created, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost FROM rental_db.fuel_purchases WHERE vehicle_id = " + id)
+	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost FROM rental_db.fuel_purchases WHERE vehicle_id = " + id)
 	
 	rv = cur.fetchall()
 	
@@ -156,7 +156,7 @@ def get_services_by_vehicle_id(id):
 def get_services_by_vehicle_id2(id):
 	cur = mysql.connection.cursor()
 	
-	cur.execute(" SELECT created, CAST(odometer as CHAR) as odometer FROM rental_db.services WHERE vehicle_id = " + id)
+	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(odometer as CHAR) as odometer FROM rental_db.services WHERE vehicle_id = " + id)
 	
 	rv = cur.fetchall()
 	
