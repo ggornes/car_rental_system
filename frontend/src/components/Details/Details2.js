@@ -166,6 +166,7 @@ class Details extends Component {
                                     <h4>Rentals</h4>
                                     <p><strong>Total Rentals: </strong>{this.state.rentals_summary[0].total_rentals}</p>
                                     <p><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</p>
+                                    <p><strong>Revenue Recorded: </strong>${this.state.rentals_summary[0].total_cost}</p>
                                     <RentalModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</RentalModal>
                                     <h4>History</h4>
                                     <RentalsTable
@@ -192,6 +193,12 @@ class Details extends Component {
                                             {
                                                 label: 'Rental Type',
                                                 field: 'rental_type',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
+                                                label: 'Rental Cost',
+                                                field: 'rental_cost',
                                                 sort: 'asc',
                                                 width: 100
                                             }

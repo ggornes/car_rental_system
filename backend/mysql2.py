@@ -98,12 +98,13 @@ def get_rentals_by_vehicle_id(id):
 def get_rentals_by_vehicle_id2(id):
 	cur = mysql.connection.cursor()
 	
-	cur.execute(" SELECT date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_end, rental_type from rentals where vehicle_id = " + id)
+	cur.execute(" SELECT date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
 	
 	rv = cur.fetchall()
 	
-	
-	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
+	#rentals summary
+	#cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
+	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance, CAST(SUM(rental_cost) as CHAR) as total_cost FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, IF(rental_type='D', 100, odometer_end - odometer_start) as rental_cost, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
 	
 	rv2 = cur.fetchall()
 	
