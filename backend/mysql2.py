@@ -70,7 +70,7 @@ def get_all_vehicles2():
 def get_vehicle_by_id(id):
 	cur = mysql.connection.cursor()
 	
-	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size FROM rental_db.vehicles WHERE id = " + id)
+	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials FROM rental_db.vehicles WHERE id = " + id)
 	
 	rv = cur.fetchall()
 	

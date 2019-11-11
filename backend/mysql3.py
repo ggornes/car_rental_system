@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from flask_cors import CORS
-from sqlalchemy.dialects.mysql import INTEGER
+from sqlalchemy.dialects.mysql import INTEGER, BIGINT, CHAR, DECIMAL, DATE, DATETIME, VARCHAR
 from flask_marshmallow import Marshmallow
 
 
@@ -31,10 +31,16 @@ ma = Marshmallow(app)
 
 # Vehicle Class/Model
 class Vehicles2(db.Model):
-	id = db.Column(INTEGER(unsigned=True), primary_key=True)
-	make = db.Column(db.String(64))
-	model = db.Column(db.String(128))
-	release_year = db.Column(db.Integer)
+	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
+	make = db.Column(VARCHAR(64), nullable=False, default='unknown')
+	model = db.Column(VARCHAR(128), nullable=False)
+	release_year = db.Column(INTEGER(4, unsigned=True), nullable=False)
+	registration = db.Column(VARCHAR(16), nullable=False)
+	fuel = db.Column(VARCHAR(8))
+	tank_size = db.Column(DECIMAL(4,1))
+	#initials = 
+	#created = 
+	#updated =
 	
 	def __init__(self, make, model, release_year):
 		self.make = make
