@@ -31,7 +31,7 @@ const App = () => (
 
             </Router>
         </header>
-        <FooterPage/>
+
     </div>
 );
 export default App;

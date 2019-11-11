@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
-    MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
+    MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon
 } from "mdbreact";
 
 import {BrowserRouter as Router, Link} from 'react-router-dom';
@@ -56,8 +56,10 @@ class NavbarPage extends Component {
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                         </MDBNavItem>
+
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
+
                         <MDBNavItem>
                             <MDBFormInline waves>
                                 <div className="md-form my-0">
@@ -65,9 +67,7 @@ class NavbarPage extends Component {
                                 </div>
                             </MDBFormInline>
                         </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="#"><FontAwesomeIcon icon={faInfoCircle} /></MDBNavLink>
-                        </MDBNavItem>
+
                     </MDBNavbarNav>
                 </MDBCollapse>
         </MDBNavbar>

@@ -1,10 +1,22 @@
 import React, {Component} from "react";
-import {MDBBadge, MDBBtn, MDBCol, MDBContainer, MDBListGroup, MDBListGroupItem, MDBRow, MDBTooltip} from "mdbreact";
+import {
+    MDBBadge,
+    MDBBtn,
+    MDBCol,
+    MDBContainer,
+    MDBIcon,
+    MDBListGroup,
+    MDBListGroupItem,
+    MDBRow,
+    MDBTooltip
+} from "mdbreact";
 import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
 import TablePage from "../Dashboard/Table";
 import DetailsTable from "../Dashboard/DetailsTable";
 import RentalsTable from "../Dashboard/RentalsTable";
 import RentalModal from "../Modal/RentalModal";
+import {faTable} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 
@@ -15,8 +27,13 @@ class Details extends Component {
         this.state = {
             error: null,
             isLoaded: false,
+
+            // MDB modal
             showModal: false,
             show: false,
+
+            // show table
+            showTable: false,
 
             vehicleId: '',
             vehicle: {
@@ -82,6 +99,16 @@ class Details extends Component {
         this.setState({ show: false });
     };
 
+    handleShowTable = () => {
+        if (this.state.showTable === false) {
+            this.setState({ showTable: true });
+            console.log("show table is now true")
+        } else{
+            this.setState({ showTable: false });
+            console.log("show table is now false")
+        }
+    };
+
     componentDidMount() {
 
         const { myid } = this.props.match.params;
@@ -114,6 +141,7 @@ class Details extends Component {
             )
 
          */
+
 
 
 
@@ -178,7 +206,20 @@ class Details extends Component {
                                         <li><strong>Total Services: </strong></li>
 
                                     </ul>
-                                    <DetailsTable rows={[this.state.vehicle]}/>
+                                    <MDBContainer>
+                                        <MDBRow>
+                                            <MDBCol>
+
+                                                <MDBIcon icon="table" size="2x" onClick={this.handleShowTable}/>
+
+                                            </MDBCol>
+                                        </MDBRow>
+
+                                        { this.state.showTable ? <DetailsTable rows={[this.state.vehicle]} /> : null }
+                                    </MDBContainer>
+
+
+
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="rentals">
                                     <h4>Rentals</h4>
