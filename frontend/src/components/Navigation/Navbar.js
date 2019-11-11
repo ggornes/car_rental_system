@@ -6,25 +6,34 @@ import {
 
 import {BrowserRouter as Router, Link} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class NavbarPage extends Component {
-    state = {
-        isOpen: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            collapse: false,
+            isWideEnough: false
+        };
+        this.onClick = this.onClick.bind(this);
+    }
 
-    toggleCollapse = () => {
-        this.setState({ isOpen: !this.state.isOpen });
-    };
+    onClick() {
+        this.setState({
+            collapse: !this.state.collapse
+        });
+    }
 
     render() {
         return (
 
-            <MDBNavbar color="indigo" dark expand="md">
-                <MDBNavbarBrand>
+            <MDBNavbar color="indigo" dark expand="md" fixed="top">
+                <MDBNavbarBrand href="/">
                     <strong className="white-text">g@round</strong>
                 </MDBNavbarBrand>
-                <MDBNavbarToggler onClick={this.toggleCollapse} />
-                <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+                {!this.state.isWideEnough && <MDBNavbarToggler onClick={this.onClick} />}
+                <MDBCollapse isOpen={this.state.collapse} navbar>
                     <MDBNavbarNav left>
                         <MDBNavItem active>
                             <MDBNavLink to={ROUTES.LANDING}>Home</MDBNavLink>
@@ -33,18 +42,17 @@ class NavbarPage extends Component {
                             <MDBNavLink to={ROUTES.BROWSE}>Browse</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="#!">Pricing</MDBNavLink>
+                            <MDBNavLink to={ROUTES.DETAILS}>Detail</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
                             <MDBDropdown>
                                 <MDBDropdownToggle nav caret>
-                                    <span className="mr-2">Dropdown</span>
+                                    <span className="mr-2">Vehicles</span>
                                 </MDBDropdownToggle>
                                 <MDBDropdownMenu>
-                                    <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                                    <MDBDropdownItem ><Link to={ROUTES.BROWSE}>Browse</Link></MDBDropdownItem>
+                                    <MDBDropdownItem><Link to={ROUTES.ADD}>Add new</Link></MDBDropdownItem>
+
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                         </MDBNavItem>
@@ -56,6 +64,9 @@ class NavbarPage extends Component {
                                     <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
                                 </div>
                             </MDBFormInline>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="#"><FontAwesomeIcon icon={faInfoCircle} /></MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

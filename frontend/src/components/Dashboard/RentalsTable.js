@@ -17,8 +17,8 @@ const RentalsTable = props => {
     };
 
     return (
-        <MDBTable scrollY>
-            <MDBTableHead color="secondary-color" columns={data.columns} />
+        <MDBTable scrollY striped>
+            <MDBTableHead color="indigo" textWhite columns={data.columns} />
             <MDBTableBody rows={data.rows} />
         </MDBTable>
     );

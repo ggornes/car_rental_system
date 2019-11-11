@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import './style.css'
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 

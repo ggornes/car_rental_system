@@ -79,7 +79,7 @@ const DetailsTable = props => {
 
     return (
         <MDBTable scrollY>
-            <MDBTableHead color="secondary-color" columns={data.columns} />
+            <MDBTableHead color="primary-color" columns={data.columns} />
             <MDBTableBody rows={data.rows} />
         </MDBTable>
     );

@@ -16,6 +16,7 @@ class Details extends Component {
             error: null,
             isLoaded: false,
             showModal: false,
+            show: false,
 
             vehicleId: '',
             vehicle: {
@@ -73,6 +74,14 @@ class Details extends Component {
         };
     };
 
+    showModal2 = () => {
+        this.setState({ show: true });
+    };
+
+    hideModal = () => {
+        this.setState({ show: false });
+    };
+
     componentDidMount() {
 
         const { myid } = this.props.match.params;
@@ -124,6 +133,9 @@ class Details extends Component {
                 services: data4
 
             }));
+
+
+
 
     }
 
@@ -211,6 +223,7 @@ class Details extends Component {
                                     <h4>Fuel Purchases</h4>
                                     <p><strong>Total Amount (Liters): </strong>{this.state.fuel_purchases_summary[0].total_amount} L</p>
                                     <p><strong>Total Price: </strong>$ {this.state.fuel_purchases_summary[0].total_cost}</p>
+                                    <MDBBtn onClick={this.showModal2}>Add New</MDBBtn>
                                     <h4>History</h4>
                                     <RentalsTable rows={[this.state.vehicle]}
                                         columns={

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Circle, WaveLoading} from "styled-spinkit";
+import {Helmet} from 'react-helmet';
 
 
 
@@ -18,7 +19,15 @@ class Landing extends Component {
 
         return(
             <div>
+                <Helmet>
+                    <script src="/../.scriptInside.js"></script>
+
+
+                </Helmet>
                 <h1>Landing Page</h1>
+                <canvas id="canvas">
+
+                </canvas>
                 <Circle color="blue"
                         size="80"
                 />
