@@ -95,8 +95,14 @@ export const deleteItem = term => {
 export const updateItem = (term, id) => {
     return axios
         .put(
-            `api/task/${id}`, {
-                title: term
+            `http://localhost:5000/vehicles/edit/${id}`, {
+                make: term.make,
+                model: term.model,
+                release_year: term.release_year,
+                registration: term.registration,
+                fuel: term.fuel,
+                tank_size: term.tank_size,
+                initials: term.initials
             }, {
                 headers: { "Content-type": "application/json" }
             })

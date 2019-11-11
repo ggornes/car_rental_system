@@ -70,7 +70,6 @@ class Add extends Component {
         this.setState(state);
 
 
-
     };
 
     render() {

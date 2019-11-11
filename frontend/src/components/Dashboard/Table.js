@@ -3,6 +3,7 @@ import {MDBBtn, MDBDataTable, MDBRow, MDBCol, MDBTable, MDBTableBody, MDBTableHe
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faInfoCircle, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {deleteItem} from "../../VehicleFunctions";
 
 const TablePage = (props) => {
     const columns = [
@@ -61,9 +62,9 @@ const TablePage = (props) => {
             ...obj,
             btns:
                 <MDBRow>
-                    <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
+                    <MDBCol><Link to={`/vehicle/edit/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
                     <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
-                    <MDBCol><Link to={'/details2/11'}><FontAwesomeIcon icon={faTrashAlt} /></Link></MDBCol>
+                    <MDBCol id="trash"><FontAwesomeIcon icon={faTrashAlt} onClick={() => deleteItem(obj.id)}/></MDBCol>
                 </MDBRow>
 
 

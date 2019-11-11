@@ -170,10 +170,15 @@ class Details extends Component {
                             <Tab.Content>
                                 <Tab.Pane eventKey="details">
                                     <h4>Vehicle Details</h4>
-                                    <p><strong>Fuel Economy: </strong>{this.state.rentals_summary[0].total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</p>
+                                    <p></p>
                                     <ul>
-                                        <DetailsTable rows={[this.state.vehicle]}/>
+                                        <li><strong>Registration Number: </strong>{this.state.vehicle.registration}</li>
+                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</li>
+                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary[0].total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</li>
+                                        <li><strong>Total Services: </strong></li>
+
                                     </ul>
+                                    <DetailsTable rows={[this.state.vehicle]}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="rentals">
                                     <h4>Rentals</h4>
