@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 from sqlalchemy.dialects.mysql import INTEGER, BIGINT, CHAR, DECIMAL, DATE, DATETIME, VARCHAR, TIMESTAMP
+from sqlalchemy.sql import text
 from flask_marshmallow import Marshmallow
 import datetime
 
@@ -33,19 +34,31 @@ mysql = MySQL(app)
 CORS(app)
 ma = Marshmallow(app)
 
-# Vehicle Class/Model
+
+# ################################################
+# ######
+# ######                MODELS
+# ######
+# ################################################
+# ###### Create MySQL Tables using MySQLAlchemy
+# ###############################################
+
+
+# ######           Vehicle Class/Model
+
 class Vehicles2(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
-	make = db.Column(VARCHAR(64), nullable=False, default='unknown')
+	make = db.Column(VARCHAR(64), nullable=False, server_default='unknown')
 	model = db.Column(VARCHAR(128), nullable=False)
-	release_year = db.Column(INTEGER(4, unsigned=True), nullable=False, default=1)
+	release_year = db.Column(INTEGER(display_width=4, unsigned=True, zerofill=True), nullable=False, default=1)
 	registration = db.Column(VARCHAR(16), nullable=False)
-	fuel = db.Column(VARCHAR(8), nullable=False, default='unknown')
-	tank_size = db.Column(DECIMAL(4,1))
-	initials =  db.Column(VARCHAR(4), nullable=False, default='unknown')
-	created = db.Column(DATETIME, nullable=False, default=datetime.datetime.now())
-	updated = db.Column(DATETIME)
+	fuel = db.Column(VARCHAR(8), nullable=False, server_default='unknown')
+	tank_size = db.Column(DECIMAL(precision=4, scale=1))
+	initials =  db.Column(VARCHAR(4), nullable=False, server_default='xxx')
+	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	updated = db.Column(DATETIME, server_onupdate=text('ON UPDATE CURRENT_TIMESTAMP'))
 	
+	# Constructor
 	def __init__(self, make, model, release_year, registration, fuel, tank_size, initials):
 		self.make = make
 		self.model = model
@@ -56,7 +69,9 @@ class Vehicles2(db.Model):
 		self.initials = initials
 		#self.created = created
 		#self.updated = updated
-
+	
+		
+		
 # Vehicles2 Schema
 class Vehicle2Schema(ma.Schema):
 	class Meta:
@@ -69,16 +84,20 @@ vehicles2_schema = Vehicle2Schema(many=True)
 
 
 
+
+# ######           Rental Class / Model
+
+
 class Rentals2(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
 	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles2.id'), nullable=False)
-	odometer_start = db.Column(DECIMAL(9, 1))
-	odometer_end = db.Column(DECIMAL(9, 1))
-	date_start = db.Column(DATETIME)
-	date_end = db.Column(DATETIME)
+	odometer_start = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False)
+	odometer_end = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False)
+	date_start = db.Column(DATETIME, nullable=False)
+	date_end = db.Column(DATETIME, nullable=False)
 	rental_type = db.Column(VARCHAR(1), nullable=False)
 	created = db.Column(DATETIME, nullable=False, default=datetime.datetime.now())
-	updated = db.Column(DATETIME)
+	updated = db.Column(DATETIME, onupdate=datetime.datetime.now)
 	
 	
 	def __init__(self, vehicle_id, odometer_start, odometer_end, date_start, date_end ):
@@ -100,8 +119,9 @@ class RentalSchema(ma.Schema):
 rental2_schema = RentalSchema()
 		
 	
-	
-
+# ################################################
+# ######
+# ################################################
 
 
 
@@ -111,6 +131,7 @@ rental2_schema = RentalSchema()
 # API END POINTS
 
 # Create a vehicle
+# creates vehicle entry in the database using provided values
 @app.route('/vehicle2', methods=['POST'])
 def add_vehicle2():
 	make = request.json['make']
@@ -129,6 +150,36 @@ def add_vehicle2():
 	
 	return vehicle2_schema.jsonify(new_vehicle)
 
+	
+	
+	
+# Add a rental to a vehicle
+# creates vehicle rental entry in the database using provided values
+@app.route('/vehicle2/addrental', methods=['POST'])
+def add_vehicle_rental():
+	make = request.json['make']
+	model = request.json['model']
+	release_year = request.json['release_year']
+	registration = request.json['registration']
+	fuel = request.json['fuel']
+	tank_size = request.json['tank_size']
+	initials = request.json['initials']
+	
+	# ToDo:
+	# Validate that data is correct;
+	# Return error message
+	
+	
+	
+	new_vehicle = Vehicles2(make, model, release_year, registration, fuel, tank_size, initials)
+	
+	db.session.add(new_vehicle)
+	db.session.commit()
+	
+	# ToDo:
+	# Return success message
+	
+	return vehicle2_schema.jsonify(new_vehicle)
 
 
 # Run server
