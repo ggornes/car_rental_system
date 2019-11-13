@@ -195,6 +195,8 @@ services_schema = ServicesSchema()
 # ######            API END POINTS
 # ######
 # ################################################
+
+# ################################################
 # ######             GET Methods
 # ###############################################
 
@@ -219,7 +221,7 @@ def get_vehicle(id):
 	vehicle = Vehicles.query.get(id)
 	#result = vehicles_schema.dump(vehicle)
 	#return jsonify(result)
-	return vehicle_schema.jsonify(vehicle) # Note: returns a single object 
+	return (vehicle_schema.jsonify(vehicle)) # Note: returns a single object 
 	
 	
 # ################################################
@@ -286,10 +288,6 @@ def get_fuel_purchases_by_vehicle_id(id):
 	
 	
 	
-# ################################################
-# ######
-# ######            API END POINTS
-# ######
 # ################################################
 # ######             POST Methods
 # ###############################################
@@ -358,6 +356,40 @@ def add_vehicle_rental():
 	# Return success message
 	
 	return rental_schema.jsonify(new_rental)
+	
+	
+# ################################################
+# ######             PUT Methods
+# ###############################################
+	
+	
+# ################################################
+# ######   Edit vehicle
+# ################################################ 	
+
+@app.route('/vehicles/edit/<id>', methods=['PUT'])
+def edit_vehicle(id):
+	vehicle = Vehicles.query.get(id)
+
+	make = request.get_json()['make']
+	model = request.get_json()['model']
+	release_year = request.get_json()['release_year']
+	registration = request.get_json()['registration']
+	fuel = request.get_json()['fuel']
+	tank_size = request.get_json()['tank_size']
+	initials = request.get_json()['initials']
+	
+	vehicle.make = make
+	vehicle.model = model
+	vehicle.release_year = release_year
+	vehicle.registration = registration
+	vehicle.fuel = fuel
+	vehicle.tank_size = tank_size
+	vehicle.initials = initials
+	
+	db.session.commit()
+	return vehicle_schema.jsonify(vehicle)
+	
 
 
 # Run server
