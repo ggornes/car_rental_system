@@ -119,9 +119,9 @@ class Details extends Component {
 
         // const API = 'http://127.0.0.1:5000/vehicles/show/17';
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
-        const API2 = 'http://127.0.0.1:5000/vehicles/rentals2/' + `${vehicleId}`;
-        const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases2/' + `${vehicleId}`;
-        const API4 = 'http://127.0.0.1:5000/vehicles/services2/' + `${vehicleId}`;
+        const API2 = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
+        const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
+        const API4 = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
 
 
@@ -153,7 +153,7 @@ class Details extends Component {
         ])
             .then(([res1, res2, res3, res4]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json()]))
             .then(([data1, data2, data3, data4]) => this.setState({
-                vehicle: data1[0],
+                vehicle: data1[0], // data[0] if using flask app 2.2, data if is 3.0
                 rentals: data2[0],
                 rentals_summary: data2[1],
                 fuel_purchases: data3[0],

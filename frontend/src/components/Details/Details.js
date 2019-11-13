@@ -44,7 +44,7 @@ class Details extends Component {
 
             .then(data => this.setState(
                 {
-                    vehicle: data[0],
+                    vehicle: data[0], // data[0] if using flask app 2.2, data if is 3.0
                     isLoaded: true,
                 }
                 )
