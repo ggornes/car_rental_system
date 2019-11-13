@@ -20,12 +20,12 @@ app = Flask(__name__)
 # Database
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'rental_db'
+app.config['MYSQL_DB'] = 'rental_db_2'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JSON_SORT_KEYS'] = False
-app.config['SQLALCHEMY_DATABASE'] = 'rental_db'
+app.config['SQLALCHEMY_DATABASE'] = 'rental_db_2'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/rental_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/rental_db_2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Init db
@@ -44,19 +44,22 @@ ma = Marshmallow(app)
 # ###############################################
 
 
-# ######           Vehicle Class/Model
+# ################################################
+# ######     Vehicle Class/Model
+# ################################################
 
-class Vehicles2(db.Model):
+
+class Vehicles(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
 	make = db.Column(VARCHAR(64), nullable=False, server_default='unknown')
 	model = db.Column(VARCHAR(128), nullable=False)
-	release_year = db.Column(INTEGER(display_width=4, unsigned=True, zerofill=True), nullable=False, default=1)
+	release_year = db.Column(INTEGER(display_width=4, unsigned=True, zerofill=True), nullable=False, server_default=text('1'))
 	registration = db.Column(VARCHAR(16), nullable=False)
 	fuel = db.Column(VARCHAR(8), nullable=False, server_default='unknown')
-	tank_size = db.Column(DECIMAL(precision=4, scale=1))
+	tank_size = db.Column(DECIMAL(precision=4, scale=1, unsigned=True))
 	initials =  db.Column(VARCHAR(4), nullable=False, server_default='xxx')
 	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
-	updated = db.Column(DATETIME, server_onupdate=text('ON UPDATE CURRENT_TIMESTAMP'))
+	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
 	
 	# Constructor
 	def __init__(self, make, model, release_year, registration, fuel, tank_size, initials):
@@ -73,34 +76,36 @@ class Vehicles2(db.Model):
 		
 		
 # Vehicles2 Schema
-class Vehicle2Schema(ma.Schema):
+class VehicleSchema(ma.Schema):
 	class Meta:
 		fields = ('id', 'make', 'model', 'release_year', 'registration', 'fuel', 'tank_size', 'initials', 'created', 'updated')
 		
 # init schema
-vehicle2_schema = Vehicle2Schema()
-vehicles2_schema = Vehicle2Schema(many=True)
+vehicle_schema = VehicleSchema()
+vehicles_schema = VehicleSchema(many=True)
 
 
 
 
+# ################################################
+# ######     Rental Class / Model
+# ################################################
 
-# ######           Rental Class / Model
 
 
-class Rentals2(db.Model):
+class Rentals(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
-	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles2.id'), nullable=False)
-	odometer_start = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False)
-	odometer_end = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False)
-	date_start = db.Column(DATETIME, nullable=False)
-	date_end = db.Column(DATETIME, nullable=False)
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	odometer_start = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
+	odometer_end = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
+	date_start = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	date_end = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 	rental_type = db.Column(VARCHAR(1), nullable=False)
-	created = db.Column(DATETIME, nullable=False, default=datetime.datetime.now())
-	updated = db.Column(DATETIME, onupdate=datetime.datetime.now)
+	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
 	
 	
-	def __init__(self, vehicle_id, odometer_start, odometer_end, date_start, date_end ):
+	def __init__(self, vehicle_id, odometer_start, odometer_end, date_start, date_end, rental_type ):
 		#self.id = id
 		self.vehicle_id = vehicle_id
 		self.odometer_start = odometer_start
@@ -116,24 +121,189 @@ class RentalSchema(ma.Schema):
 		fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		
 # init schema
-rental2_schema = RentalSchema()
+rental_schema = RentalSchema()
+
+
+# ################################################
+# ######     Fuel_Purchase Class / Model
+# ################################################
+
+class Fuel_purchases(db.Model):
+	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	rental_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('rentals.id'), nullable=False, server_default=text('0'))
+	amount = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
+	cost = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
+	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
+	
+	def __init__(self, vehicle_id, rental_id, amount, cost, created, updated):
+		self.vehicle_id = vehicle_id
+		self.rental_id = rental_id
+		self.amount = amount
+		self.cost = cost
+		self.created = created
+		self.updated = updated
 		
+class Fuel_PurchaseSchema(ma.Schema):
+	class Meta:
+		fields = ('id', 'vehicle_id', 'rental_id', 'amount', 'cost', 'created', 'updated')
+
+#init schema
+fuel_purchases_schema = Fuel_PurchaseSchema()
+
+
+# ################################################
+# ######     Service Class / Model
+# ################################################
+
+class Services(db.Model):
+	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	odometer = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
+	serviced_at = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
+	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
+	
+	def __init__(self, vehicle_id, odometer, serviced_at, created, updated):
+		self.vehicle_id = vehicle_id
+		self.odometer = odometer
+		self.serviced_at = serviced_at
+		self.created = created
+		self.updated = updated
+
+class ServicesSchema(ma.Schema):
+	class Meta:
+		fields = ('id', 'vehicle_id', 'odometer', 'serviced_at', 'created', 'updated')
+		
+#init schema
+services_schema = ServicesSchema()
+	
+# ################################################
+# ######         END of classes / Models
+# ################################################
+
+
+
+
+
+
+
+
+# ################################################
+# ######
+# ######            API END POINTS
+# ######
+# ################################################
+# ######             GET Methods
+# ###############################################
+
+
+# ################################################
+# ######     get all vehicles from vehicles table
+# ################################################ 
+
+@app.route('/vehicles/show', methods=['GET'])
+def get_all_vehicles():
+	all_vehicles = Vehicles.query.all()
+	result = vehicles_schema.dump(all_vehicles)
+	return jsonify(result) # Note: returns an array of objects
+	
+
+# ################################################
+# ###### get a single vehicle from vehicles table
+# ################################################ 
+
+@app.route('/vehicles/show/<id>', methods=['GET'])
+def get_vehicle(id):
+	vehicle = Vehicles.query.get(id)
+	#result = vehicles_schema.dump(vehicle)
+	#return jsonify(result)
+	return vehicle_schema.jsonify(vehicle) # Note: returns a single object 
+	
+	
+# ################################################
+# ###### get all rentals for certain vehicle
+# ################################################
+# Needs a review
+# ################################################
+	
+#@app.route('/vehicles/rentals/<id>', methods=['GET'])
+#def get_rentals_by_vehicle_id(id):
+#	rentals = Rentals.query(Vehicles, Rentals).join(Rentals).get(id)
+#	print(rentals)
+#	return rental_schema.jsonify(rentals)
+	
+	
+@app.route('/vehicles/rentals/<id>', methods=['GET'])
+def get_rentals_by_vehicle_id(id):
+	# rentals list
+	cur = mysql.connection.cursor()
+	cur.execute(" SELECT date_format(date_start, '%Y-%m-%d') as date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_format(date_end, '%Y-%m-%d') as date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
+	rv = cur.fetchall()
+	
+	#rentals summary
+	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance, CAST(SUM(rental_cost) as CHAR) as total_cost FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, IF(rental_type='D', 100, odometer_end - odometer_start) as rental_cost, created updated FROM rentals WHERE vehicle_id = " + id + ") as rentals_summary")
+	rv2 = cur.fetchall()
+	return jsonify(rv, rv2)
+	
+	
+
+# ################################################
+# ###### get all services for certain vehicle
+# ################################################
+# Needs a review
+# ################################################
+	
+@app.route('/vehicles/services/<id>', methods=['GET'])
+def get_services_by_vehicle_id(id):
+	cur = mysql.connection.cursor()
+	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(odometer as CHAR) as odometer FROM services WHERE vehicle_id = " + id)
+	rv = cur.fetchall()
+	return jsonify(rv)
+
+	
+# ################################################
+# ###### get all fuel_purchases for certain vehicle
+# ################################################
+# Needs a review
+# ################################################
+	
+@app.route('/vehicles/fuel_purchases/<id>', methods=['GET'])
+def get_fuel_purchases_by_vehicle_id(id):
+	# Fuel_purchases list
+	cur = mysql.connection.cursor()
+	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost FROM fuel_purchases WHERE vehicle_id = " + id)
+	rv = cur.fetchall()
+	
+	#Fuel purchases summary
+	cur.execute("SELECT COUNT(*) as total_fuel_purchases, CAST(SUM(amount) as CHAR) as total_amount, CAST(SUM(cost) as CHAR) as total_cost from (SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM fuel_purchases WHERE vehicle_id = " + id + ") as fuel_purchases_summary;")
+	rv2 = cur.fetchall()
+	return jsonify(rv, rv2)
+
+	
+
+	
+	
 	
 # ################################################
 # ######
+# ######            API END POINTS
+# ######
 # ################################################
+# ######             POST Methods
+# ###############################################
+	
+	
+# ################################################
+# ###### add a vehicle to the database
+# ################################################ 	
 
 
+@app.route('/vehicles/add', methods=['POST'])
+def add_vehicle():
 
-
-
-
-# API END POINTS
-
-# Create a vehicle
-# creates vehicle entry in the database using provided values
-@app.route('/vehicle2', methods=['POST'])
-def add_vehicle2():
+# get data from request
 	make = request.json['make']
 	model = request.json['model']
 	release_year = request.json['release_year']
@@ -142,44 +312,52 @@ def add_vehicle2():
 	tank_size = request.json['tank_size']
 	initials = request.json['initials']
 	
+# instantiate the vehicle object
+	new_vehicle = Vehicles(make, model, release_year, registration, fuel, tank_size, initials)
 	
-	new_vehicle = Vehicles2(make, model, release_year, registration, fuel, tank_size, initials)
-	
+# add vehicle to database
 	db.session.add(new_vehicle)
 	db.session.commit()
 	
-	return vehicle2_schema.jsonify(new_vehicle)
+# return message
+	return vehicle_schema.jsonify(new_vehicle)
 
 	
 	
+
 	
-# Add a rental to a vehicle
-# creates vehicle rental entry in the database using provided values
-@app.route('/vehicle2/addrental', methods=['POST'])
+# ################################################
+# ###### add a rental to avehicle into the database
+# ################################################ 	
+
+@app.route('/vehicles/rentals/add', methods=['POST'])
 def add_vehicle_rental():
-	make = request.json['make']
-	model = request.json['model']
-	release_year = request.json['release_year']
-	registration = request.json['registration']
-	fuel = request.json['fuel']
-	tank_size = request.json['tank_size']
-	initials = request.json['initials']
+# get datga from request
+	vehicle_id = request.get_json()['vehicle_id']
+	odometer_start = request.get_json()['odometer_start']
+	odometer_end = request.get_json()['odometer_end']
+	date_start = request.get_json()['date_start']
+	date_end = request.get_json()['date_end']
+	rental_type = request.get_json()['rental_type']
+
+# instantiate the vehicle object
+	
 	
 	# ToDo:
 	# Validate that data is correct;
 	# Return error message
 	
+	new_rental = Rentals(vehicle_id, odometer_start, odometer_end, date_start, date_end, rental_type)
 	
+
 	
-	new_vehicle = Vehicles2(make, model, release_year, registration, fuel, tank_size, initials)
-	
-	db.session.add(new_vehicle)
+	db.session.add(new_rental)
 	db.session.commit()
 	
 	# ToDo:
 	# Return success message
 	
-	return vehicle2_schema.jsonify(new_vehicle)
+	return rental_schema.jsonify(new_rental)
 
 
 # Run server

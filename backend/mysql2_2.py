@@ -24,138 +24,98 @@ CORS(app)
 #bcrypt = Bcrypt(app)
 #jwt = JWTManager(app)
 
-#class Vehicle(db.Model):
-#	id = 
-
-
-
-
 
 @app.route('/vehicles/show', methods=['GET'])
 def get_all_vehicles():
 	cur = mysql.connection.cursor()
 	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials, created, updated FROM rental_db.vehicles")
-
-	
 	rv = cur.fetchall()
 	return jsonify(rv)
-	
-	#result = {"id": id, "makes": make, "model": model, "release_year": release_year, "registration": registration, "fuel": fuel, "tank_size": tank_size, "initials": initials, "created": created, "updated": updated}
-	
-	#return jsonify({"result": result})
-	
-@app.route('/vehicles/show2', methods=['GET'])
-def get_all_vehicles2():
-	cur = mysql.connection.cursor()
-	#cur.execute("SELECT * FROM rental_db.vehicles")	
-	
-	#cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials, created, updated FROM rental_db.vehicles")
-	
-	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size FROM rental_db.vehicles")
 
 	
-	rv = cur.fetchall()
-	return jsonify(rv)
-	
-	#result = {"id": id, "makes": make, "model": model, "release_year": release_year, "registration": registration, "fuel": fuel, "tank_size": tank_size, "initials": initials, "created": created, "updated": updated}
-	
-	#return jsonify({"result": result})
+
+#@app.route('/vehicles/show2', methods=['GET'])
+#def get_all_vehicles2():
+#	cur = mysql.connection.cursor()
+#	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size FROM rental_db.vehicles")
+#	rv = cur.fetchall()
+#	return jsonify(rv)
+
 	
 	
 @app.route('/vehicles/show/<id>', methods=['GET'])
 def get_vehicle_by_id(id):
 	cur = mysql.connection.cursor()
-	
 	cur.execute("SELECT id, make, model, release_year, registration, fuel, CAST(tank_size AS CHAR) as tank_size, initials FROM rental_db.vehicles WHERE id = " + id)
-	
 	rv = cur.fetchall()
-	
 	return jsonify(rv)
+	
+	
+#@app.route('/vehicles/rentals/<id>', methods=['GET'])
+#def get_rentals_by_vehicle_id(id):
+#	cur = mysql.connection.cursor()
+#	cur.execute(" SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, CAST((odometer_end - odometer_start) as CHAR) distance, date_start, date_end, rental_type, created, updated FROM rental_db.rentals WHERE vehicle_id = " + id)
+#	rv = cur.fetchall()
+#	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
+#	rv2 = cur.fetchall()
+#	return jsonify(rv, rv2)
+	
 	
 	
 @app.route('/vehicles/rentals/<id>', methods=['GET'])
 def get_rentals_by_vehicle_id(id):
+	# rentals list
 	cur = mysql.connection.cursor()
-	
-	cur.execute(" SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, CAST((odometer_end - odometer_start) as CHAR) distance, date_start, date_end, rental_type, created, updated FROM rental_db.rentals WHERE vehicle_id = " + id)
-	
-	rv = cur.fetchall()
-	
-	
-	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
-	
-	rv2 = cur.fetchall()
-	
-	return jsonify(rv, rv2)
-	
-	
-	
-@app.route('/vehicles/rentals2/<id>', methods=['GET'])
-def get_rentals_by_vehicle_id2(id):
-	cur = mysql.connection.cursor()
-	
 	cur.execute(" SELECT date_format(date_start, '%Y-%m-%d') as date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_format(date_end, '%Y-%m-%d') as date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
-	
 	rv = cur.fetchall()
 	
 	#rentals summary
-	#cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
 	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance, CAST(SUM(rental_cost) as CHAR) as total_cost FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, IF(rental_type='D', 100, odometer_end - odometer_start) as rental_cost, created updated FROM rental_db.rentals WHERE vehicle_id = " + id + ") as rentals_summary")
-	
 	rv2 = cur.fetchall()
-	
 	return jsonify(rv, rv2)
 	
 
 	
+#@app.route('/vehicles/fuel_purchases/<id>', methods=['GET'])
+#def get_fuel_purchases_by_vehicle_id(id):
+
+#	cur = mysql.connection.cursor()
+#	cur.execute(" SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM rental_db.fuel_purchases WHERE vehicle_id = " + id)
+#	rv = cur.fetchall()
+
+#	cur.execute("SELECT COUNT(*) as total_fuel_purchases, CAST(SUM(amount) as CHAR) as total_amount, CAST(SUM(cost) as CHAR) as total_cost from (SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM rental_db.fuel_purchases WHERE vehicle_id = " + id + ") as fuel_purchases_summary;")
+#	rv2 = cur.fetchall()
+#	return jsonify(rv, rv2)
+	
+	
 @app.route('/vehicles/fuel_purchases/<id>', methods=['GET'])
 def get_fuel_purchases_by_vehicle_id(id):
+	# Fuel_purchases list
 	cur = mysql.connection.cursor()
-	
-	cur.execute(" SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM rental_db.fuel_purchases WHERE vehicle_id = " + id)
-	
-	rv = cur.fetchall()
-	
-	cur.execute("SELECT COUNT(*) as total_fuel_purchases, CAST(SUM(amount) as CHAR) as total_amount, CAST(SUM(cost) as CHAR) as total_cost from (SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM rental_db.fuel_purchases WHERE vehicle_id = " + id + ") as fuel_purchases_summary;")
-	
-	rv2 = cur.fetchall()
-		
-	return jsonify(rv, rv2)
-	
-	
-@app.route('/vehicles/fuel_purchases2/<id>', methods=['GET'])
-def get_fuel_purchases_by_vehicle_id2(id):
-	cur = mysql.connection.cursor()
-	
 	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost FROM rental_db.fuel_purchases WHERE vehicle_id = " + id)
-	
 	rv = cur.fetchall()
 	
+	#Fuel purchases summary
 	cur.execute("SELECT COUNT(*) as total_fuel_purchases, CAST(SUM(amount) as CHAR) as total_amount, CAST(SUM(cost) as CHAR) as total_cost from (SELECT id, vehicle_id, rental_id, CAST(amount as CHAR) as amount, CAST(cost as CHAR) cost, created, updated FROM rental_db.fuel_purchases WHERE vehicle_id = " + id + ") as fuel_purchases_summary;")
-	
 	rv2 = cur.fetchall()
-		
 	return jsonify(rv, rv2)
+	
+#@app.route('/vehicles/services/<id>', methods=['GET'])
+#def get_services_by_vehicle_id(id):
+#	cur = mysql.connection.cursor()
+#	
+#	cur.execute(" SELECT id, vehicle_id, CAST(odometer as CHAR) as odometer, created, updated FROM rental_db.services WHERE vehicle_id = " + id)
+#	
+#	rv = cur.fetchall()
+#	
+#	return jsonify(rv)
+	
 	
 @app.route('/vehicles/services/<id>', methods=['GET'])
 def get_services_by_vehicle_id(id):
 	cur = mysql.connection.cursor()
-	
-	cur.execute(" SELECT id, vehicle_id, CAST(odometer as CHAR) as odometer, created, updated FROM rental_db.services WHERE vehicle_id = " + id)
-	
-	rv = cur.fetchall()
-	
-	return jsonify(rv)
-	
-	
-@app.route('/vehicles/services2/<id>', methods=['GET'])
-def get_services_by_vehicle_id2(id):
-	cur = mysql.connection.cursor()
-	
 	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(odometer as CHAR) as odometer FROM rental_db.services WHERE vehicle_id = " + id)
-	
 	rv = cur.fetchall()
-	
 	return jsonify(rv)
 	
 	
