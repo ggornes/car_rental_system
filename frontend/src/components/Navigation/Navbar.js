@@ -38,12 +38,7 @@ class NavbarPage extends Component {
                         <MDBNavItem active>
                             <MDBNavLink to={ROUTES.LANDING}>Home</MDBNavLink>
                         </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to={ROUTES.BROWSE}>Browse</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to={ROUTES.DETAILS}>Detail</MDBNavLink>
-                        </MDBNavItem>
+
                         <MDBNavItem>
                             <MDBDropdown>
                                 <MDBDropdownToggle nav caret>
