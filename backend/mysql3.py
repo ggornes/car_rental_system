@@ -390,6 +390,24 @@ def edit_vehicle(id):
 	db.session.commit()
 	return vehicle_schema.jsonify(vehicle)
 	
+	
+	
+# ################################################
+# ######             DELETE Methods
+# ###############################################
+	
+	
+# ################################################
+# ######   Delete vehicle
+# ################################################ 
+	
+@app.route('/vehicles/delete/<id>', methods=['DELETE'])
+def delete_vehicle(id):
+	vehicle = Vehicles.query.get(id)
+	db.session.delete(vehicle)
+	db.session.commit()
+	
+	return vehicle_schema.jsonify(vehicle)
 
 
 # Run server
