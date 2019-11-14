@@ -9,7 +9,19 @@ import datetime
 
 import simplejson
 
+from sqlalchemy import table, column, func
 
+
+# Usefull links:
+# https://blog.miguelgrinberg.com/post/nested-queries-with-sqlalchemy-orm
+# https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
+# https://docs.sqlalchemy.org/en/13/core/sqlelement.html#sqlalchemy.sql.expression.func
+
+
+
+# https://stackoverflow.com/questions/32419455/how-to-sum-count-subqueries-with-sqlalchemy --> count sum etc
+
+# https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
 
 # init app
 app = Flask(__name__)
@@ -124,6 +136,14 @@ class RentalSchema(ma.Schema):
 rental_schema = RentalSchema()
 rentals_schema = RentalSchema(many=True)
 
+class Rental_Summary_Schema(ma.Schema):
+	class Meta:
+		fields = ('id', 'vehicle_id', 'distance', 'rental_type', 'rental_cost')
+
+rentals_summary_schema = Rental_Summary_Schema(many=True)
+
+
+
 
 # ################################################
 # ######     Fuel_Purchase Class / Model
@@ -234,10 +254,15 @@ def get_vehicle(id):
 	
 @app.route('/vehicles/rentals/<id>', methods=['GET'])
 def get_rentals_by_vehicle_id(id):
+
+	# list of rentals
 	rentals = Rentals.query.filter(Rentals.vehicle_id == id).all()
 	print(rentals)
-	return rentals_schema.jsonify(rentals)
+	rentals_list = rentals_schema.jsonify(rentals)
+	#return rentals_schema.jsonify(rentals)
 	
+	return (rentals_list)
+
 	
 #@app.route('/vehicles/rentals/<id>', methods=['GET'])
 #def get_rentals_by_vehicle_id(id):
@@ -251,6 +276,46 @@ def get_rentals_by_vehicle_id(id):
 #	rv2 = cur.fetchall()
 #	return jsonify(rv, rv2)
 	
+
+@app.route('/vehicles/rentals/sum/<id>', methods=['GET'])
+def get_rentals_sum_by_vehicle_id(id):
+
+# ################################################
+# ###### get rentals summary for a vehicle
+# ################################################
+# Needs a review
+# ################################################
+	
+	
+	# rentals summary
+	rentals_summary = db.session.query(Rentals.id, Rentals.vehicle_id, (Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).all()
+
+	
+	rentals_count = 0
+	rentals_distance = 0
+	rentals_cost = 0
+	
+	for rental in rentals_summary:
+		rentals_count += 1
+		rentals_distance += rental.distance
+		rentals_cost += rental.rental_cost
+	
+	print(rentals_count)
+	print(rentals_distance)
+	print(rentals_cost)
+	
+	# return_summary = [rentals_count, rentals_distance, rentals_cost]
+	
+	rentals_summary = {"total_rentals": rentals_count, "total_distance": rentals_distance, "total_cost": rentals_cost}
+	
+	#return return_summary2
+	
+	#return rentals_summary_schema.jsonify(rentals_summary)
+	
+	# ##################################################################################################################################################################
+	
+	return (rentals_summary)
+
 	
 
 # ################################################

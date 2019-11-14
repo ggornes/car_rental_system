@@ -65,7 +65,8 @@ class Details extends Component {
 
             rentals_summary: [{
                 total_rentals: '2',
-                total_distance: '444'
+                total_distance: '444',
+                total_cost: ''
             }],
 
             services: [{
@@ -124,6 +125,7 @@ class Details extends Component {
         const API2 = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
         const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
         const API4 = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
+        const API5 = 'http://127.0.0.1:5000/vehicles/rentals/sum/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
 
 
@@ -151,13 +153,14 @@ class Details extends Component {
             fetch(API),
             fetch(API2),
             fetch(API3),
-            fetch(API4)
+            fetch(API4),
+            fetch(API5)
         ])
-            .then(([res1, res2, res3, res4]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json()]))
-            .then(([data1, data2, data3, data4]) => this.setState({
-                vehicle: data1[0], // data[0] if using flask app 2.2, data if is 3.0
-                rentals: data2[0],
-                rentals_summary: data2[1],
+            .then(([res1, res2, res3, res4, res5]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json()]))
+            .then(([data1, data2, data3, data4, data5]) => this.setState({
+                vehicle: data1[0], // data[0] if using flask app 2.2, data if is 3.0 -> fixed. always data1[0]
+                rentals: data2, // data2[0] if using app 2.2, data2 if using 3.0 Reason is: v2.2 returns two arrays inside an array. v3.0 use two different api endpoints
+                rentals_summary: data5,
                 fuel_purchases: data3[0],
                 fuel_purchases_summary: data3[1],
                 services: data4
@@ -203,8 +206,8 @@ class Details extends Component {
                                     <p></p>
                                     <ul>
                                         <li><strong>Registration Number: </strong>{this.state.vehicle.registration}</li>
-                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</li>
-                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary[0].total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</li>
+                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</li>
+                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</li>
                                         <li><strong>Total Services: </strong></li>
 
                                     </ul>
@@ -225,9 +228,9 @@ class Details extends Component {
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="rentals">
                                     <h4>Rentals</h4>
-                                    <p><strong>Total Rentals: </strong>{this.state.rentals_summary[0].total_rentals}</p>
-                                    <p><strong>Distance Travelled: </strong>{this.state.rentals_summary[0].total_distance} Km</p>
-                                    <p><strong>Revenue Recorded: </strong>${this.state.rentals_summary[0].total_cost}</p>
+                                    <p><strong>Total Rentals: </strong>{this.state.rentals_summary.total_rentals}</p>
+                                    <p><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</p>
+                                    <p><strong>Revenue Recorded: </strong>${this.state.rentals_summary.total_cost}</p>
                                     <RentalModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</RentalModal>
                                     <h4>History</h4>
                                     <RentalsTable
