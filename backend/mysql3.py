@@ -122,6 +122,7 @@ class RentalSchema(ma.Schema):
 		
 # init schema
 rental_schema = RentalSchema()
+rentals_schema = RentalSchema(many=True)
 
 
 # ################################################
@@ -218,10 +219,11 @@ def get_all_vehicles():
 
 @app.route('/vehicles/show/<id>', methods=['GET'])
 def get_vehicle(id):
-	vehicle = Vehicles.query.get(id)
-	#result = vehicles_schema.dump(vehicle)
-	#return jsonify(result)
-	return (vehicle_schema.jsonify(vehicle)) # Note: returns a single object 
+	#vehicle = Vehicles.query.get(id)
+	#return (vehicle_schema.jsonify(vehicle)) # Note: returns a single object 
+	
+	vehicle = Vehicles.query.filter(Vehicles.id == id).all()
+	return vehicles_schema.jsonify(vehicle) # Note: returns an array of objects
 	
 	
 # ################################################
@@ -230,24 +232,24 @@ def get_vehicle(id):
 # Needs a review
 # ################################################
 	
-#@app.route('/vehicles/rentals/<id>', methods=['GET'])
-#def get_rentals_by_vehicle_id(id):
-#	rentals = Rentals.query(Vehicles, Rentals).join(Rentals).get(id)
-#	print(rentals)
-#	return rental_schema.jsonify(rentals)
-	
-	
 @app.route('/vehicles/rentals/<id>', methods=['GET'])
 def get_rentals_by_vehicle_id(id):
+	rentals = Rentals.query.filter(Rentals.vehicle_id == id).all()
+	print(rentals)
+	return rentals_schema.jsonify(rentals)
+	
+	
+#@app.route('/vehicles/rentals/<id>', methods=['GET'])
+#def get_rentals_by_vehicle_id(id):
 	# rentals list
-	cur = mysql.connection.cursor()
-	cur.execute(" SELECT date_format(date_start, '%Y-%m-%d') as date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_format(date_end, '%Y-%m-%d') as date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
-	rv = cur.fetchall()
+#	cur = mysql.connection.cursor()
+#	cur.execute(" SELECT date_format(date_start, '%Y-%m-%d') as date_start, CAST((odometer_end - odometer_start) as CHAR) distance, date_format(date_end, '%Y-%m-%d') as date_end, rental_type, CAST(IF(rental_type='D', 100, odometer_end - odometer_start) as CHAR) as rental_cost from rentals where vehicle_id = " + id)
+#	rv = cur.fetchall()
 	
 	#rentals summary
-	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance, CAST(SUM(rental_cost) as CHAR) as total_cost FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, IF(rental_type='D', 100, odometer_end - odometer_start) as rental_cost, created updated FROM rentals WHERE vehicle_id = " + id + ") as rentals_summary")
-	rv2 = cur.fetchall()
-	return jsonify(rv, rv2)
+#	cur.execute("SELECT COUNT(*) as total_rentals, CAST(SUM(distance) as CHAR) as total_distance, CAST(SUM(rental_cost) as CHAR) as total_cost FROM (SELECT id, vehicle_id, CAST(odometer_start as CHAR) as odometer_start, CAST(odometer_end as CHAR) odometer_end, (odometer_end - odometer_start) as distance, date_start, date_end, rental_type, IF(rental_type='D', 100, odometer_end - odometer_start) as rental_cost, created updated FROM rentals WHERE vehicle_id = " + id + ") as rentals_summary")
+#	rv2 = cur.fetchall()
+#	return jsonify(rv, rv2)
 	
 	
 
@@ -260,7 +262,7 @@ def get_rentals_by_vehicle_id(id):
 @app.route('/vehicles/services/<id>', methods=['GET'])
 def get_services_by_vehicle_id(id):
 	cur = mysql.connection.cursor()
-	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(odometer as CHAR) as odometer FROM services WHERE vehicle_id = " + id)
+	cur.execute(" SELECT date_format(serviced_at, '%Y-%m-%d') as serviced_at, CAST(odometer as CHAR) as odometer FROM services WHERE vehicle_id = " + id)
 	rv = cur.fetchall()
 	return jsonify(rv)
 

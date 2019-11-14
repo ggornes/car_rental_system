@@ -113,9 +113,16 @@ def get_fuel_purchases_by_vehicle_id(id):
 	
 @app.route('/vehicles/services/<id>', methods=['GET'])
 def get_services_by_vehicle_id(id):
+	# Services list
 	cur = mysql.connection.cursor()
-	cur.execute(" SELECT date_format(created, '%Y-%m-%d') as created, CAST(odometer as CHAR) as odometer FROM rental_db.services WHERE vehicle_id = " + id)
+	cur.execute(" SELECT date_format(serviced_at, '%Y-%m-%d') as serviced_at, CAST(odometer as CHAR) as odometer FROM rental_db.services WHERE vehicle_id = " + id)
 	rv = cur.fetchall()
+	
+	# Services summary
+	cur.execute()
+	
+	
+	
 	return jsonify(rv)
 	
 	
