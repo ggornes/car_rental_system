@@ -190,6 +190,20 @@ def add_fuel_purchase():
 	return jsonify({"result": result})
 	
 	
+
+@app.route('/vehicles/services/add', methods=['POST'])
+def add_service():
+	cur = mysql.connection.cursor()
+	vehicle_id = request.get_json()['vehicle_id']
+	odometer = request.get_json()['odometer']
+	serviced_at = request.get_json()['serviced_at']
+	
+	cur.execute("INSERT INTO `services`(`vehicle_id`, `odometer`, `serviced_at`) VALUES ('" + str(vehicle_id) + "', '" + str(odometer) + "', '" + str(serviced_at) + "')")
+	mysql.connection.commit()
+	result = {'vehicle_id': vehicle_id, 'odometer': odometer, 'serviced_at': serviced_at}
+	
+	return jsonify({"result": result})
+	
 	
 @app.route('/vehicles/addd', methods=['POST'])
 def addd_vehicle():
