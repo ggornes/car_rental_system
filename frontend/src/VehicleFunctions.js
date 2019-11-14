@@ -95,6 +95,21 @@ export const addFuelPurchase = term => {
         })
 };
 
+export const addService = term => {
+    return axios
+        .post(
+            'http://localhost:5000/vehicles/services/add', {
+                vehicle_id: term.vehicle_id,
+                odometer: term.odometer,
+                serviced_at: term.serviced_at
+            }, {
+                headers: {"Content-type": "application/json"}
+            })
+        .then((res) => {
+            console.log(res)
+            })
+};
+
 export const deleteItem = term => {
     axios
         .delete(

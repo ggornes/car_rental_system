@@ -18,6 +18,7 @@ import RentalModal from "../Modal/RentalModal";
 import {faTable} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import FuelModal from "../Modal/FuelModal";
+import ServicesModal from "../Modal/ServicesModal";
 
 
 
@@ -298,6 +299,7 @@ class Details extends Component {
                                         rows={this.state.fuel_purchases}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="services">
+                                    <ServicesModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</ServicesModal>
                                     <h4>Service History</h4>
                                     <RentalsTable rows={[this.state.vehicle]}
                                                   columns={
