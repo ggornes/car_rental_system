@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
+import RentalForm from "../../Forms/RentalForm";
+import FuelPurchaseForm from "../../Forms/FuelPurchaseForm";
 
 class FuelModal extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            show: false
+            modal14: false,
 
         };
 
-        const Modal = ({ handleClose, show, children }) => {
-            const showHideClassName = show ? "modal display-block" : "modal display-none";
-        }
+    };
+
+    toggle = nr => () => {
+        let modalNumber = 'modal' + nr;
+        this.setState({
+            [modalNumber]: !this.state[modalNumber]
+        });
     };
 
 
@@ -19,9 +26,21 @@ class FuelModal extends Component {
 
     render(){
         return(
-            <div>
+            <MDBContainer>
+                <MDBBtn color="primary" onClick={this.toggle(14)}>Add a fuel purchase</MDBBtn>
+                <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+                    <MDBModalHeader toggle={this.toggle(14)}>Add new fuel purchase</MDBModalHeader>
+                    <MDBModalBody>
+                        <p>Please enter journey details</p>
+                        <FuelPurchaseForm vehicleId={this.props.vehicleId}/>
 
-            </div>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color="secondary" onClick={this.toggle(14)}>Close</MDBBtn>
+                        <MDBBtn form="newFuelPurchaseForm" type="submit" color="primary">Save changes</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
+            </MDBContainer>
         )
     }
 

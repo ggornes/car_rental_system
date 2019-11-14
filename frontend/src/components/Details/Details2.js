@@ -17,6 +17,7 @@ import RentalsTable from "../Dashboard/RentalsTable";
 import RentalModal from "../Modal/RentalModal";
 import {faTable} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import FuelModal from "../Modal/FuelModal";
 
 
 
@@ -269,7 +270,7 @@ class Details extends Component {
                                     <h4>Fuel Purchases</h4>
                                     <p><strong>Total Amount (Liters): </strong>{this.state.fuel_purchases_summary[0].total_amount} L</p>
                                     <p><strong>Total Price: </strong>$ {this.state.fuel_purchases_summary[0].total_cost}</p>
-                                    <MDBBtn onClick={this.showModal2}>Add New</MDBBtn>
+                                    <FuelModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</FuelModal>
                                     <h4>History</h4>
                                     <RentalsTable rows={[this.state.vehicle]}
                                         columns={

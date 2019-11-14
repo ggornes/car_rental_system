@@ -78,6 +78,23 @@ export const addNewRental = term => {
       })
 };
 
+
+export const addFuelPurchase = term => {
+    return axios
+        .post(
+            'http://localhost:5000/vehicles/fuel_purchase/add', {
+                vehicle_id: term.vehicle_id,
+                rental_id: term.rental_id,
+                amount: term.amount,
+                cost: term.cost
+            }, {
+                headers: {"Content-type": "application/json"}
+            })
+        .then((res) => {
+            console.log(res)
+        })
+};
+
 export const deleteItem = term => {
     axios
         .delete(
