@@ -137,13 +137,13 @@ class Fuel_purchases(db.Model):
 	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
 	
-	def __init__(self, vehicle_id, rental_id, amount, cost, created, updated):
+	def __init__(self, vehicle_id, rental_id, amount, cost):
 		self.vehicle_id = vehicle_id
 		self.rental_id = rental_id
 		self.amount = amount
 		self.cost = cost
-		self.created = created
-		self.updated = updated
+		#self.created = created
+		#self.updated = updated
 		
 class Fuel_PurchaseSchema(ma.Schema):
 	class Meta:
@@ -165,12 +165,12 @@ class Services(db.Model):
 	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 	updated = db.Column(DATETIME, server_default=text('NULL ON UPDATE CURRENT_TIMESTAMP'))
 	
-	def __init__(self, vehicle_id, odometer, serviced_at, created, updated):
+	def __init__(self, vehicle_id, odometer, serviced_at):
 		self.vehicle_id = vehicle_id
 		self.odometer = odometer
 		self.serviced_at = serviced_at
-		self.created = created
-		self.updated = updated
+		# self.created = created
+		# self.updated = updated
 
 class ServicesSchema(ma.Schema):
 	class Meta:
@@ -294,7 +294,7 @@ def get_fuel_purchases_by_vehicle_id(id):
 	
 	
 # ################################################
-# ###### add a vehicle to the database
+# ## 1 ## add a vehicle to the database
 # ################################################ 	
 
 
@@ -325,7 +325,7 @@ def add_vehicle():
 
 	
 # ################################################
-# ###### add a rental to avehicle into the database
+# ## 2 ## add a rental to avehicle into the database
 # ################################################ 	
 
 @app.route('/vehicles/rentals/add', methods=['POST'])
@@ -356,6 +356,49 @@ def add_vehicle_rental():
 	# Return success message
 	
 	return rental_schema.jsonify(new_rental)
+	
+	
+	
+# ################################################
+# ## 3 ## add a service to a vehicle
+# ################################################ 	
+
+@app.route('/vehicles/services/add', methods=['POST'])
+def add_service():
+# get data from request
+	vehicle_id = request.get_json()['vehicle_id']
+	odometer = request.get_json()['odometer']
+	serviced_at = request.get_json()['serviced_at']
+	
+# instantiate the vehicle object
+	new_service = Services(vehicle_id, odometer, serviced_at)
+	
+	db.session.add(new_service)
+	db.session.commit()
+	
+	return services_schema.jsonify(new_service)
+	
+	
+# ################################################
+# ## 4 ## add a fuel purchase to a vehicle
+# ################################################ 
+	
+@app.route('/vehicles/fuel_purchase/add', methods=['POST'])
+def add_fuel_purchase():
+# get data from request
+
+	vehicle_id = request.get_json()['vehicle_id']
+	rental_id = request.get_json()['rental_id']
+	amount = request.get_json()['amount']
+	cost = request.get_json()['cost']
+	
+# instantiate the vehicle object
+	new_fuel_purchase = Fuel_purchases(vehicle_id, rental_id, amount, cost)
+	
+	db.session.add(new_fuel_purchase)
+	db.session.commit()
+	
+	return fuel_purchases_schema.jsonify(new_fuel_purchase)
 	
 	
 # ################################################
