@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {updateItem} from "../VehicleFunctions";
 import {MDBBtn} from "mdbreact";
+import {Redirect} from "react-router-dom";
 
 class VehicleForm extends Component {
 
@@ -17,7 +18,8 @@ class VehicleForm extends Component {
                 fuel: this.props.item.fuel,
                 tank_size: this.props.item.tank_size,
                 initials: this.props.item.initials,
-            }
+            },
+            toBrowse: false,
         };
 
     }
@@ -47,17 +49,25 @@ class VehicleForm extends Component {
             //this.getAll()
             // redirect
             // show success or error message
+            this.setState({toBrowse : true});
+            //this.props.history.push(`/browse`);
+
         })
 
 
     };
 
-    onCancel = (e) => {
-        // this.props.history.push("/browse");
+    onCancel = () => {
+        console.log(this.props);
+        //this.props.history.push(`/browse`);
+        this.setState({toBrowse : true});
     };
 
 
     render() {
+        if (this.state.toBrowse === true) {
+            return <Redirect to='/browse' />
+        }
         return (
             <form onSubmit={this.onSubmit}>
 
