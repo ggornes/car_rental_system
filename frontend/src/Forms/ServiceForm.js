@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {addFuelPurchase, addNewRental, addService} from "../VehicleFunctions";
+import {Redirect} from "react-router-dom";
 
 class FuelPurchaseForm extends Component {
 
@@ -11,9 +12,12 @@ class FuelPurchaseForm extends Component {
                 vehicle_id: this.props.vehicleId,
                 odometer: '',
                 serviced_at: ''
-            }
+            },
+            toDetails: false,
         };
     }
+
+
 
     onChange = (e) => {
 
@@ -39,6 +43,9 @@ class FuelPurchaseForm extends Component {
     };
 
     render() {
+        if (this.state.toDetails === true) {
+            return <Redirect to={`/details2/${this.props.vehicleId}`} />
+        }
         return(
 
             <form id="newServiceForm" onSubmit={this.onSubmit}>

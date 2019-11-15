@@ -32,10 +32,7 @@ class Details extends Component {
 
             // MDB modal
             showModal: false,
-            show: false,
 
-            // show table
-            showTable: false,
 
             vehicleId: '',
             vehicle: {
