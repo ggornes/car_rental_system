@@ -72,6 +72,7 @@ class Details extends Component {
             services: [{
 
             }],
+            services_summary: {},
 
             fuel_purchases: [
                 {
@@ -94,23 +95,7 @@ class Details extends Component {
         };
     };
 
-    showModal2 = () => {
-        this.setState({ show: true });
-    };
 
-    hideModal = () => {
-        this.setState({ show: false });
-    };
-
-    handleShowTable = () => {
-        if (this.state.showTable === false) {
-            this.setState({ showTable: true });
-            console.log("show table is now true")
-        } else{
-            this.setState({ showTable: false });
-            console.log("show table is now false")
-        }
-    };
 
     componentDidMount() {
 
@@ -126,6 +111,8 @@ class Details extends Component {
         const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
         const API4 = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
         const API5 = 'http://127.0.0.1:5000/vehicles/rentals/sum/' + `${vehicleId}`;
+        const API6 = 'http://127.0.0.1:5000/vehicles/services/sum/' + `${vehicleId}`;
+        const API7 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/sum/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
 
 
@@ -154,16 +141,19 @@ class Details extends Component {
             fetch(API2),
             fetch(API3),
             fetch(API4),
-            fetch(API5)
+            fetch(API5),
+            fetch(API6),
+            fetch(API7)
         ])
-            .then(([res1, res2, res3, res4, res5]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json()]))
-            .then(([data1, data2, data3, data4, data5]) => this.setState({
+            .then(([res1, res2, res3, res4, res5, res6, res7]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json(), res6.json(), res7.json()]))
+            .then(([data1, data2, data3, data4, data5, data6, data7]) => this.setState({
                 vehicle: data1[0], // data[0] if using flask app 2.2, data if is 3.0 -> fixed. always data1[0]
                 rentals: data2, // data2[0] if using app 2.2, data2 if using 3.0 Reason is: v2.2 returns two arrays inside an array. v3.0 use two different api endpoints
                 rentals_summary: data5,
-                fuel_purchases: data3[0],
-                fuel_purchases_summary: data3[1],
-                services: data4
+                fuel_purchases: data3,
+                fuel_purchases_summary: data7,
+                services: data4,
+                services_summary: data6
 
             }));
 
@@ -202,25 +192,68 @@ class Details extends Component {
                         <Col sm={9}>
                             <Tab.Content>
                                 <Tab.Pane eventKey="details">
-                                    <h4>Vehicle Details</h4>
-                                    <p></p>
-                                    <ul>
-                                        <li><strong>Registration Number: </strong>{this.state.vehicle.registration}</li>
-                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</li>
-                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary[0].total_amount} Km/L</li>
-                                        <li><strong>Total Services: </strong></li>
 
-                                    </ul>
+
                                     <MDBContainer>
                                         <MDBRow>
+
                                             <MDBCol>
+                                                <MDBRow><h4>Vehicle Details</h4></MDBRow>
+                                                <MDBRow>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>id</td>
+                                                                <td>{this.state.vehicle.id}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Make</td>
+                                                                <td>{this.state.vehicle.make}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Model</td>
+                                                                <td>{this.state.vehicle.model}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Release Year</td>
+                                                                <td>{this.state.vehicle.release_year}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Registration</td>
+                                                                <td>{this.state.vehicle.registration}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fuel Type</td>
+                                                                <td>{this.state.vehicle.fuel}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tank Size</td>
+                                                                <td>{this.state.vehicle.tank_size}</td>
+                                                            </tr>
+                                                        </tbody>
 
-                                                <MDBIcon icon="table" size="2x" onClick={this.handleShowTable}/>
-
+                                                    </table>
+                                                </MDBRow>
                                             </MDBCol>
+
+
+
+                                            <MDBCol>
+                                                <MDBRow>
+                                                    <h4>Summary</h4>
+                                                </MDBRow>
+                                                <MDBRow>
+                                                    <ul>
+                                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</li>
+                                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary.total_amount} Km/L</li>
+                                                        <li><strong>Total Services: </strong> {this.state.services_summary.total_services}</li>
+                                                    </ul>
+                                                </MDBRow>
+                                            </MDBCol>
+                                            <MDBCol></MDBCol>
+
                                         </MDBRow>
 
-                                        { this.state.showTable ? <DetailsTable rows={[this.state.vehicle]} /> : null }
                                     </MDBContainer>
 
 
@@ -272,8 +305,8 @@ class Details extends Component {
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="fuel_purchases">
                                     <h4>Fuel Purchases</h4>
-                                    <p><strong>Total Amount (Liters): </strong>{this.state.fuel_purchases_summary[0].total_amount} L</p>
-                                    <p><strong>Total Price: </strong>$ {this.state.fuel_purchases_summary[0].total_cost}</p>
+                                    <p><strong>Total Amount (Liters): </strong>{this.state.fuel_purchases_summary.total_amount} L</p>
+                                    <p><strong>Total Price: </strong>$ {this.state.fuel_purchases_summary.total_cost}</p>
                                     <FuelModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</FuelModal>
                                     <h4>History</h4>
                                     <RentalsTable rows={[this.state.vehicle]}
