@@ -50,7 +50,9 @@ class Add extends Component {
             //this.getAll()
             // redirect
             // show success or error message
+            this.props.history.push(`/browse`);
         })
+
 
 
     };
@@ -70,6 +72,11 @@ class Add extends Component {
         this.setState(state);
 
 
+    };
+
+    onCancel = () => {
+        //console.log(this.props)
+        this.props.history.push(`/browse`);
     };
 
     render() {
@@ -122,6 +129,7 @@ class Add extends Component {
                                 <div className="form-row">
                                     <MDBBtn type="submit" gradient="aqua">Save</MDBBtn>
                                     <MDBBtn onClick={this.onClear} gradient="peach">Clear</MDBBtn>
+                                    <MDBBtn onClick={this.onCancel} gradient="rare-wind">Cancel</MDBBtn>
                                 </div>
 
                             </form>

@@ -119,7 +119,7 @@ def get_services_by_vehicle_id(id):
 	rv = cur.fetchall()
 	
 	# Services summary
-	cur.execute()
+	#cur.execute()
 	
 	
 	
