@@ -102,14 +102,13 @@ class Details extends Component {
         const vehicleId = myid;
         this.setState({vehicleId : myid});
 
-        // const API = 'http://127.0.0.1:5000/vehicles/show/17';
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
-        const API2 = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
-        const API3 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
-        const API4 = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
-        const API5 = 'http://127.0.0.1:5000/vehicles/rentals/sum/' + `${vehicleId}`;
-        const API6 = 'http://127.0.0.1:5000/vehicles/services/sum/' + `${vehicleId}`;
-        const API7 = 'http://127.0.0.1:5000/vehicles/fuel_purchases/sum/' + `${vehicleId}`;
+        const API_rentals = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
+        const API_fuelPurchases = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
+        const API_services = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
+        const API_rentals_sum = 'http://127.0.0.1:5000/vehicles/rentals/sum/' + `${vehicleId}`;
+        const API_services_sum = 'http://127.0.0.1:5000/vehicles/services/sum/' + `${vehicleId}`;
+        const API_fuelPurchases_sum = 'http://127.0.0.1:5000/vehicles/fuel_purchases/sum/' + `${vehicleId}`;
         const DEFAULT_QUERY = ''; //tofix
 
 
@@ -135,22 +134,23 @@ class Details extends Component {
 
         Promise.all([
             fetch(API),
-            fetch(API2),
-            fetch(API3),
-            fetch(API4),
-            fetch(API5),
-            fetch(API6),
-            fetch(API7)
+            fetch(API_rentals),
+            fetch(API_fuelPurchases),
+            fetch(API_services),
+            fetch(API_rentals_sum),
+            fetch(API_services_sum),
+            fetch(API_fuelPurchases_sum)
         ])
-            .then(([res1, res2, res3, res4, res5, res6, res7]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json(), res6.json(), res7.json()]))
-            .then(([data1, data2, data3, data4, data5, data6, data7]) => this.setState({
-                vehicle: data1[0], // data[0] if using flask app 2.2, data if is 3.0 -> fixed. always data1[0]
-                rentals: data2, // data2[0] if using app 2.2, data2 if using 3.0 Reason is: v2.2 returns two arrays inside an array. v3.0 use two different api endpoints
-                rentals_summary: data5,
-                fuel_purchases: data3,
-                fuel_purchases_summary: data7,
-                services: data4,
-                services_summary: data6
+            .then((
+                [res1, res_API_rentals, res_API_fuelPurchases, res_API_services, res_API_rentals_sum, res_API_services_sum, res_API_fuelPurchases_sum]) => Promise.all([res1.json(), res_API_rentals.json(), res_API_fuelPurchases.json(), res_API_services.json(), res_API_rentals_sum.json(), res_API_services_sum.json(), res_API_fuelPurchases_sum.json()]))
+            .then(([data1, data_API_rentals, data_API_fuelPurchases, data_API_services, data_API_rentals_sum, data_API_services_sum, data_API_fuelPurchases_sum]) => this.setState({
+                vehicle: data1[0],
+                rentals: data_API_rentals,
+                rentals_summary: data_API_rentals_sum,
+                fuel_purchases: data_API_fuelPurchases,
+                fuel_purchases_summary: data_API_fuelPurchases_sum,
+                services: data_API_services,
+                services_summary: data_API_services_sum
 
             }));
 
