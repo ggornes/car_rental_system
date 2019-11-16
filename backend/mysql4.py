@@ -130,11 +130,21 @@ class Rentals(db.Model):
 # Rental Schema
 class RentalSchema(ma.Schema):
 	class Meta:
+		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		
 # init schema
 rental_schema = RentalSchema()
 rentals_schema = RentalSchema(many=True)
+
+class RentalSchema_less(ma.Schema):
+	class Meta:
+		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
+		fields = ('date_start', 'distance', 'date_end', 'rental_type', 'rental_cost')
+		
+# init schema
+rental_schema_less = RentalSchema_less()
+rentals_schema_less = RentalSchema_less(many=True)
 
 class Rental_Summary_Schema(ma.Schema):
 	class Meta:
@@ -259,9 +269,9 @@ def get_vehicle(id):
 def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
-	rentals = Rentals.query.filter(Rentals.vehicle_id == id).all()
+	rentals = db.session.query(Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).all()
 	print(rentals)
-	rentals_list = rentals_schema.jsonify(rentals)
+	rentals_list = rentals_schema_less.jsonify(rentals)
 	#return rentals_schema.jsonify(rentals)
 	
 	return (rentals_list)
