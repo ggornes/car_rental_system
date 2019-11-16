@@ -9,7 +9,7 @@ import datetime
 
 import simplejson
 
-from sqlalchemy import table, column, func
+from sqlalchemy import table, column, func, desc
 
 
 # Usefull links:
@@ -269,7 +269,7 @@ def get_vehicle(id):
 def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
-	rentals = db.session.query(Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).all()
+	rentals = db.session.query(Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
 	print(rentals)
 	rentals_list = rentals_schema_less.jsonify(rentals)
 	#return rentals_schema.jsonify(rentals)
@@ -320,7 +320,7 @@ def get_rentals_sum_by_vehicle_id(id):
 	
 @app.route('/vehicles/services/<id>', methods=['GET'])
 def get_services_by_vehicle_id(id):
-	services = Services.query.filter(Services.vehicle_id == id).all()
+	services = Services.query.filter(Services.vehicle_id == id).order_by(desc(Services.serviced_at)).all()
 	services_list = services_schema.jsonify(services)
 	return (services_list)
 
@@ -353,7 +353,7 @@ def get_services_sum_by_vehicle_id(id):
 @app.route('/vehicles/fuel_purchases/<id>', methods=['GET'])
 def get_fuel_purchases_by_vehicle_id(id):
 
-	fuel_purchases = Fuel_purchases.query.filter(Fuel_purchases.vehicle_id == id).all()
+	fuel_purchases = Fuel_purchases.query.filter(Fuel_purchases.vehicle_id == id).order_by(desc(Fuel_purchases.created)).all()
 	fuel_purchases_list = fuel_purchases_schema.jsonify(fuel_purchases)
 	return fuel_purchases_list
 	

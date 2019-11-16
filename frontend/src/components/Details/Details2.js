@@ -280,11 +280,40 @@ class Details extends Component {
 
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="rentals">
-                                    <h4>Rentals</h4>
-                                    <p><strong>Total Rentals: </strong>{this.state.rentals_summary.total_rentals}</p>
-                                    <p><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</p>
-                                    <p><strong>Revenue Recorded: </strong>${this.state.rentals_summary.total_cost}</p>
+                                    <h3>Rentals</h3>
                                     <RentalModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</RentalModal>
+                                    <h4>Summary</h4>
+
+                                    <table className="tg">
+                                        <tbody>
+                                        <tr>
+                                            <th>Total Rentals:</th>
+                                            <td>
+                                                {this.state.rentals_summary.total_rentals}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Distance Travelled: </th>
+                                            <td>
+                                                {new Intl.NumberFormat('en-AU', {
+                                                    style: 'unit',
+                                                    unit: 'kilometer'
+                                                }).format(this.state.rentals_summary.total_distance)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Revenue Recorded: </th>
+                                            <td>
+                                                {new Intl.NumberFormat('en-AU', {
+                                                    style: 'currency',
+                                                    currency: 'AUD'
+                                                }).format(this.state.rentals_summary.total_cost)}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
                                     <h4>History</h4>
                                     <RentalsTable
                                         columns={
@@ -324,10 +353,42 @@ class Details extends Component {
                                         rows={this.state.rentals}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="fuel_purchases">
-                                    <h4>Fuel Purchases</h4>
-                                    <p><strong>Total Amount (Liters): </strong>{this.state.fuel_purchases_summary.total_amount} L</p>
-                                    <p><strong>Total Price: </strong>$ {this.state.fuel_purchases_summary.total_cost}</p>
+                                    <h3>Fuel Purchases</h3>
                                     <FuelModal open={this.state.showModal} vehicleId={this.state.vehicleId}>...</FuelModal>
+                                    <h4>Summary</h4>
+
+                                    <table className="tg">
+                                        <tbody>
+                                        <tr>
+                                            <th>Total Amount:</th>
+                                            <td>
+                                                {new Intl.NumberFormat('en-AU', {
+                                                    style: 'unit',
+                                                    unit: 'liter'
+                                                }).format(this.state.fuel_purchases_summary.total_amount)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Price: </th>
+                                            <td>
+                                                {new Intl.NumberFormat('en-AU', {
+                                                    style: 'currency',
+                                                    currency: 'AUD'
+                                                }).format(this.state.fuel_purchases_summary.total_cost)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fuel Economy: </th>
+                                            <td>{new Intl.NumberFormat('en-AU', {
+                                                style: 'unit',
+                                                unit: 'kilometer-per-liter'
+                                            }).format(this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary.total_amount)}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
                                     <h4>History</h4>
                                     <RentalsTable rows={[this.state.vehicle]}
                                         columns={
