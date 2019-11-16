@@ -90,6 +90,7 @@ class Vehicles(db.Model):
 # Vehicles2 Schema
 class VehicleSchema(ma.Schema):
 	class Meta:
+		ordered = True
 		fields = ('id', 'make', 'model', 'release_year', 'registration', 'fuel', 'tank_size', 'initials', 'created', 'updated')
 		
 # init schema
@@ -130,6 +131,7 @@ class Rentals(db.Model):
 # Rental Schema
 class RentalSchema(ma.Schema):
 	class Meta:
+		ordered = True
 		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		
@@ -139,6 +141,7 @@ rentals_schema = RentalSchema(many=True)
 
 class RentalSchema_less(ma.Schema):
 	class Meta:
+		ordered = True
 		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		fields = ('date_start', 'distance', 'date_end', 'rental_type', 'rental_cost')
 		
@@ -148,6 +151,7 @@ rentals_schema_less = RentalSchema_less(many=True)
 
 class Rental_Summary_Schema(ma.Schema):
 	class Meta:
+		ordered = True
 		fields = ('id', 'vehicle_id', 'distance', 'rental_type', 'rental_cost')
 
 rentals_summary_schema = Rental_Summary_Schema(many=True)
@@ -178,8 +182,9 @@ class Fuel_purchases(db.Model):
 		
 class Fuel_PurchaseSchema(ma.Schema):
 	class Meta:
+		ordered = True
 		#fields = ('id', 'vehicle_id', 'rental_id', 'amount', 'cost', 'created', 'updated')
-		fields = ('amount', 'cost', 'created')
+		fields = ('created', 'amount', 'cost')
 
 #init schema
 fuel_purchase_schema = Fuel_PurchaseSchema()
@@ -207,8 +212,9 @@ class Services(db.Model):
 
 class ServicesSchema(ma.Schema):
 	class Meta:
+		ordered = True
 		#fields = ('id', 'vehicle_id', 'odometer', 'serviced_at', 'created', 'updated')
-		fields = ('odometer', 'serviced_at')
+		fields = ('serviced_at', 'odometer')
 #init schema
 service_schema = ServicesSchema()
 services_schema = ServicesSchema(many=True)
