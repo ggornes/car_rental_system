@@ -171,9 +171,9 @@ class Details extends Component {
                 <Tab.Container id="left-tabs-example" defaultActiveKey="details">
                     <Row>
                         <Col sm={3}>
-                            <Nav variant="pills" className="flex-column">
+                            <Nav variant="pills" className="flex-column" >
                                 <Nav.Item>
-                                    <Nav.Link eventKey="details">Details</Nav.Link>
+                                    <Nav.Link eventKey="details" >Details</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link eventKey="rentals">Rentals</Nav.Link>
@@ -197,34 +197,34 @@ class Details extends Component {
                                             <MDBCol>
                                                 <MDBRow><h4>Vehicle Details</h4></MDBRow>
                                                 <MDBRow>
-                                                    <table>
+                                                    <table className="tg">
                                                         <tbody>
                                                             <tr>
-                                                                <td>id</td>
+                                                                <th>id</th>
                                                                 <td>{this.state.vehicle.id}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Make</td>
+                                                                <th>Make</th>
                                                                 <td>{this.state.vehicle.make}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Model</td>
+                                                                <th>Model</th>
                                                                 <td>{this.state.vehicle.model}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Release Year</td>
+                                                                <th>Release Year</th>
                                                                 <td>{this.state.vehicle.release_year}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Registration</td>
+                                                                <th>Registration</th>
                                                                 <td>{this.state.vehicle.registration}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Fuel Type</td>
+                                                                <th>Fuel Type</th>
                                                                 <td>{this.state.vehicle.fuel}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Tank Size</td>
+                                                                <th>Tank Size</th>
                                                                 <td>{this.state.vehicle.tank_size}</td>
                                                             </tr>
                                                         </tbody>
@@ -240,11 +240,34 @@ class Details extends Component {
                                                     <h4>Summary</h4>
                                                 </MDBRow>
                                                 <MDBRow>
-                                                    <ul>
-                                                        <li><strong>Distance Travelled: </strong>{this.state.rentals_summary.total_distance} Km</li>
-                                                        <li><strong>Fuel Economy: </strong>{this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary.total_amount} Km/L</li>
-                                                        <li><strong>Total Services: </strong> {this.state.services_summary.total_services}</li>
-                                                    </ul>
+
+                                                    <table className="tg">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Distance Travelled:</th>
+                                                                <td>
+                                                                    {new Intl.NumberFormat('en-AU', {
+                                                                        style: 'unit',
+                                                                        unit: 'kilometer'
+                                                                    }).format(this.state.rentals_summary.total_distance)}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Fuel Economy: </th>
+                                                                <td>
+                                                                    {new Intl.NumberFormat('en-AU', {
+                                                                        style: 'unit',
+                                                                        unit: 'kilometer-per-liter'
+                                                                    }).format(this.state.rentals_summary.total_distance/this.state.fuel_purchases_summary.total_amount)}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Total Services: </th>
+                                                                <td>{this.state.services_summary.total_services}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
                                                 </MDBRow>
                                             </MDBCol>
                                             <MDBCol></MDBCol>
