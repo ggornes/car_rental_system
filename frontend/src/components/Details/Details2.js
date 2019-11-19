@@ -190,13 +190,13 @@ class Details extends Component {
                                     <Nav.Link eventKey="details" >Details</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="rentals">Rentals</Nav.Link>
+                                    <Nav.Link eventKey="rentals">Rentals <MDBBadge color="primary" className="ml-2">{this.state.rentals_summary.total_rentals}</MDBBadge></Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="fuel_purchases">Fuel Purchases</Nav.Link>
+                                    <Nav.Link eventKey="fuel_purchases">Fuel Purchases <MDBBadge color="primary" className="ml-2">{this.state.fuel_purchases_summary.total_fuel_purchases}</MDBBadge></Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="services">Services</Nav.Link>
+                                    <Nav.Link eventKey="services">Services<MDBBadge color="primary" className="ml-2">{this.state.services_summary.total_services}</MDBBadge></Nav.Link>
                                 </Nav.Item>
                             </Nav>
                         </Col>
@@ -264,6 +264,15 @@ class Details extends Component {
                                                                         style: 'unit',
                                                                         unit: 'kilometer'
                                                                     }).format(this.state.rentals_summary.total_distance)}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Fuel Consumed:</th>
+                                                                <td>
+                                                                    {new Intl.NumberFormat('en-AU', {
+                                                                        style: 'unit',
+                                                                        unit: 'liter'
+                                                                    }).format(this.state.fuel_purchases_summary.total_amount)}
                                                                 </td>
                                                             </tr>
                                                             <tr>
