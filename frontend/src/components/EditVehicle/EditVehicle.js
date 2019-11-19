@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
-import VehicleForm from "../../Forms/VehicleForm";
+import EditVehicleForm from "../../Forms/EditVehicleForm";
 
 
 class EditVehicle extends Component {
@@ -111,7 +111,7 @@ class EditVehicle extends Component {
                                     <h1>
                                         {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                                     </h1>
-                                    <VehicleForm item={this.state.vehicle}/>
+                                    <EditVehicleForm item={this.state.vehicle}/>
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>

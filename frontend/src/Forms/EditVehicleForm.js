@@ -5,7 +5,7 @@ import {Redirect} from "react-router-dom";
 import {VehicleFormErrors} from "./VehicleFormErrors"
 
 
-class VehicleForm extends Component {
+class EditVehicleForm extends Component {
 
     constructor(props) {
         super(props);
@@ -162,4 +162,4 @@ class VehicleForm extends Component {
 
 }
 
-export default VehicleForm;
+export default EditVehicleForm;
