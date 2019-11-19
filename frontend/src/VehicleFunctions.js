@@ -118,17 +118,23 @@ export const addService = term => {
 };
 
 export const deleteItem = term => {
-    axios
-        .delete(
-            `vehicles/delete/${term}`, {
-                headers: { "Content-type": "application/json" }
+    const r = window.confirm("Do you really want to delete this vehicle?");
+    if (r === true) {
+        axios
+            .delete(
+                `vehicles/delete/${term}`, {
+                    headers: { "Content-type": "application/json" }
+                })
+            .then((res) => {
+                console.log(res);
+                alert("Vehicle deleted");
             })
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((res) => {
-            console.log(res)
-        })
+            .catch((res) => {
+                console.log(res);
+                alert("There was a problem");
+            })
+    }
+
 };
 
 export const updateItem = (term, id) => {
