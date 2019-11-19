@@ -47,10 +47,10 @@ class RentalForm extends Component {
             <form id="newRentalForm" onSubmit={this.onSubmit}>
                 <div className="form-row">
                     <div className="col-4">
-                        <input type="text" className="form-control" name="odometer_start" value={this.state.rental.odometer_start} onChange={this.onChange} placeholder="Odometer Start"/>
+                        <input type="number" pattern="[0-9]*" className="form-control" name="odometer_start" value={this.state.rental.odometer_start} onChange={this.onChange} placeholder="Odometer Start"/>
                     </div>
                     <div className="col-4">
-                        <input type="text" className="form-control" name="odometer_end" value={this.state.rental.odometer_end} onChange={this.onChange} placeholder="Odometer End"/>
+                        <input type="number" pattern="[0-9]*" className="form-control" name="odometer_end" value={this.state.rental.odometer_end} onChange={this.onChange} placeholder="Odometer End"/>
                     </div>
 
                 </div>
@@ -59,13 +59,18 @@ class RentalForm extends Component {
 
                 <div className="form-row">
                     <div className="col-4">
-                        <input type="text" className="form-control" name="date_start" value={this.state.rental.date_start} onChange={this.onChange} placeholder="Start Date"/>
+                        <input type="date" className="form-control" name="date_start" value={this.state.rental.date_start} onChange={this.onChange} placeholder="Start Date"/>
                     </div>
                     <div className="col-4">
-                        <input type="text" className="form-control" name="date_end" value={this.state.rental.date_end} onChange={this.onChange} placeholder="End Date"/>
+                        <input type="date" className="form-control" name="date_end" value={this.state.rental.date_end} onChange={this.onChange} placeholder="End Date"/>
                     </div>
                     <div className="col-4">
-                        <input type="text" className="form-control" name="rental_type" value={this.state.rental.rental_type} onChange={this.onChange} placeholder="Rental Type"/>
+
+                        <select className="browser-default custom-select" name="rental_type" value={this.state.rental.rental_type} onChange={this.onChange}>
+                            <option>Rental Type</option>
+                            <option value="D">D</option>
+                            <option value="K">K</option>
+                        </select>
                     </div>
 
                 </div>
