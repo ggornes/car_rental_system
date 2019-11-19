@@ -405,9 +405,22 @@ def add_vehicle():
 	model = request.json['model']
 	release_year = request.json['release_year']
 	registration = request.json['registration']
-	fuel = request.json['fuel']
-	tank_size = request.json['tank_size']
-	initials = request.json['initials']
+	try:
+		fuel = request.json['fuel']
+		if fuel == "":
+			fuel = None;
+	except:
+		fuel = None
+	try:
+		tank_size = request.json['tank_size']
+		if tank_size == "":
+			tank_size = None
+	except:
+		tank_size = None
+	try:
+		initials = request.json['initials']
+	except:
+		initials = None
 	
 # instantiate the vehicle object
 	new_vehicle = Vehicles(make, model, release_year, registration, fuel, tank_size, initials)
