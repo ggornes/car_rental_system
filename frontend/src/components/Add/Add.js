@@ -22,11 +22,12 @@ class Add extends Component {
                 tank_size: '',
                 initials: '',
             },
-            formErrors: {make: '', model: '', release_year: '', registration: ''},
+            formErrors: {make: '', model: '', release_year: '', registration: '', tank_size: ''},
             makeValid: false,
             modelValid: false,
             yearValid: false,
             registrationValid: false,
+            tank_sizeValid: false,
             formValid: false
         };
 
@@ -51,6 +52,7 @@ class Add extends Component {
         let modelValid = this.state.modelValid;
         let yearValid = this.state.yearValid;
         let registrationValid = this.state.registrationValid;
+        let tank_sizeValid = this.state.tank_sizeValid;
 
         switch(fieldName) {
             case 'make':
@@ -69,6 +71,10 @@ class Add extends Component {
                 registrationValid = value.length === 7;
                 fieldValidationErrors.registration = registrationValid ? '': ' must be 7 characters';
                 break;
+            case 'tank_size':
+                tank_sizeValid = value > 0;
+                fieldValidationErrors.tank_size = tank_sizeValid ? '': ' must be greater than 0';
+                break;
             default:
                 break;
         }
@@ -76,12 +82,13 @@ class Add extends Component {
             makeValid: makeValid,
             modelValid: modelValid,
             yearValid: yearValid,
-            registrationValid: registrationValid
+            registrationValid: registrationValid,
+            tank_sizeValid: tank_sizeValid
         }, this.validateForm);
     }
 
     validateForm() {
-        this.setState({formValid: this.state.makeValid && this.state.modelValid && this.state.yearValid && this.state.registrationValid});
+        this.setState({formValid: this.state.makeValid && this.state.modelValid && this.state.yearValid && this.state.registrationValid && this.state.tank_sizeValid});
     }
 
     onSubmit = (e) => {
@@ -129,9 +136,6 @@ class Add extends Component {
         this.props.history.push(`/browse`);
     };
 
-    static errorClass(error) {
-        return(error.length === 0 ? '' : 'has-error');
-    }
 
     render() {
 
@@ -182,7 +186,7 @@ class Add extends Component {
                                     </MDBCol>
                                     <MDBCol md="4" className="mb-3">
                                         <label className="grey-text"> Tank Size </label>
-                                        <input type="text" className="form-control" name="tank_size" value={this.state.vehicle.tank_size} onChange={this.onChange} placeholder="Tank Size"/>
+                                        <input type="number" pattern="[0-9]*" className="form-control" name="tank_size" value={this.state.vehicle.tank_size} onChange={this.onChange} placeholder="Tank Size"/>
                                     </MDBCol>
                                     <MDBCol md="4" className="mb-3">
                                         <label className="grey-text"> Initials </label>
