@@ -146,6 +146,11 @@ export const updateItem = (term, id) => {
                 headers: { "Content-type": "application/json" }
             })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            if (res.status === 200) {
+                alert("Updated vehicle");
+            } else {
+                alert("Error while trying to Edit vehicle");
+            }
         })
 };
