@@ -190,13 +190,28 @@ class Details extends Component {
                                     <Nav.Link eventKey="details" >Details</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="rentals">Rentals <MDBBadge color="primary" className="ml-2">{this.state.rentals_summary.total_rentals}</MDBBadge></Nav.Link>
+                                    <Nav.Link eventKey="rentals">
+                                        Rentals
+                                        <MDBBadge color="primary" className="ml-2">
+                                            {this.state.rentals_summary.total_rentals}
+                                        </MDBBadge>
+                                    </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="fuel_purchases">Fuel Purchases <MDBBadge color="primary" className="ml-2">{this.state.fuel_purchases_summary.total_fuel_purchases}</MDBBadge></Nav.Link>
+                                    <Nav.Link eventKey="fuel_purchases">
+                                        Fuel Purchases
+                                        <MDBBadge color="primary" className="ml-2">
+                                            {this.state.fuel_purchases_summary.total_fuel_purchases}
+                                        </MDBBadge>
+                                    </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="services">Services<MDBBadge color="primary" className="ml-2">{this.state.services_summary.total_services}</MDBBadge></Nav.Link>
+                                    <Nav.Link eventKey="services">
+                                        Services
+                                        <MDBBadge color="primary" className="ml-2">
+                                            {this.state.services_summary.total_services}
+                                        </MDBBadge>
+                                    </Nav.Link>
                                 </Nav.Item>
                             </Nav>
                         </Col>
