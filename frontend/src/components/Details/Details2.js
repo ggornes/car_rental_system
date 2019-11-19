@@ -15,10 +15,12 @@ import TablePage from "../Dashboard/Table";
 import DetailsTable from "../Dashboard/DetailsTable";
 import RentalsTable from "../Dashboard/RentalsTable";
 import RentalModal from "../Modal/RentalModal";
-import {faTable} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faInfoCircle, faPlusSquare, faTable, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import FuelModal from "../Modal/FuelModal";
 import ServicesModal from "../Modal/ServicesModal";
+import {Link} from "react-router-dom";
+import {deleteItem} from "../../VehicleFunctions";
 
 
 
@@ -150,9 +152,21 @@ class Details extends Component {
                 fuel_purchases: data_API_fuelPurchases,
                 fuel_purchases_summary: data_API_fuelPurchases_sum,
                 services: data_API_services,
-                services_summary: data_API_services_sum
+                services_summary: data_API_services_sum,
+                rentals_rows: data_API_rentals.map(obj => ({
+                    ...obj,
+                    btns:
+                        <MDBRow>
+                            <FuelModal open={this.state.showModal} vehicleId={this.state.vehicleId} rentalId={obj.id}>...</FuelModal>
+
+                        </MDBRow>
+
+
+                }))
+
 
             }));
+
 
 
 
@@ -265,6 +279,10 @@ class Details extends Component {
                                                                 <th>Total Services: </th>
                                                                 <td>{this.state.services_summary.total_services}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <th>Last Service Odo: </th>
+
+                                                            </tr>
                                                         </tbody>
                                                     </table>
 
@@ -319,6 +337,12 @@ class Details extends Component {
                                         columns={
                                         [
                                             {
+                                                label: 'Id',
+                                                field: 'id',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
                                                 label: 'Date Start',
                                                 field: 'date_start',
                                                 sort: 'asc',
@@ -347,10 +371,13 @@ class Details extends Component {
                                                 field: 'rental_cost',
                                                 sort: 'asc',
                                                 width: 100
+                                            },
+                                            {
+                                                label: 'Action'
                                             }
                                         ]
                                         }
-                                        rows={this.state.rentals}/>
+                                        rows={this.state.rentals_rows}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="fuel_purchases">
                                     <h3>Fuel Purchases</h3>
