@@ -32,7 +32,7 @@ class FuelModal extends Component {
                     <MDBModalHeader toggle={this.toggle(14)}>Add new fuel purchase</MDBModalHeader>
                     <MDBModalBody>
                         <p>Please enter journey details</p>
-                        <FuelPurchaseForm vehicleId={this.props.vehicleId}/>
+                        <FuelPurchaseForm vehicleId={this.props.vehicleId} rentalId={this.props.rentalId}/>
 
                     </MDBModalBody>
                     <MDBModalFooter>
