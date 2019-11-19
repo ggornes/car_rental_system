@@ -26,7 +26,7 @@ class RentalModalPage extends Component {
         return (
             <MDBContainer>
                 <MDBBtn color="primary" onClick={this.toggle(14)}>Add New Journey</MDBBtn>
-                <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+                <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered size="lg">
                     <MDBModalHeader toggle={this.toggle(14)}>Add New Rental</MDBModalHeader>
                     <MDBModalBody>
                         <p>Please enter journey details</p>
