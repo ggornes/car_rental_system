@@ -143,7 +143,7 @@ class RentalSchema_less(ma.Schema):
 	class Meta:
 		ordered = True
 		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
-		fields = ('date_start', 'distance', 'date_end', 'rental_type', 'rental_cost')
+		fields = ('id', 'date_start', 'distance', 'date_end', 'rental_type', 'rental_cost')
 		
 # init schema
 rental_schema_less = RentalSchema_less()
@@ -275,7 +275,7 @@ def get_vehicle(id):
 def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
-	rentals = db.session.query(Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
+	rentals = db.session.query(Rentals.id, Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
 	print(rentals)
 	rentals_list = rentals_schema_less.jsonify(rentals)
 	#return rentals_schema.jsonify(rentals)
@@ -511,7 +511,7 @@ def add_fuel_purchase():
 	db.session.add(new_fuel_purchase)
 	db.session.commit()
 	
-	return fuel_purchases_schema.jsonify(new_fuel_purchase)
+	return fuel_purchase_schema.jsonify(new_fuel_purchase)
 	
 	
 # ################################################
