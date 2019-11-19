@@ -205,9 +205,9 @@ class Add extends Component {
 
 
                                 <div className="form-row">
-                                    <MDBBtn type="submit" color="dark-green" disabled={!this.state.formValid}>Save</MDBBtn>
-                                    <MDBBtn onClick={this.onClear} color="yellow">Clear</MDBBtn>
-                                    <MDBBtn onClick={this.onCancel} color="red">Cancel</MDBBtn>
+                                    <MDBBtn type="submit" gradient="tempting-azure-gradient color-block-5" disabled={!this.state.formValid}>Save</MDBBtn>
+                                    <MDBBtn onClick={this.onClear} gradient="sunny-morning-gradient color-block-5">Clear</MDBBtn>
+                                    <MDBBtn onClick={this.onCancel} outline color="danger">Cancel</MDBBtn>
                                 </div>
 
                             </form>

@@ -182,7 +182,7 @@ class Details extends Component {
                     {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                 </h1>
 
-                
+
                 <Tab.Container id="left-tabs-example" defaultActiveKey="details">
                     <Row>
                         <Col sm={3}>
