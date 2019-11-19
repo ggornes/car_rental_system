@@ -131,7 +131,9 @@ export const deleteItem = term => {
             })
             .catch((res) => {
                 console.log(res);
-                alert("There was a problem");
+                alert("sqlalchemy.exc.IntegrityError: (MySQLdb._exceptions.IntegrityError) (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`rental_db_2`.`fuel_purchases`, CONSTRAINT `fuel_purchases_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`))')\n" +
+                    "[SQL: DELETE FROM vehicles WHERE vehicles.id = %s]" +
+                    "Suggestion: delete from all tables where vehicle_id = %id before deleting from db.Vehicles");
             })
     }
 
