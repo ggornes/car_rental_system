@@ -9,7 +9,7 @@ class FuelPurchaseForm extends Component {
         this.state = {
             fuel_purchase: {
                 vehicle_id: this.props.vehicleId,
-                rental_id: '',
+                rental_id: this.props.rentalId || '',
                 amount: '',
                 cost: ''
             }
