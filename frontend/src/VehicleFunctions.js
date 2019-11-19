@@ -56,7 +56,14 @@ export const addToList2 = term => {
                 headers: { "Content-type": "application/json" }
             })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            if (res.status === 200) {
+                alert("Vehicle added to database");
+            } else {
+                alert("Error while trying to add new vehicle");
+            }
+
+
         })
 };
 
