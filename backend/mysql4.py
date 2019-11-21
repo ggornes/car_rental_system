@@ -32,12 +32,12 @@ app = Flask(__name__)
 # Database
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'rental_db_2'
+app.config['MYSQL_DB'] = 'rental_db_3'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JSON_SORT_KEYS'] = False
-app.config['SQLALCHEMY_DATABASE'] = 'rental_db_2'
+app.config['SQLALCHEMY_DATABASE'] = 'rental_db_3'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/rental_db_2'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/rental_db_3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Init db
@@ -108,7 +108,7 @@ vehicles_schema = VehicleSchema(many=True)
 
 class Rentals(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
-	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id', ondelete='CASCADE'), nullable=False, server_default=text('0'))
 	odometer_start = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	odometer_end = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	date_start = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
@@ -165,7 +165,7 @@ rentals_summary_schema = Rental_Summary_Schema(many=True)
 
 class Fuel_purchases(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
-	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id', ondelete='CASCADE'), nullable=False, server_default=text('0'))
 	rental_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('rentals.id'), nullable=False, server_default=text('0'))
 	amount = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	cost = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
@@ -197,7 +197,7 @@ fuel_purchases_schema = Fuel_PurchaseSchema(many=True)
 
 class Services(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
-	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id'), nullable=False, server_default=text('0'))
+	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id', ondelete='CASCADE'), nullable=False, server_default=text('0'))
 	odometer = db.Column(DECIMAL(precision=9, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	serviced_at = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
