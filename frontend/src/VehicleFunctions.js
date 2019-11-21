@@ -81,7 +81,12 @@ export const addNewRental = term => {
               headers: { "Content-type": "application/json" }
           })
       .then((res) => {
-          console.log(res)
+          console.log(res);
+          if (res.status === 200) {
+              alert("Added new rental successfully");
+          } else {
+              alert("Error while trying to add new rental");
+          }
       })
 };
 
@@ -98,7 +103,12 @@ export const addFuelPurchase = term => {
                 headers: {"Content-type": "application/json"}
             })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            if (res.status === 200) {
+                alert("Added new fuel purchase successfully");
+            } else {
+                alert("Error while trying to add new fuel purchase");
+            }
         })
 };
 
@@ -113,7 +123,12 @@ export const addService = term => {
                 headers: {"Content-type": "application/json"}
             })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            if (res.status === 200) {
+                alert("Added new service successfully");
+            } else {
+                alert("Error while trying to add new service");
+            }
             })
 };
 
