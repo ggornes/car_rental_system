@@ -46,6 +46,8 @@ class Details extends Component {
                 tank_size: '55',
                 initials: 'LML',
             },
+            last_odo_reading: '',
+            last_service_odo: '',
 
             rentals: [
                 {
@@ -68,9 +70,8 @@ class Details extends Component {
                 total_cost: ''
             }],
 
-            services: [{
-
-            }],
+            services: [
+                {}],
             services_summary: {},
 
             fuel_purchases: [
@@ -305,8 +306,16 @@ class Details extends Component {
                                                                 <td>{this.state.services_summary.total_services}</td>
                                                             </tr>
                                                             <tr>
+                                                                <th>Odometer reading: </th>
+                                                                <td>TBA</td>
+                                                            </tr>
+                                                            <tr>
                                                                 <th>Last Service Odo: </th>
-
+                                                                <td>TBA</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>last_odo - lasr_serv_odo </th>
+                                                                <td>TBA</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -370,6 +379,18 @@ class Details extends Component {
                                             {
                                                 label: 'Date Start',
                                                 field: 'date_start',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
+                                                label: 'Odometer Start',
+                                                field: 'odometer_start',
+                                                sort: 'asc',
+                                                width: 100
+                                            },
+                                            {
+                                                label: 'Odometer End',
+                                                field: 'odometer_end',
                                                 sort: 'asc',
                                                 width: 100
                                             },
