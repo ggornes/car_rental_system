@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {addFuelPurchase, addNewRental, addService} from "../VehicleFunctions";
 import {Redirect} from "react-router-dom";
+import {MDBCol, MDBRow} from "mdbreact";
 
 class FuelPurchaseForm extends Component {
 
@@ -49,18 +50,16 @@ class FuelPurchaseForm extends Component {
         return(
 
             <form id="newServiceForm" onSubmit={this.onSubmit}>
-                <div className="form-row">
-                    <div className="col-4">
-                        <input type="text" className="form-control" name="odometer" value={this.state.service.odometer} onChange={this.onChange} placeholder="Odometer"/>
-                    </div>
-                    <div className="col-4">
-                        <input type="text" className="form-control" name="serviced_at" value={this.state.service.serviced_at} onChange={this.onChange} placeholder="Date of Service"/>
-                    </div>
-
-                </div>
-
-
-
+                <MDBRow>
+                    <MDBCol md="6" className="mb-3">
+                        <label className="grey-text"> Odometer </label>
+                        <input type="number" pattern="[0-9]*" className="form-control" name="odometer" value={this.state.service.odometer} onChange={this.onChange} placeholder="Odometer"/>
+                    </MDBCol>
+                    <MDBCol md="6" className="mb-3">
+                        <label className="grey-text"> Date of service </label>
+                        <input type="date" className="form-control" name="serviced_at" value={this.state.service.serviced_at} onChange={this.onChange} placeholder="Date of Service"/>
+                    </MDBCol>
+                </MDBRow>
             </form>
 
         );

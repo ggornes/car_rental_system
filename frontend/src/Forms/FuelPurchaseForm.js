@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {addFuelPurchase, addNewRental} from "../VehicleFunctions";
+import {MDBCol, MDBRow} from "mdbreact";
 
 class FuelPurchaseForm extends Component {
 
@@ -43,21 +44,20 @@ class FuelPurchaseForm extends Component {
         return(
 
             <form id="newFuelPurchaseForm" onSubmit={this.onSubmit}>
-                <div className="form-row">
-                    <div className="col-4">
+                <MDBRow>
+                    <MDBCol md="4" className="mb-3">
+                        <label className="grey-text"> Rental Id </label>
                         <input type="text" className="form-control" name="rental_id" value={this.state.fuel_purchase.rental_id} onChange={this.onChange} placeholder="Rental Id"/>
-                    </div>
-                    <div className="col-4">
+                    </MDBCol>
+                    <MDBCol md="4" className="mb-3">
+                        <label className="grey-text"> Amount </label>
                         <input type="text" className="form-control" name="amount" value={this.state.fuel_purchase.amount} onChange={this.onChange} placeholder="Amount"/>
-                    </div>
-                    <div className="col-4">
+                    </MDBCol>
+                    <MDBCol md="4" className="mb-3">
+                        <label className="grey-text"> Cost </label>
                         <input type="text" className="form-control" name="cost" value={this.state.fuel_purchase.cost} onChange={this.onChange} placeholder="Cost"/>
-                    </div>
-
-                </div>
-
-
-
+                    </MDBCol>
+                </MDBRow>
             </form>
 
         );
