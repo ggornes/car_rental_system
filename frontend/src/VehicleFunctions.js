@@ -84,6 +84,7 @@ export const addNewRental = term => {
           console.log(res);
           if (res.status === 200) {
               alert("Added new rental successfully");
+              window.location.reload();
           } else {
               alert("Error while trying to add new rental");
           }
@@ -106,6 +107,7 @@ export const addFuelPurchase = term => {
             console.log(res);
             if (res.status === 200) {
                 alert("Added new fuel purchase successfully");
+                window.location.reload();
             } else {
                 alert("Error while trying to add new fuel purchase");
             }
@@ -126,6 +128,7 @@ export const addService = term => {
             console.log(res);
             if (res.status === 200) {
                 alert("Added new service successfully");
+                window.location.reload();
             } else {
                 alert("Error while trying to add new service");
             }
@@ -143,6 +146,7 @@ export const deleteItem = term => {
             .then((res) => {
                 console.log(res);
                 alert("Vehicle deleted");
+                window.location.reload();
             })
             .catch((res) => {
                 console.log(res);
