@@ -50,10 +50,14 @@ class FlaskTestCase(BaseTestCase):
 		#tester = app.test_client(self)
 		#response = tester.get('/', content_type='html/text')
 		response = self.client.get('/vehicles/show', content_type='html/text')
+		response_json = response.get_json()
 		#self.assertEqual(response.status_code, 200)
 		self.assertIn(b'Honda', response.data)
 		self.assertIn(b'BMW', response.data)
-		#print(response.data)
+		print(response.get_json())
+		self.assertTrue(response_json[0]["id"] == 1)
+		self.assertTrue(response_json[0]["make"] == "Honda")
+		self.assertTrue(response_json[1]["id"] == 2)
 		
 		
 		
@@ -68,7 +72,7 @@ class FlaskTestCase(BaseTestCase):
 		self.assertTrue(response.get_json()[0]["id"] == 2)
 		
 		
-	# Ensure that GET (all vehicles) works correctly
+	# Ensure that GET (all rentals) works correctly
 	# Expect 'K' on the response as the rental_type is K (km)
 	
 	def test_all_rentals(self):
