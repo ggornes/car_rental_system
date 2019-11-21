@@ -275,7 +275,7 @@ def get_vehicle(id):
 def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
-	rentals = db.session.query(Rentals.id, Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
+	rentals = db.session.query(Rentals.id, Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", (func.datediff(Rentals.date_end, Rentals.date_start)+1)*100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
 	print(rentals)
 	rentals_list = rentals_schema_less.jsonify(rentals)
 	#return rentals_schema.jsonify(rentals)
@@ -295,7 +295,7 @@ def get_rentals_sum_by_vehicle_id(id):
 	
 	
 	# rentals summary
-	rentals_summary = db.session.query(Rentals.id, Rentals.vehicle_id, (Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.rental_type, func.IF(Rentals.rental_type == "D", 100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).all()
+	rentals_summary = db.session.query(Rentals.id, Rentals.vehicle_id, (Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.rental_type, func.IF(Rentals.rental_type == "D", (func.datediff(Rentals.date_end, Rentals.date_start)+1)*100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).all()
 
 	
 	rentals_count = 0
