@@ -144,10 +144,21 @@ class RentalSchema_less(ma.Schema):
 		ordered = True
 		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
 		fields = ('id', 'date_start', 'distance', 'date_end', 'rental_type', 'rental_cost')
-		
+
 # init schema
 rental_schema_less = RentalSchema_less()
 rentals_schema_less = RentalSchema_less(many=True)
+
+		
+class RentalSchema_more(ma.Schema):
+	class Meta:
+		ordered = True
+		# fields = ('id', 'vehicle_id', 'odometer_start', 'odometer_end', 'date_start', 'date_end', 'rental_type', 'created', 'updated')
+		fields = ('id', 'date_start', 'odometer_start', 'odometer_end', 'distance', 'date_end', 'rental_type', 'rental_cost')
+		
+# init schema
+rental_schema_more = RentalSchema_more()
+rentals_schema_more = RentalSchema_more(many=True)
 
 class Rental_Summary_Schema(ma.Schema):
 	class Meta:
@@ -166,7 +177,7 @@ rentals_summary_schema = Rental_Summary_Schema(many=True)
 class Fuel_purchases(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
 	vehicle_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('vehicles.id', ondelete='CASCADE'), nullable=False, server_default=text('0'))
-	rental_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('rentals.id'), nullable=False, server_default=text('0'))
+	rental_id = db.Column(BIGINT(20, unsigned=True), db.ForeignKey('rentals.id', ondelete='CASCADE'), nullable=False, server_default=text('0'))
 	amount = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	cost = db.Column(DECIMAL(precision=4, scale=1, unsigned=True), nullable=False, server_default=text('0'))
 	created = db.Column(DATETIME, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
@@ -275,9 +286,9 @@ def get_vehicle(id):
 def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
-	rentals = db.session.query(Rentals.id, Rentals.date_start,(Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", (func.datediff(Rentals.date_end, Rentals.date_start)+1)*100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
+	rentals = db.session.query(Rentals.id, Rentals.date_start, Rentals.odometer_start, Rentals.odometer_end, (Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", (func.datediff(Rentals.date_end, Rentals.date_start)+1)*100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
 	print(rentals)
-	rentals_list = rentals_schema_less.jsonify(rentals)
+	rentals_list = rentals_schema_more.jsonify(rentals)
 	#return rentals_schema.jsonify(rentals)
 	
 	return (rentals_list)
