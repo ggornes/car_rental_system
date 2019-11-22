@@ -98,7 +98,7 @@ class RentalForm extends Component {
                             </MDBCol>
                             <MDBCol md="4" className="mb-3">
                                 <label className="grey-text"> Date End </label>
-                                <input type="date" className={touched.date_end && errors.date_end ? "form-control is-invalid" : "form-control"} name="date_end" value={values.date_end} onChange={handleChange} onBlur={handleBlur} placeholder="Start Date"/>
+                                <input type="date" className={touched.date_end && errors.date_end ? "form-control is-invalid" : "form-control"} name="date_end" value={values.date_end} onChange={handleChange} onBlur={handleBlur} placeholder="End Date"/>
                                 <Error touched={touched.date_end} message={errors.date_end}/>
                             </MDBCol>
                             <MDBCol md="4" className="mb-3">
