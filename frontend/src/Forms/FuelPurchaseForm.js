@@ -44,7 +44,7 @@ class FuelPurchaseForm extends Component {
     };
 */
 
-    elSubmit = (values) => {
+    onSubmit = (values) => {
         const state = this.state;
         state.fuel_purchase.amount = values.amount;
         state.fuel_purchase.cost = values.cost;
@@ -72,7 +72,7 @@ class FuelPurchaseForm extends Component {
                 initialValues={{amount: "", cost: ""}}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
-                    this.elSubmit(values)
+                    this.onSubmit(values)
                 }}
             >
                 {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
