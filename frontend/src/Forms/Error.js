@@ -1,6 +1,6 @@
 import React from "react";
 
-const ServiceError = ({touched, message} ) => {
+const Error = ({touched, message} ) => {
     if (!touched) {
         return <div className="invalid-feedback">&nbsp;</div>;
     } if (message) {
@@ -9,4 +9,4 @@ const ServiceError = ({touched, message} ) => {
     return <div className="valid-feedback">ok</div>;
 };
 
-export default ServiceError;
+export default Error;
