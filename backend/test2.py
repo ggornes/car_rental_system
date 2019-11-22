@@ -69,15 +69,38 @@ class FlaskTestCase(BaseTestCase):
 		self.assertIn(b'BMW', response.data)
 		print(response.get_json()[0]["id"])
 		print(response.get_json()[0]["make"])
+		#self.assertIn(b'K', response.data)
 		self.assertTrue(response.get_json()[0]["id"] == 2)
+		self.assertTrue(response.get_json()[0]["make"] == 'BMW')
+		self.assertTrue(response.get_json()[0]["model"] == 'X3')
+		self.assertTrue(response.get_json()[0]["release_year"] == 2010)
+		self.assertTrue(response.get_json()[0]["registration"] == '1BND321')
+		self.assertTrue(response.get_json()[0]["fuel"] == 'Petrol')
+		self.assertTrue(response.get_json()[0]["tank_size"] == 40)
+		self.assertTrue(response.get_json()[0]["initials"] == 'TEST')
+
+
+		
+
 		
 		
 	# Ensure that GET (all rentals) works correctly
-	# Expect 'K' on the response as the rental_type is K (km)
-	
 	def test_all_rentals(self):
 		response = self.client.get('/vehicles/rentals/1', content_type='html/text')
-		self.assertIn(b'K', response.data)
+		#response_json = response.get_json()
+		self.assertTrue(response.get_json()[0]["odometer_start"] == 0)
+		self.assertTrue(response.get_json()[0]["odometer_end"] == 100)
+		#self.assertTrue(response.get_json()[0]["date_start"] == '2019-11-14T00:00:00')
+		#self.assertTrue(response.get_json()[0]["date_end"] == '2010/12/02')
+		self.assertTrue(response.get_json()[0]["rental_type"] == 'K')
+
+	# Ensure that GET rentals summary works as expected
+	def test_rentals_summary(self):
+		response = self.client.get('/vehicles/rentals/sum/1', content_type='html/text')
+		self.assertTrue(response.get_json()["total_rentals"] == 1)
+		self.assertTrue(response.get_json()["total_distance"] == 100)
+		self.assertTrue(response.get_json()["total_cost"] == 100)
+			
 	
 		
 		
@@ -93,11 +116,16 @@ class FlaskTestCase(BaseTestCase):
 # ################################################
 	
 	# Ensure that Vehicles query works correctly
-	def test_query(self):
+	def test_vehicle_query(self):
 		vehicle = Vehicles.query.filter(Vehicles.id == 2).all()
 		print(vehicle[0].make)
 		self.assertFalse(vehicle[0].make == 'Honda')
 		self.assertTrue(vehicle[0].make == 'BMW', vehicle[0].model == 'X3')
+		self.assertTrue(vehicle[0].release_year == 2010)
+		self.assertTrue(vehicle[0].registration == '1BND321')
+		self.assertTrue(vehicle[0].fuel == 'Petrol')
+		self.assertTrue(vehicle[0].tank_size == 40)
+		self.assertTrue(vehicle[0].initials == 'TEST')
     
         
         
