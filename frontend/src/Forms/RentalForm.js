@@ -60,8 +60,8 @@ class RentalForm extends Component {
     render() {
 
         const validationSchema = Yup.object().shape({
-            odometer_start: Yup.number().min(1, "Must be greater than 0").required("Must enter a value"),
-            odometer_end: Yup.number().min(1, "Must be greater than 0").min(Yup.ref('odometer_start'), "Must be greater than odometer_start").required("Must enter a value"),
+            odometer_start: Yup.number().min(0, "Must be greater than 0").required("Must enter a value"),
+            odometer_end: Yup.number().min(0, "Must be greater than 0").min(Yup.ref('odometer_start'), "Must be greater than odometer_start").required("Must enter a value"),
             date_start: Yup.date().required("Must enter a date"),
             date_end: Yup.date().min(Yup.ref('date_start'), "Must be greater than date_start").required("Must enter a date"),
             rental_type: Yup.string().required("Must choose one option")

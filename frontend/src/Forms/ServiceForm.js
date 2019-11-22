@@ -69,7 +69,7 @@ class FuelPurchaseForm extends Component {
         }
 
         const validationSchema = Yup.object().shape({
-            odometer: Yup.number().min(1, "Must be greater than 0").required("Must enter a value"),
+            odometer: Yup.number().min(0, "Must be greater than 0").required("Must enter a value"),
             serviced_at: Yup.date().required("Must enter a date")
         });
 
