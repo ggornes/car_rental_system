@@ -37,7 +37,7 @@ class Add extends Component {
 
     }
 
-
+/*
     onChange = (e) => {
 
         const state = this.state;
@@ -93,13 +93,8 @@ class Add extends Component {
     validateForm() {
         this.setState({formValid: this.state.makeValid && this.state.modelValid && this.state.yearValid && this.state.registrationValid && this.state.tank_sizeValid});
     }
-/*
+
     onSubmit = (e) => {
-
-        // ToDo: Validate fields
-        // if field is empty, var = default;
-
-
 
         e.preventDefault();
         //e.target.className += " was-validated";
@@ -112,8 +107,6 @@ class Add extends Component {
             // show success or error message
             this.props.history.push(`/browse`);
         })
-
-
 
     };
 */
@@ -249,14 +242,6 @@ class Add extends Component {
                                     </form>
                                 )}
                             </Formik>
-
-
-
-
-
-
-
-
 
                         </MDBCol>
                     </MDBRow>
