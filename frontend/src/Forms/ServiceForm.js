@@ -66,7 +66,7 @@ class FuelPurchaseForm extends Component {
                         <MDBRow>
                             <MDBCol md="6" className="mb-3">
                                 <label className="grey-text"> Odometer </label>
-                                <input style={touched.odometer && errors.odometer ? {color: 'red'} : {color: 'green'}} type="number" pattern="[0-9]*" name="odometer" value={values.odometer} onChange={handleChange} onBlur={handleBlur} placeholder="Odometer"/>
+                                <input className={touched.odometer && errors.odometer ? "form-control is-invalid" : "form-control"} type="number" pattern="[0-9]*" name="odometer" value={values.odometer} onChange={handleChange} onBlur={handleBlur} placeholder="Odometer"/>
                             </MDBCol>
                             <MDBCol md="6" className="mb-3">
                                 <label className="grey-text"> Date of service </label>
