@@ -62,7 +62,7 @@ class Details extends Component {
                     distance: '134Km',
                     rental_type: 'K'
                 }
-                ],
+            ],
 
             rentals_summary: [{
                 total_rentals: '2',
@@ -314,7 +314,7 @@ class Details extends Component {
                                                                 <td>TBA</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>last_odo - lasr_serv_odo </th>
+                                                                <th>last_odo - last_service_odo </th>
                                                                 <td>TBA</td>
                                                             </tr>
                                                         </tbody>

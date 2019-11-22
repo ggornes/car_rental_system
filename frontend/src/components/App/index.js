@@ -7,6 +7,7 @@ import AddPage from '../Add/Add'
 import BrowsePage from '../Dashboard/Browse';
 import DetailsPage from '../Details/Details'
 import DetailsPage2 from '../Details/Details2'
+import DetailsPage3 from '../Details/Details3'
 import Navbar from '../Navigation/Navbar';
 
 import * as ROUTES from '../../constants/routes';
@@ -26,6 +27,7 @@ const App = () => (
                 <Route path={ROUTES.EDIT_VEHICLE} component={EditVehicle} />
                 <Route path={ROUTES.DETAILS} component={DetailsPage} />
                 <Route path={ROUTES.DETAILS2} component={DetailsPage2} />
+                <Route path={ROUTES.DETAILS3} component={DetailsPage3} />
 
 
 
