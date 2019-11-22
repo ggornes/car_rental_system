@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarNav,
-    MDBNavbarToggler,
-    MDBCollapse,
-    MDBNavItem,
-    MDBNavLink,
-    MDBContainer,
-    MDBMask,
-    MDBView,
-    MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline
-} from 'mdbreact';
+import {MDBContainer, MDBMask, MDBView} from 'mdbreact';
 
 
 class Landing2 extends React.Component {
@@ -34,16 +22,11 @@ class Landing2 extends React.Component {
         return (
             <div>
                 <header>
-
-
-
-
                     <MDBView src="https://www.proxcar.com/wp-content/uploads/2017/03/cras.jpg">
                         <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">
                             <h2>g@round</h2>
                             <h5>Rental Management System</h5>
                             <br />
-                            <p> </p>
                         </MDBMask>
                     </MDBView>
                 </header>

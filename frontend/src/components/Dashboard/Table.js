@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBBtn, MDBDataTable, MDBRow, MDBCol, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {MDBDataTable, MDBRow, MDBCol} from 'mdbreact';
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faInfoCircle, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
@@ -72,16 +72,10 @@ const TablePage = (props) => {
     );
 
 
-
-
     const data = {
         columns,
         rows
     };
-
-
-
-
 
     console.log("TABLE data: ");
     console.log(data);

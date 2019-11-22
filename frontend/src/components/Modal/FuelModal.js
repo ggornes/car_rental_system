@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
-import RentalForm from "../../Forms/RentalForm";
 import FuelPurchaseForm from "../../Forms/FuelPurchaseForm";
 
 class FuelModal extends Component {
@@ -21,9 +20,6 @@ class FuelModal extends Component {
         });
     };
 
-
-
-
     render(){
         return(
             <MDBContainer>
@@ -43,7 +39,6 @@ class FuelModal extends Component {
             </MDBContainer>
         )
     }
-
 }
 
 export default FuelModal;

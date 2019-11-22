@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
-
-import {Link} from 'react-router-dom';
-import {addNewRental, addToList, addToList2} from "../../VehicleFunctions";
+import {addToList2} from "../../VehicleFunctions";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
-import {VehicleFormErrors} from "../../Forms/VehicleFormErrors";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import Error from "../../Forms/Error";
-
 
 class Add extends Component {
 
@@ -33,83 +28,7 @@ class Add extends Component {
             tank_sizeValid: false,
             formValid: false
         };
-
-
     }
-
-/*
-    onChange = (e) => {
-
-        const state = this.state;
-        const name = e.target.name;
-        const value = e.target.value;
-
-        state.vehicle[name] = value;
-        this.setState(state, () => {this.validateField(name, value)});
-
-    };
-
-    validateField(fieldName, value) {
-        let fieldValidationErrors = this.state.formErrors;
-        let makeValid = this.state.makeValid;
-        let modelValid = this.state.modelValid;
-        let yearValid = this.state.yearValid;
-        let registrationValid = this.state.registrationValid;
-        let tank_sizeValid = this.state.tank_sizeValid;
-
-        switch(fieldName) {
-            case 'make':
-                makeValid = value.length >= 3;
-                fieldValidationErrors.make = makeValid ? '' : 'value is too short';
-                break;
-            case 'model':
-                modelValid = value.length >= 1;
-                fieldValidationErrors.model = modelValid ? '': ' is too short';
-                break;
-            case 'release_year':
-                yearValid = value.length === 4;
-                fieldValidationErrors.year = yearValid ? '': 'invalid year';
-                break;
-            case 'registration':
-                registrationValid = value.length === 7;
-                fieldValidationErrors.registration = registrationValid ? '': ' must be 7 characters';
-                break;
-            case 'tank_size':
-                tank_sizeValid = value > 0;
-                fieldValidationErrors.tank_size = tank_sizeValid ? '': ' must be greater than 0';
-                break;
-            default:
-                break;
-        }
-        this.setState({formErrors: fieldValidationErrors,
-            makeValid: makeValid,
-            modelValid: modelValid,
-            yearValid: yearValid,
-            registrationValid: registrationValid,
-            tank_sizeValid: tank_sizeValid
-        }, this.validateForm);
-    }
-
-    validateForm() {
-        this.setState({formValid: this.state.makeValid && this.state.modelValid && this.state.yearValid && this.state.registrationValid && this.state.tank_sizeValid});
-    }
-
-    onSubmit = (e) => {
-
-        e.preventDefault();
-        //e.target.className += " was-validated";
-        console.log(this.state.vehicle);
-
-
-        addToList2(this.state.vehicle).then(() => {
-            //this.getAll()
-            // redirect
-            // show success or error message
-            this.props.history.push(`/browse`);
-        })
-
-    };
-*/
 
     onSubmit = (values) => {
         const state = this.state;
@@ -124,9 +43,6 @@ class Add extends Component {
         console.log(this.state.vehicle);
 
         addToList2(this.state.vehicle).then(() => {
-            //this.getAll()
-            // redirect
-            // show success or error message
             this.props.history.push(`/browse`);
         })
     };
@@ -142,14 +58,11 @@ class Add extends Component {
             initials: ''
         };
         const state = this.state;
-        this.state.vehicle = vehicle;
+        state.vehicle = vehicle;
         this.setState(state);
-
-
     };
 
     onCancel = () => {
-        //console.log(this.props)
         this.props.history.push(`/browse`);
     };
 
@@ -184,7 +97,6 @@ class Add extends Component {
                                     this.onSubmit(values)
                                 }}
                             >
-
                                 {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
                                     <form onSubmit={handleSubmit}>
 
@@ -250,7 +162,6 @@ class Add extends Component {
             </div>
         );
     };
-
 
 }
 

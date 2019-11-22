@@ -66,11 +66,6 @@ const DetailsTable = props => {
     ];
 
     const rows = props.rows;
-    const extras = {
-        btnEdit: '',
-        btnDelete: ''
-    };
-
 
     const data = {
         columns,

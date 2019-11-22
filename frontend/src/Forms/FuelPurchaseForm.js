@@ -27,22 +27,6 @@ class FuelPurchaseForm extends Component {
         this.setState(state);
 
     };
-/*
-    onSubmit = (e) => {
-
-        // ToDo: Validate fields
-        // if field is empty, var = default;
-
-
-        e.preventDefault();
-        console.log(this.state.fuel_purchase);
-
-        addFuelPurchase(this.state.fuel_purchase).then(() => {
-            console.log("added new fuel purchase");
-
-        });
-    };
-*/
 
     onSubmit = (values) => {
         const state = this.state;

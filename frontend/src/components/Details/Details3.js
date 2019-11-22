@@ -1,27 +1,10 @@
 import React, {Component} from "react";
-import {
-    MDBBadge,
-    MDBBtn,
-    MDBCol,
-    MDBContainer,
-    MDBIcon,
-    MDBListGroup,
-    MDBListGroupItem,
-    MDBRow,
-    MDBTooltip
-} from "mdbreact";
-import {Accordion, Card, Tab, Container, Row, Col, Nav} from 'react-bootstrap';
-import TablePage from "../Dashboard/Table";
-import DetailsTable from "../Dashboard/DetailsTable";
+import {MDBBadge, MDBCol, MDBContainer, MDBRow,} from "mdbreact";
+import {Tab, Row, Col, Nav} from 'react-bootstrap';
 import RentalsTable from "../Dashboard/RentalsTable";
 import RentalModal from "../Modal/RentalModal";
-import {faEdit, faInfoCircle, faPlusSquare, faTable, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import FuelModal from "../Modal/FuelModal";
 import ServicesModal from "../Modal/ServicesModal";
-import {Link} from "react-router-dom";
-import {deleteItem} from "../../VehicleFunctions";
-
 
 
 class Details extends Component {
@@ -64,12 +47,6 @@ class Details extends Component {
         const API_rentals_sum = 'http://127.0.0.1:5000/vehicles/rentals/sum/' + `${vehicleId}`;
         const API_services_sum = 'http://127.0.0.1:5000/vehicles/services/sum/' + `${vehicleId}`;
         const API_fuelPurchases_sum = 'http://127.0.0.1:5000/vehicles/fuel_purchases/sum/' + `${vehicleId}`;
-        const DEFAULT_QUERY = ''; //tofix
-
-
-
-        // console.log(API);
-
 
         Promise.all([
             fetch(API),
@@ -97,31 +74,16 @@ class Details extends Component {
                             <FuelModal open={this.state.showModal} vehicleId={this.state.vehicleId} rentalId={obj.id}>...</FuelModal>
 
                         </MDBRow>
-
-
                 }))
-
-
             }));
-
-
-
-
-
-
     }
 
-
-
     render() {
-
-
         return(
             <div className="container">
                 <h1>
                     {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                 </h1>
-
 
                 <Tab.Container id="left-tabs-example" defaultActiveKey="details">
                     <Row>
@@ -159,7 +121,6 @@ class Details extends Component {
                         <Col sm={9}>
                             <Tab.Content>
                                 <Tab.Pane eventKey="details">
-
 
                                     <MDBContainer>
                                         <MDBRow>
@@ -286,7 +247,6 @@ class Details extends Component {
                                         </MDBRow>
 
                                     </MDBContainer>
-
 
 
                                 </Tab.Pane>
@@ -476,15 +436,9 @@ class Details extends Component {
                     </Row>
                 </Tab.Container>
 
-
-                <br/><br/><br/><br/><br/>
-
-
-
             </div>
         )
     }
-
 
 }
 

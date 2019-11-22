@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
-import RentalForm from "../../Forms/RentalForm";
-import FuelPurchaseForm from "../../Forms/FuelPurchaseForm";
 import ServiceForm from "../../Forms/ServiceForm";
 
 class FuelModal extends Component {
@@ -16,7 +14,6 @@ class FuelModal extends Component {
 
     };
 
-
     handleSubmit = nr => () => {
         let modalNumber = 'modal' + nr;
         this.setState({
@@ -25,19 +22,12 @@ class FuelModal extends Component {
 
     };
 
-
-
-
-
     toggle = nr => () => {
         let modalNumber = 'modal' + nr;
         this.setState({
             [modalNumber]: !this.state[modalNumber]
         });
     };
-
-
-
 
     render(){
         return(
@@ -48,7 +38,6 @@ class FuelModal extends Component {
                     <MDBModalBody>
                         <p>Please enter service details</p>
                         <ServiceForm vehicleId={this.props.vehicleId} />
-
                     </MDBModalBody>
                     <MDBModalFooter>
                         <MDBBtn color="secondary" onClick={this.toggle(14)}>Close</MDBBtn>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase, addNewRental} from "../VehicleFunctions";
+import {addNewRental} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
 import * as Yup from "yup";
 import {Formik} from "formik";
@@ -22,25 +22,6 @@ class RentalForm extends Component {
         };
     }
 
-    onChange = (e) => {
-
-        const state = this.state;
-        state.rental[e.target.name] = e.target.value;
-        this.setState(state);
-
-    };
-/*
-    onSubmit = (e) => {
-
-        e.preventDefault();
-        console.log(this.state.rental);
-
-        addNewRental(this.state.rental).then(() => {
-            console.log("added new rental");
-
-        });
-    };
-*/
 
     onSubmit = (values) => {
         const state = this.state;

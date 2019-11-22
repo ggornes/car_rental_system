@@ -22,30 +22,7 @@ class FuelPurchaseForm extends Component {
     }
 
 
-/*
-    onChange = (e) => {
 
-        const state = this.state;
-        state.service[e.target.name] = e.target.value;
-        this.setState(state);
-
-    };
-*/
-
-/*
-    onSubmit = (e) => {
-
-
-
-        e.preventDefault();
-        console.log(this.state.service);
-
-        addService(this.state.service).then(() => {
-            console.log("added new fuel purchase");
-
-        });
-    };
-*/
     onSubmit = (values) => {
 
         const state = this.state;
@@ -58,8 +35,6 @@ class FuelPurchaseForm extends Component {
             console.log("added new fuel purchase");
 
         });
-
-
 
     };
 

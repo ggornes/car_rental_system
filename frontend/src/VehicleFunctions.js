@@ -1,20 +1,5 @@
 import axios from 'axios'
 
-export const getVehicles = () => {
-    return axios
-        .get('vehicles/show', {
-            headers: { "Content-type": "application/json" }
-        })
-        .then(res => {
-            var data = [];
-            Object.keys(res.data).forEach((key) => {
-                var val = res.data[key];
-                data.push([val.title, val.id])
-            });
-
-            return data
-        })
-};
 
 export const getVehicleById = item => {
     return axios
@@ -26,18 +11,6 @@ export const getVehicleById = item => {
         })
 };
 
-export const addToList = term => {
-    return axios
-        .post(
-            'vehicles/add', {
-                make: term
-            }, {
-                headers: { "Content-type": "application/json" }
-            })
-        .then((res) => {
-            console.log(res)
-        })
-};
 
 // creates an instance of a HTTP POST request
 // term is the myVehicle

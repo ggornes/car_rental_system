@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol} from 'mdbreact';
 import EditVehicleForm from "../../Forms/EditVehicleForm";
 
 
@@ -42,56 +41,6 @@ class EditVehicle extends Component {
                 }
                 )
             )
-
-
-
-
-
-    };
-
-    onChange = (e) => {
-
-        const state = this.state;
-        state.vehicle[e.target.name] = e.target.value;
-        this.setState(state);
-
-    };
-
-    onSubmit = (e) => {
-
-        // ToDo: Validate fields
-        // if field is empty, var = default;
-
-
-
-        e.preventDefault();
-        console.log(this.state.vehicle);
-
-
-        //addToList2(this.state.vehicle).then(() => {
-            //this.getAll()
-            // redirect
-            // show success or error message
-        //})
-
-
-    };
-
-    onClear = (e) => {
-        const vehicle = {
-            make:'',
-            model:'',
-            release_year:'',
-            registration: '',
-            fuel: '',
-            tank_size: '',
-            initials: ''
-        };
-        const state = this.state;
-        this.state.vehicle = vehicle;
-        this.setState(state);
-
-
     };
 
     render() {
@@ -101,8 +50,6 @@ class EditVehicle extends Component {
                 <h4>
                     Edit Vehicle
                 </h4>
-
-
                 {this.state.isLoaded ?
                     (
                         <MDBContainer>
@@ -115,19 +62,14 @@ class EditVehicle extends Component {
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>
-
-
                     )
                     :
                     (
                         <div>
                             loading
                         </div>
-
                     )
                 }
-
-
 
             </div>
         );

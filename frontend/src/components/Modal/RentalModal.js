@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import {addNewRental, addToList2} from "../../VehicleFunctions";
 import RentalForm from "../../Forms/RentalForm";
 
 class RentalModalPage extends Component {
@@ -13,7 +12,6 @@ class RentalModalPage extends Component {
 
         };
     }
-
 
     toggle = nr => () => {
         let modalNumber = 'modal' + nr;
