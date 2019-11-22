@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {addFuelPurchase, addNewRental} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
+import {Formik} from "formik";
+import * as Yup from "yup";
+import Error from "./Error"
 
 class FuelPurchaseForm extends Component {
 
@@ -24,7 +27,7 @@ class FuelPurchaseForm extends Component {
         this.setState(state);
 
     };
-
+/*
     onSubmit = (e) => {
 
         // ToDo: Validate fields
@@ -39,26 +42,64 @@ class FuelPurchaseForm extends Component {
 
         });
     };
+*/
+
+    elSubmit = (values) => {
+        const state = this.state;
+        state.fuel_purchase.amount = values.amount;
+        state.fuel_purchase.cost = values.cost;
+        this.setState(state);
+        console.log(this.state.fuel_purchase);
+        addFuelPurchase(this.state.fuel_purchase).then(() => {
+            console.log("added new fuel purchase");
+
+        });
+
+
+    };
 
     render() {
+
+        const validationSchema = Yup.object().shape({
+            amount: Yup.number().min(1, "Must be greater than 0").required("Must enter a value"),
+            cost: Yup.number().min(1, "Must be greater than 0").required("Must enter a value"),
+        });
+
         return(
 
-            <form id="newFuelPurchaseForm" onSubmit={this.onSubmit}>
-                <MDBRow>
-                    <MDBCol md="4" className="mb-3">
-                        <label className="grey-text"> Rental Id </label>
-                        <input type="text" className="form-control" name="rental_id" value={this.state.fuel_purchase.rental_id} onChange={this.onChange} placeholder="Rental Id"/>
-                    </MDBCol>
-                    <MDBCol md="4" className="mb-3">
-                        <label className="grey-text"> Amount </label>
-                        <input type="text" className="form-control" name="amount" value={this.state.fuel_purchase.amount} onChange={this.onChange} placeholder="Amount"/>
-                    </MDBCol>
-                    <MDBCol md="4" className="mb-3">
-                        <label className="grey-text"> Cost </label>
-                        <input type="text" className="form-control" name="cost" value={this.state.fuel_purchase.cost} onChange={this.onChange} placeholder="Cost"/>
-                    </MDBCol>
-                </MDBRow>
-            </form>
+
+            <Formik
+                initialValues={{amount: "", cost: ""}}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    this.elSubmit(values)
+                }}
+            >
+                {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
+                    <form id="newFuelPurchaseForm" onSubmit={handleSubmit}>
+                        <MDBRow>
+                            <MDBCol md="4" className="mb-3">
+                                <label className="grey-text"> Rental Id </label>
+                                <input type="text" className="form-control" name="rental_id" value={this.state.fuel_purchase.rental_id} onChange={this.onChange} placeholder="Rental Id"/>
+
+                            </MDBCol>
+                            <MDBCol md="4" className="mb-3">
+                                <label className="grey-text"> Amount </label>
+                                <input type="text" className={touched.amount && errors.amount ? "form-control is-invalid" : "form-control"} name="amount" value={values.amount} onChange={handleChange} onBlur={handleBlur} placeholder="Amount"/>
+                                <Error touched={touched.amount} message={errors.amount}/>
+                            </MDBCol>
+                            <MDBCol md="4" className="mb-3">
+                                <label className="grey-text"> Cost </label>
+                                <input type="text" className={touched.cost && errors.cost ? "form-control is-invalid" : "form-control"} name="cost" value={values.cost} onChange={handleChange} onBlur={handleBlur} placeholder="Cost"/>
+                                <Error touched={touched.cost} message={errors.cost}/>
+                            </MDBCol>
+                        </MDBRow>
+                    </form>
+                )}
+
+            </Formik>
+
+
 
         );
     }
