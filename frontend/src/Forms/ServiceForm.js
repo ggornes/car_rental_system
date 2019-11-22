@@ -4,6 +4,7 @@ import {Redirect} from "react-router-dom";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
 import * as Yup from "yup";
+import ServiceError from "./ServiceError"
 
 class FuelPurchaseForm extends Component {
 
@@ -21,7 +22,7 @@ class FuelPurchaseForm extends Component {
     }
 
 
-
+/*
     onChange = (e) => {
 
         const state = this.state;
@@ -29,11 +30,11 @@ class FuelPurchaseForm extends Component {
         this.setState(state);
 
     };
+*/
 
+/*
     onSubmit = (e) => {
 
-        // ToDo: Validate fields
-        // if field is empty, var = default;
 
 
         e.preventDefault();
@@ -44,6 +45,23 @@ class FuelPurchaseForm extends Component {
 
         });
     };
+*/
+    onSubmit = (values) => {
+
+        const state = this.state;
+        state.service.odometer = values.odometer;
+        state.service.serviced_at = values.serviced_at;
+        this.setState(state);
+        console.log(this.state.service);
+
+        addService(this.state.service).then(() => {
+            console.log("added new fuel purchase");
+
+        });
+
+
+
+    };
 
     render() {
         if (this.state.toDetails === true) {
@@ -51,7 +69,8 @@ class FuelPurchaseForm extends Component {
         }
 
         const validationSchema = Yup.object().shape({
-            odometer: Yup.number().min(1, "Must be greater than 0").required("Must enter a value")
+            odometer: Yup.number().min(1, "Must be greater than 0").required("Must enter a value"),
+            serviced_at: Yup.date().required("Must enter a date")
         });
 
         return(
@@ -59,18 +78,22 @@ class FuelPurchaseForm extends Component {
             <Formik
                 initialValues={{odometer: "", serviced_at: ""}}
                 validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    this.onSubmit(values)
+                }}
             >
-                {({values, errors, touched, handleChange, handleBlur, isValid}) => (
-                    <form id="newServiceForm" onSubmit={this.onSubmit}>
-                        {JSON.stringify(values)}
+                {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
+                    <form id="newServiceForm" onSubmit={handleSubmit}>
                         <MDBRow>
                             <MDBCol md="6" className="mb-3">
                                 <label className="grey-text"> Odometer </label>
                                 <input className={touched.odometer && errors.odometer ? "form-control is-invalid" : "form-control"} type="number" pattern="[0-9]*" name="odometer" value={values.odometer} onChange={handleChange} onBlur={handleBlur} placeholder="Odometer"/>
+                                <ServiceError touched={touched.odometer} message={errors.odometer}/>
                             </MDBCol>
                             <MDBCol md="6" className="mb-3">
                                 <label className="grey-text"> Date of service </label>
-                                <input type="date" className="form-group" name="serviced_at" value={values.serviced_at} onChange={handleChange} onBlur={handleBlur} placeholder="Date of Service"/>
+                                <input className={touched.serviced_at && errors.serviced_at ? "form-control is-invalid" : "form-control"} type="date" name="serviced_at" value={values.serviced_at} onChange={handleChange} onBlur={handleBlur} placeholder="Date of Service"/>
+                                <ServiceError touched={touched.serviced_at} message={errors.serviced_at}/>
                             </MDBCol>
                         </MDBRow>
                     </form>
