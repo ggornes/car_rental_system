@@ -82,7 +82,7 @@ class FuelPurchaseForm extends Component {
                     this.onSubmit(values)
                 }}
             >
-                {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
+                {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
                     <form id="newServiceForm" onSubmit={handleSubmit}>
                         <MDBRow>
                             <MDBCol md="6" className="mb-3">
