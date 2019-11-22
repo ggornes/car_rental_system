@@ -265,11 +265,13 @@ class Details extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th>last_odo - last_service_odo </th>
+                                                            <th>Needs Service
+                                                                <div className="small">(Every 1,000 km)</div>
+                                                            </th>
                                                             <td>
                                                                 {this.state.services !== null && this.state.services.length > 0 && this.state.rentals !== null && this.state.rentals.length > 0 &&
                                                                 <div>
-                                                                    {this.state.rentals[0].odometer_end - this.state.services[0].odometer}
+                                                                    {(this.state.rentals[0].odometer_end - this.state.services[0].odometer) >= 1000 ? 'Yes' : 'No'}
                                                                 </div>
                                                                 }
                                                             </td>
