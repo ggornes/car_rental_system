@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase, addNewRental, addService} from "../VehicleFunctions";
+import {addService} from "../VehicleFunctions";
 import {Redirect} from "react-router-dom";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";

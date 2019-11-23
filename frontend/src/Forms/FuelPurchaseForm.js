@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase, addNewRental} from "../VehicleFunctions";
+import {addFuelPurchase} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
 import * as Yup from "yup";

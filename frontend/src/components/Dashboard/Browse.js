@@ -3,11 +3,10 @@ import TablePage from './Table'
 import { Link } from 'react-router-dom';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import { faHome, faEdit, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
-import {deleteItem, getVehicleById} from "../../VehicleFunctions";
 import {Circle} from "styled-spinkit";
 
 
