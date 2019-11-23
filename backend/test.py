@@ -1,6 +1,6 @@
 import unittest
 from flask_testing import TestCase
-from mysql4 import app, db, Vehicles, Rentals, Services
+from mysql5 import app, db, Vehicles, Rentals, Services
 from flask import jsonify
 
 

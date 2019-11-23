@@ -47,7 +47,7 @@ class Add extends Component {
         })
     };
 
-    onClear = (e) => {
+    onClear = () => {
         const vehicle = {
             make:'',
             model:'',
