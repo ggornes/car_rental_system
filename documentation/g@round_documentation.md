@@ -1,8 +1,17 @@
 # g@round Documentation
+- [Description](#Description)
+- [Features](#Features)
+- [Development Stack </>](#Development-Stack-</>)
+- [Design](#Design)
+  - [Classes](#Classes)
+  - [Models](#Models)
+  - [Methods](#Methods-(some-examples))
+- [Installation](#Installation)
+- [Screenshots](#Screenshots)
 
 ## Description
 A BREAD web app tool to manage a vehicle rental business.
-### Features:
+## Features:
 + Keep data records
 + Manage vehicle fleet 
   + Browse, Read, Add, Edit, Delete vehicles. 
@@ -14,7 +23,7 @@ A BREAD web app tool to manage a vehicle rental business.
   + Rental rate
   + Maintenance to income ratio
 
-### Development Stack </>
+## Development Stack </>
 
 + #### Node | React JS
   + View
@@ -79,7 +88,7 @@ classDiagram
       }
 ```
 
-#### Model
+#### Models
 ```Python
 class Vehicles(db.Model):
 	id = db.Column(BIGINT(20, unsigned=True), primary_key=True)
@@ -112,7 +121,7 @@ CREATE TABLE `vehicles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4
 ```
 
-+ ### Methods (some examples)
+#### Methods (some examples)
 REST API endpoints
 
 ```Python
