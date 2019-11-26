@@ -88,6 +88,7 @@ classDiagram
         +add()
       }
 ```
+![Home](./screenshots/classes.png)
 
 #### Models
 ```Python
