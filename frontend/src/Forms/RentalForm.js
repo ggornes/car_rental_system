@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addNewRental} from "../VehicleFunctions";
+import {rental_add} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
 import * as Yup from "yup";
 import {Formik} from "formik";
@@ -32,7 +32,7 @@ class RentalForm extends Component {
         state.rental.rental_type = values.rental_type;
         this.setState(state);
         console.log(this.state.rental);
-        addNewRental(this.state.rental).then(() => {
+        rental_add(this.state.rental).then(() => {
             console.log("added new rental");
 
         });

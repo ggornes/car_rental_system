@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addService} from "../VehicleFunctions";
+import {service_add} from "../VehicleFunctions";
 import {Redirect} from "react-router-dom";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
@@ -31,7 +31,7 @@ class FuelPurchaseForm extends Component {
         this.setState(state);
         console.log(this.state.service);
 
-        addService(this.state.service).then(() => {
+        service_add(this.state.service).then(() => {
             console.log("added new fuel purchase");
 
         });

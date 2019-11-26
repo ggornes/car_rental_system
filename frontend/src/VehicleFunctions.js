@@ -14,7 +14,7 @@ export const getVehicleById = item => {
 
 // creates an instance of a HTTP POST request
 // term is the myVehicle
-export const addToList2 = term => {
+export const vehicle_add = term => {
     return axios
         .post(
             'http://localhost:5000/vehicles/add', {
@@ -40,7 +40,7 @@ export const addToList2 = term => {
         })
 };
 
-export const addNewRental = term => {
+export const rental_add = term => {
   return axios
       .post(
           'http://localhost:5000/vehicles/rentals/add', {
@@ -65,7 +65,7 @@ export const addNewRental = term => {
 };
 
 
-export const addFuelPurchase = term => {
+export const fuelPurchase_add = term => {
     return axios
         .post(
             'http://localhost:5000/vehicles/fuel_purchase/add', {
@@ -87,7 +87,7 @@ export const addFuelPurchase = term => {
         })
 };
 
-export const addService = term => {
+export const service_add = term => {
     return axios
         .post(
             'http://localhost:5000/vehicles/services/add', {
@@ -108,7 +108,7 @@ export const addService = term => {
             })
 };
 
-export const deleteItem = term => {
+export const vehicle_delete = term => {
     const r = window.confirm("Do you really want to delete this vehicle?");
     if (r === true) {
         axios
@@ -131,7 +131,7 @@ export const deleteItem = term => {
 
 };
 
-export const updateItem = (term, id) => {
+export const vehicle_update = (term, id) => {
     return axios
         .put(
             `http://localhost:5000/vehicles/edit/${id}`, {

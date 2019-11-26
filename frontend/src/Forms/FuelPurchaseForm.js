@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase} from "../VehicleFunctions";
+import {fuelPurchase_add} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -34,7 +34,7 @@ class FuelPurchaseForm extends Component {
         state.fuel_purchase.cost = values.cost;
         this.setState(state);
         console.log(this.state.fuel_purchase);
-        addFuelPurchase(this.state.fuel_purchase).then(() => {
+        fuelPurchase_add(this.state.fuel_purchase).then(() => {
             console.log("added new fuel purchase");
 
         });

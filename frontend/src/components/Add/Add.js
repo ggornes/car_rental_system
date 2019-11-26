@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {addToList2} from "../../VehicleFunctions";
+import {vehicle_add} from "../../VehicleFunctions";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import * as Yup from "yup";
 import {Formik} from "formik";
@@ -42,7 +42,7 @@ class Add extends Component {
         this.setState(state);
         console.log(this.state.vehicle);
 
-        addToList2(this.state.vehicle).then(() => {
+        vehicle_add(this.state.vehicle).then(() => {
             this.props.history.push(`/browse`);
         })
     };

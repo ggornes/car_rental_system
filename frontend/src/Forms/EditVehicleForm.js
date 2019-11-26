@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {updateItem} from "../VehicleFunctions";
+import {vehicle_update} from "../VehicleFunctions";
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
@@ -48,7 +48,7 @@ class EditVehicleForm extends Component {
         this.setState(state);
         console.log(this.state.vehicle);
 
-        updateItem(this.state.vehicle, this.state.vehicle.id).then(() => {
+        vehicle_update(this.state.vehicle, this.state.vehicle.id).then(() => {
             this.setState({toBrowse : true});
         })
     };
