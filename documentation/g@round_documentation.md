@@ -6,7 +6,7 @@
 - [Design](#Design)
   - [Classes](#Classes)
   - [Models](#Models)
-  - [Methods](#Methods-(some-examples))
+  - [Methods](#Methods)
 - [Installation](#Installation)
 - [Screenshots](#Screenshots)
 
@@ -122,7 +122,8 @@ CREATE TABLE `vehicles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4
 ```
 
-#### Methods (some examples)
+#### Methods
+(some examples)
 REST API endpoints
 
 ```Python
