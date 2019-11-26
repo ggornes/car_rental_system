@@ -2,7 +2,7 @@
 ## Table of contents
 - [Description](#Description)
 - [Features](#Features)
-- [Development Stack </>](#Development-Stack-</>)
+- [Development Stack </>](#Development-Stack)
 - [Design](#Design)
   - [Classes](#Classes)
   - [Models](#Models)
@@ -24,7 +24,7 @@ A BREAD web app tool to manage a vehicle rental business.
   + Rental rate
   + Maintenance to income ratio
 
-## Development Stack </>
+## Development Stack
 
 + #### Node | React JS
   + View
