@@ -188,6 +188,8 @@ CREATE USER 'rental_db_admin'@'localhost' IDENTIFIED WITH mysql_native_password 
 
 GRANT ALL PRIVILEGES ON rental_db.* TO 'rental_db_admin'@'localhost';
 
+GRANT ALL PRIVILEGES ON rental_db_test.* TO 'rental_db_admin'@'localhost';
+
 GRANT USAGE ON *.* TO 'rental_db_admin'@'localhost';
 FLUSH PRIVILEGES;
 ```
