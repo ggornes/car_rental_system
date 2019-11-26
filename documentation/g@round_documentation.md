@@ -35,13 +35,49 @@ programs — pytest documentation](https://docs.pytest.org/en/latest/))
 
 
 ## Design
-+ ### Classes
-| Vehicle | Rentals | Fuel_purchases | Services |
-|---|---|---|---|---|
-| id | id | id| id
-|make|Vehicle.id|Rental.id|Vehicle.id|
-|model||||
-|year||||
+#### Classes
+
+```mermaid
+classDiagram
+      class Vehicle {
+        +int id
+        +String make
+        +String model
+        +int year
+        +String registration
+        +String fuel
+        +String tank_size
+        +add()
+        +edit()
+        +delete()
+      }
+      
+      class Rental{
+        +int id
+        +int vehicle_id
+        +decimal odometer_start
+        +decimal odometer_end
+        +date date_start
+        +date date_end
+        +char rental_type
+        +add()
+      }
+
+      class FuelPurchase{
+        +int id
+        +int rental_id
+        +decimal amount
+        +decimal cost
+        +add()
+      }
+      class Service{
+        +int id
+        +int vehicle_id
+        +decimal odometer
+        +date serviced_at
+        +add()
+      }
+```
 
 #### Model
 ```Python
@@ -76,7 +112,7 @@ CREATE TABLE `vehicles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4
 ```
 
-+ ### Methods
++ ### Methods (some examples)
 REST API endpoints
 
 ```Python
@@ -105,6 +141,35 @@ def get_rentals_by_vehicle_id(id):
 # ...
 
 ```
+Add new vhicle
+
+```javascript
+export const vehicle_add = term => {
+    return axios
+        .post(
+            'http://localhost:5000/vehicles/add', {
+                make: term.make,
+                model: term.model,
+                release_year: term.release_year,
+                registration: term.registration,
+                fuel: term.fuel,
+                tank_size: term.tank_size,
+                initials: term.initials
+            }, {
+                headers: { "Content-type": "application/json" }
+            })
+        .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+                alert("Vehicle added to database");
+            } else {
+                alert("Error while trying to add new vehicle");
+            }
+
+
+        })
+};
+```
 
 ## Installation:
 
@@ -117,6 +182,7 @@ mysql -u root
 
 ```sql
 CREATE DATABASE rental_db CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+CREATE DATABASE rental_db_test CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 CREATE USER 'rental_db_admin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password1'; 
 
@@ -178,44 +244,28 @@ deactivate
 #### 3.2 Installing Python modules
 + <b>Flask</b>: Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began 
 as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
-```bash
-pip install Flask
-```
 
 + <b>SQLAlchemy</b>: is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. It provides a full suite of well known 
 enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language. 
   + <b>Flask-SQLAlchemy</b>: Flask-SQLAlchemy is an extension for Flask that adds support for SQLAlchemy to your application. It aims to simplify using SQLAlchemy with Flask by providing 
 useful defaults and extra helpers that make it easier to accomplish common tasks.
-```bash
-pip install Flask-SQLAlchemy
-```
-  + Flask-MySQLdb
-```bash
-pip install Flask-MySQLdb
-```
 
-  + Flask-Cors
-```bash
-pip install Flask-Cors
-```
++ <b>Flask-MySQLdb</b>
+
++ <b>Flask-Cors</b>
+
 + <b>Marshmallow</b>: is an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes.
   + <b>Flask-Marshmallow</b>: Flask-Marshmallow is a thin integration layer for Flask (a Python web framework) and marshmallow (an object serialization/deserialization library) that adds 
 additional features to marshmallow, including URL and Hyperlinks fields for HATEOAS-ready APIs. It also (optionally) integrates with Flask-SQLAlchemy.
-```bash
-pip install flask-marshmallow
-```
 
-  + Marshmallow-SQLAlchemy
++ <b>Marshmallow-SQLAlchemy</b>
++ <b>simplejson</b>
++ <b>Flask-Testing</b>
+
+To install all required modules, just run:
 ```bash
-pip install marshmallow-sqlalchemy
-```
-  + simplejson
-```bash
-pip install simplejson
-```
-  + Flask-Testing
-```bash
-pip install Flask-Testing
+cd backend
+pip install -r requirements.txt
 ```
 
 After installing all modules, if you run
