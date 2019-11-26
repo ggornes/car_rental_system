@@ -1,4 +1,5 @@
 # g@round Documentation
+## Table of contents
 - [Description](#Description)
 - [Features](#Features)
 - [Development Stack </>](#Development-Stack-</>)
