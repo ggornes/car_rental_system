@@ -315,3 +315,10 @@ yarn install
 yarn start
 ```
 The app should be running now (localhost:3000)
+
+## Screenshots
+![Home](./screenshots/home.png)
+![Browse](./screenshots/browse.png)
+![Add Vehicle](./screenshots/add.png)
+![Details](./screenshots/details_1.png)
+![Home](./screenshots/add_new_rental.png)
