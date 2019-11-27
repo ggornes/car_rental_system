@@ -88,7 +88,7 @@ classDiagram
         +add()
       }
 ```
-![Home](./screenshots/classes.png)
+![Home](./documentation/screenshots/classes.png)
 
 #### Models
 ```Python
@@ -342,8 +342,8 @@ yarn start
 The app should be running now (localhost:3000)
 
 ## Screenshots
-![Home](./screenshots/home.png)
-![Browse](./screenshots/browse.png)
-![Add Vehicle](./screenshots/add.png)
-![Details](./screenshots/details_1.png)
-![Home](./screenshots/add_new_rental.png)
+![Home](./documentation/screenshots/home.png)
+![Browse](./documentation/screenshots/browse.png)
+![Add Vehicle](./documentation/screenshots/add.png)
+![Details](./documentation/screenshots/details_1.png)
+![Home](./documentation/screenshots/add_new_rental.png)
