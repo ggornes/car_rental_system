@@ -5,6 +5,7 @@ import RentalsTable from "../Dashboard/RentalsTable";
 import RentalModal from "../Modal/RentalModal";
 import FuelModal from "../Modal/FuelModal";
 import ServicesModal from "../Modal/ServicesModal";
+import {Service} from "../../Models/Service"
 
 
 class Details extends Component {
@@ -204,6 +205,16 @@ class Details extends Component {
                                                         <tr>
                                                             <th>Total Services: </th>
                                                             <td>{this.state.services_summary.total_services}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Services 2: </th>
+                                                            <td>
+                                                                {this.state.services !== null && this.state.services.length > 0 &&
+                                                                <div>
+                                                                    {Service.getServices(this.state.services)}
+                                                                </div>
+                                                                }
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <th>Odometer reading: </th>

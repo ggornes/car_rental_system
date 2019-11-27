@@ -64,7 +64,7 @@ export class Service {
     }
 
     static getServices = services => {
-        return services;
+        return services.length;
     }
 
 }
