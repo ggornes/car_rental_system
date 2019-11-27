@@ -237,6 +237,16 @@ class Details extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <th>Last Service Odo 2: </th>
+                                                            <td>
+                                                                {this.state.services !== null && this.state.services.length > 0 &&
+                                                                <div>
+                                                                    {Service.getLastServiceOdo(this.state.services)}
+                                                                </div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <th>Needs Service
                                                                 <div className="small">(Every 1,000 km)</div>
                                                             </th>

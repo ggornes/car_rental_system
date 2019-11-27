@@ -65,6 +65,14 @@ export class Service {
 
     static getServices = services => {
         return services.length;
+    };
+
+    static getLastServiceOdo = services => {
+        if (services.length) {
+            return services[0].odometer; // returns the first element in the array considering it is sorted
+        } else {
+            return 0;
+        }
     }
 
 }
