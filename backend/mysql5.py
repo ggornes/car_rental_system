@@ -11,6 +11,7 @@ import simplejson
 
 from sqlalchemy import table, column, func, desc
 
+import os
 
 # Usefull links:
 # https://blog.miguelgrinberg.com/post/nested-queries-with-sqlalchemy-orm
@@ -31,13 +32,13 @@ app = Flask(__name__)
 
 # Database
 app.config['MYSQL_USER'] = 'rental_db_admin'
-app.config['MYSQL_PASSWORD'] = 'Password1'
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = 'rental_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE'] = 'rental_db'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rental_db_admin:Password1@localhost/rental_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Init db
