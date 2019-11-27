@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --watchAll --config ./jest.config.json",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
