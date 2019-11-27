@@ -4,9 +4,10 @@ import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import Error from "./Error"
+import {FuelPurchase} from "../Models/FuelPurchase";
 
 class FuelPurchaseForm extends Component {
-
+// Note: we can use a stateless component now that we are using the Models
     constructor(props) {
         super(props);
 
@@ -29,12 +30,19 @@ class FuelPurchaseForm extends Component {
     };
 
     onSubmit = (values) => {
+        /*
         const state = this.state;
         state.fuel_purchase.amount = values.amount;
         state.fuel_purchase.cost = values.cost;
         this.setState(state);
-        console.log(this.state.fuel_purchase);
-        fuelPurchase_add(this.state.fuel_purchase).then(() => {
+         */
+
+        const fuelPurchase = new FuelPurchase(this.props.vehicleId, this.props.rentalId, values.amount, values.cost);
+        console.log("Model: ", fuelPurchase);
+
+        //console.log(this.state.fuel_purchase);
+
+        fuelPurchase_add(fuelPurchase).then(() => {
             console.log("added new fuel purchase");
 
         });

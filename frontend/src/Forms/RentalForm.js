@@ -4,9 +4,10 @@ import {MDBCol, MDBRow} from "mdbreact";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import Error from "./Error";
+import {Rental} from "../Models/Rental";
 
 class RentalForm extends Component {
-
+// Note: we can use a stateless component now that we are using the Models
     constructor(props) {
         super(props);
 
@@ -24,6 +25,7 @@ class RentalForm extends Component {
 
 
     onSubmit = (values) => {
+        /*
         const state = this.state;
         state.rental.odometer_start = values.odometer_start;
         state.rental.odometer_end = values.odometer_end;
@@ -31,8 +33,14 @@ class RentalForm extends Component {
         state.rental.date_end = values.date_end;
         state.rental.rental_type = values.rental_type;
         this.setState(state);
-        console.log(this.state.rental);
-        rental_add(this.state.rental).then(() => {
+         */
+
+        const rental = new Rental(this.props.vehicleId, values.odometer_start, values.odometer_end, values.date_start, values.date_end, values.rental_type);
+        console.log("Model: ", rental);
+
+
+        //console.log(this.state.rental);
+        rental_add(rental).then(() => {
             console.log("added new rental");
 
         });

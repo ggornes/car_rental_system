@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {service_add} from "../VehicleFunctions";
-import {Redirect} from "react-router-dom";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import Error from "./Error"
+import {Service} from "./../Models/Service"
 
-class FuelPurchaseForm extends Component {
-
+class ServiceForm extends Component {
+// Note: we can use a stateless component now that we are using the Models
     constructor(props) {
         super(props);
 
@@ -24,24 +24,25 @@ class FuelPurchaseForm extends Component {
 
 
     onSubmit = (values) => {
-
+        /*
         const state = this.state;
         state.service.odometer = values.odometer;
         state.service.serviced_at = values.serviced_at;
         this.setState(state);
-        console.log(this.state.service);
+         */
+        const service = new Service(this.props.vehicleId, values.odometer, values.serviced_at);
+        console.log("Using the Model: ", service);
+        //console.log("not using the model: ", this.state.service);
 
-        service_add(this.state.service).then(() => {
-            console.log("added new fuel purchase");
+        service_add(service).then(() => {
+            console.log("added new service");
 
         });
 
     };
 
     render() {
-        if (this.state.toDetails === true) {
-            return <Redirect to={`/details2/${this.props.vehicleId}`} />
-        }
+
 
         const validationSchema = Yup.object().shape({
             odometer: Yup.number().min(0, "Must be greater than 0").required("Must enter a value"),
@@ -81,4 +82,4 @@ class FuelPurchaseForm extends Component {
 
 }
 
-export default FuelPurchaseForm;
+export default ServiceForm;

@@ -4,9 +4,10 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import * as Yup from "yup";
 import {Formik} from "formik";
 import Error from "../../Forms/Error";
+import {Vehicle} from "../../Models/Vehicle"
 
 class Add extends Component {
-
+// Note: we can use a stateless component now that we are using the Models
     constructor(props) {
         super(props);
 
@@ -19,18 +20,12 @@ class Add extends Component {
                 fuel: '',
                 tank_size: '',
                 initials: '',
-            },
-            formErrors: {make: '', model: '', release_year: '', registration: '', tank_size: ''},
-            makeValid: false,
-            modelValid: false,
-            yearValid: false,
-            registrationValid: false,
-            tank_sizeValid: false,
-            formValid: false
+            }
         };
     }
 
     onSubmit = (values) => {
+        /*
         const state = this.state;
         state.vehicle.make = values.make;
         state.vehicle.model = values.model;
@@ -40,9 +35,13 @@ class Add extends Component {
         state.vehicle.tank_size = values.tank_size;
         state.vehicle.initials = values.initials;
         this.setState(state);
-        console.log(this.state.vehicle);
+        */
 
-        vehicle_add(this.state.vehicle).then(() => {
+        const vehicle = new Vehicle(values.make, values.model, values.release_year, values.registration, values.fuel, values.tank_size, values.initials);
+        console.log(vehicle);
+        //console.log(this.state.vehicle);
+
+        vehicle_add(vehicle).then(() => {
             this.props.history.push(`/browse`);
         })
     };
