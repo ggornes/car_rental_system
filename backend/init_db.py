@@ -1,4 +1,4 @@
-from mysql5 import app, db, Vehicles, Rentals, Fuel_purchases, Services
+from app import app, db, Vehicles, Rentals, Fuel_purchases, Services
 
 db.create_all()
 

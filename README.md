@@ -330,7 +330,7 @@ python init_db.py
 
 ### STEP 5: start the API server (localhost:5000)
 ```bash
-python mysql.py
+python app.py
 ```
 
 ### STEP 6: Install frontend modules using Yarn and start the app
