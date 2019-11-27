@@ -1,10 +1,6 @@
 export const LANDING = '/';
-export const SIGN_UP = '/signup';
-export const SIGN_IN = '/signin';
 export const BROWSE = '/browse';
 export const ADD = '/add';
-export const DETAILS = '/details';
-export const DETAILS2 = '/details2/:myid';
 export const DETAILS3 = '/details3/:myid';
 export const EDIT_VEHICLE = '/vehicle/edit/:vehicleId';
-export const PASSWORD_FORGET = '/pw-forget';
+

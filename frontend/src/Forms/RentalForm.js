@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase, addNewRental} from "../VehicleFunctions";
+import {rental_add} from "../VehicleFunctions";
 import {MDBCol, MDBRow} from "mdbreact";
 import * as Yup from "yup";
 import {Formik} from "formik";
@@ -22,25 +22,6 @@ class RentalForm extends Component {
         };
     }
 
-    onChange = (e) => {
-
-        const state = this.state;
-        state.rental[e.target.name] = e.target.value;
-        this.setState(state);
-
-    };
-/*
-    onSubmit = (e) => {
-
-        e.preventDefault();
-        console.log(this.state.rental);
-
-        addNewRental(this.state.rental).then(() => {
-            console.log("added new rental");
-
-        });
-    };
-*/
 
     onSubmit = (values) => {
         const state = this.state;
@@ -48,9 +29,10 @@ class RentalForm extends Component {
         state.rental.odometer_end = values.odometer_end;
         state.rental.date_start = values.date_start;
         state.rental.date_end = values.date_end;
+        state.rental.rental_type = values.rental_type;
         this.setState(state);
         console.log(this.state.rental);
-        addNewRental(this.state.rental).then(() => {
+        rental_add(this.state.rental).then(() => {
             console.log("added new rental");
 
         });
@@ -106,7 +88,7 @@ class RentalForm extends Component {
                                 <select className={touched.rental_type && errors.rental_type ? "browser-default custom-select is-invalid" : "browser-default custom-select"} name="rental_type" value={values.rental_type} onChange={handleChange} onBlur={handleBlur}>
                                     <option>Rental Type</option>
                                     <option value="D">D</option>
-                                    <option value="K">K</option><Error touched={touched.rental_type} message={errors.rental_type}/>
+                                    <option value="K">K</option>
                                 </select>
                                 <Error touched={touched.rental_type} message={errors.rental_type}/>
                             </MDBCol>

@@ -1,9 +1,9 @@
 import React from 'react';
-import {MDBBtn, MDBDataTable, MDBRow, MDBCol, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {MDBDataTable, MDBRow, MDBCol} from 'mdbreact';
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faInfoCircle, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {deleteItem} from "../../VehicleFunctions";
+import {vehicle_delete} from "../../VehicleFunctions";
 
 const TablePage = (props) => {
     const columns = [
@@ -64,7 +64,7 @@ const TablePage = (props) => {
                 <MDBRow>
                     <MDBCol><Link to={`/vehicle/edit/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
                     <MDBCol><Link to={`/details3/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
-                    <MDBCol id="trash"><FontAwesomeIcon icon={faTrashAlt} onClick={() => deleteItem(obj.id)}/></MDBCol>
+                    <MDBCol id="trash"><FontAwesomeIcon icon={faTrashAlt} onClick={() => vehicle_delete(obj.id)}/></MDBCol>
                 </MDBRow>
 
 
@@ -72,16 +72,10 @@ const TablePage = (props) => {
     );
 
 
-
-
     const data = {
         columns,
         rows
     };
-
-
-
-
 
     console.log("TABLE data: ");
     console.log(data);

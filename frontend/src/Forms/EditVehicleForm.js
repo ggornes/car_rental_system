@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {addToList2, updateItem} from "../VehicleFunctions";
+import {vehicle_update} from "../VehicleFunctions";
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import {Redirect} from "react-router-dom";
-import {VehicleFormErrors} from "./VehicleFormErrors"
 import * as Yup from "yup";
 import {Formik} from "formik";
 import Error from "./Error";
@@ -37,91 +36,6 @@ class EditVehicleForm extends Component {
 
     }
 
-    componentDidMount() {
-
-    }
-
-
-    onChange = (e) => {
-
-        const state = this.state;
-        const name = e.target.name;
-        const value = e.target.value;
-
-        state.vehicle[name] = value;
-        this.setState(state, () => {this.validateField(name, value)});
-
-    };
-
-    validateField(fieldName, value) {
-        let fieldValidationErrors = this.state.formErrors;
-        let makeValid = this.state.makeValid;
-        let modelValid = this.state.modelValid;
-        let yearValid = this.state.yearValid;
-        let registrationValid = this.state.registrationValid;
-        let tank_sizeValid = this.state.tank_sizeValid;
-
-        switch(fieldName) {
-            case 'make':
-                makeValid = value.length >= 3;
-                fieldValidationErrors.make = makeValid ? '' : 'value is too short';
-                break;
-            case 'model':
-                modelValid = value.length >= 1;
-                fieldValidationErrors.model = modelValid ? '': ' is too short';
-                break;
-            case 'release_year':
-                yearValid = value.length === 4;
-                fieldValidationErrors.year = yearValid ? '': 'invalid year';
-                break;
-            case 'registration':
-                registrationValid = value.length === 7;
-                fieldValidationErrors.registration = registrationValid ? '': ' must be 7 characters';
-                break;
-            case 'tank_size':
-                tank_sizeValid = value > 0;
-                fieldValidationErrors.tank_size = tank_sizeValid ? '': ' must be greater than 0';
-                break;
-            default:
-                break;
-        }
-        this.setState({formErrors: fieldValidationErrors,
-            makeValid: makeValid,
-            modelValid: modelValid,
-            yearValid: yearValid,
-            registrationValid: registrationValid,
-            tank_sizeValid: tank_sizeValid
-        }, this.validateForm);
-    }
-
-    validateForm() {
-        this.setState({formValid: this.state.makeValid && this.state.modelValid && this.state.yearValid && this.state.registrationValid && this.state.tank_sizeValid});
-    }
-
-    /*
-    onSubmit = (e) => {
-
-        // ToDo: Validate fields
-        // if field is empty, var = default;
-
-        e.preventDefault();
-        console.log(this.state.vehicle);
-
-        updateItem(this.state.vehicle, this.state.vehicle.id).then(() => {
-            //this.getAll()
-            // redirect
-            // show success or error message
-            this.setState({toBrowse : true});
-            //this.props.history.push(`/browse`);
-
-        })
-
-
-    };
-
-     */
-
-
     onSubmit = (values) => {
         const state = this.state;
         state.vehicle.make = values.make;
@@ -134,18 +48,13 @@ class EditVehicleForm extends Component {
         this.setState(state);
         console.log(this.state.vehicle);
 
-        updateItem(this.state.vehicle, this.state.vehicle.id).then(() => {
-            //this.getAll()
-            // redirect
-            // show success or error message
-            //this.props.history.push(`/browse`);
+        vehicle_update(this.state.vehicle, this.state.vehicle.id).then(() => {
             this.setState({toBrowse : true});
         })
     };
 
     onCancel = () => {
         console.log(this.props);
-        //this.props.history.push(`/browse`);
         this.setState({toBrowse : true});
     };
 

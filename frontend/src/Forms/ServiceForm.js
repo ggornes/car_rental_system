@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addFuelPurchase, addNewRental, addService} from "../VehicleFunctions";
+import {service_add} from "../VehicleFunctions";
 import {Redirect} from "react-router-dom";
 import {MDBCol, MDBRow} from "mdbreact";
 import {Formik} from "formik";
@@ -22,30 +22,7 @@ class FuelPurchaseForm extends Component {
     }
 
 
-/*
-    onChange = (e) => {
 
-        const state = this.state;
-        state.service[e.target.name] = e.target.value;
-        this.setState(state);
-
-    };
-*/
-
-/*
-    onSubmit = (e) => {
-
-
-
-        e.preventDefault();
-        console.log(this.state.service);
-
-        addService(this.state.service).then(() => {
-            console.log("added new fuel purchase");
-
-        });
-    };
-*/
     onSubmit = (values) => {
 
         const state = this.state;
@@ -54,12 +31,10 @@ class FuelPurchaseForm extends Component {
         this.setState(state);
         console.log(this.state.service);
 
-        addService(this.state.service).then(() => {
+        service_add(this.state.service).then(() => {
             console.log("added new fuel purchase");
 
         });
-
-
 
     };
 

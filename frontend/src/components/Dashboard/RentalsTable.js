@@ -3,14 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
 const RentalsTable = props => {
     const columns = props.columns;
-
     const rows = props.rows;
-    const extras = {
-        btnEdit: '',
-        btnDelete: ''
-    };
-
-
     const data = {
         columns,
         rows

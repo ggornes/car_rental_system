@@ -1,21 +1,13 @@
 import React, {Component} from 'react';
 import TablePage from './Table'
 import { Link } from 'react-router-dom';
-import * as ROUTES from '../../constants/routes';
 import 'mdbreact/dist/css/mdb.css'
 import 'bootstrap/dist/css/bootstrap.css'
-//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-//import {faTasks} from '@fortawesome/free-solid-svg-icons'
-
-import { faHome, faEdit, faTrashAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {MDBBtn, MDBCol, MDBContainer, MDBDataTable, MDBIcon, MDBRow} from 'mdbreact';
-import {deleteItem, getVehicleById, getVehicles} from "../../VehicleFunctions";
-import {Circle, WaveLoading} from "styled-spinkit";
-
-// const API = 'https://hn.algolia.com/api/v1/search?query=';
-// const DEFAULT_QUERY = 'redux';
+import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
+import {Circle} from "styled-spinkit";
 
 
 class Browse extends Component {
@@ -44,7 +36,6 @@ class Browse extends Component {
     }
 
 
-
     componentDidMount() {
         fetch('http://127.0.0.1:5000/vehicles/show')
             .then(response => response.json())
@@ -57,51 +48,22 @@ class Browse extends Component {
             //.catch(error => this.setState({ error, isLoaded: false }));
             // just in case the connection can not be established, we use the vehicle_default
             .catch(error => this.setState({ error, rows: this.state.vehicle_def, isLoaded: true }));
-
     }
-
-    onDelete = (e) => {
-        console.log(e.target.id);
-        deleteItem(e.target.id);
-        // ToDo: refresh the vehicles table
-
-    };
-
-    onEdit = (e) => {
-        console.log(e.target.id);
-        getVehicleById(e.target.id);
-
-    };
-
-    onClick = (e) => {
-
-    };
-
-
 
 
     render(){
-        //const { columns, rows } = this.state;
+
         const rows = this.state.rows;
-        //console.log(columns);
         console.log(rows);
         if (this.state.error !== null){
             console.log("error: " + this.error);
         }
 
-
-
-
         return(
             <div className="container">
                 <h4>
                     Browse Vehicles
-                    <FontAwesomeIcon icon={faHome} />
-
-
-
                 </h4>
-
 
                 {this.state.isLoaded ?
                     (
@@ -113,7 +75,6 @@ class Browse extends Component {
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>
-
                     )
                     :
                     (
@@ -122,22 +83,11 @@ class Browse extends Component {
                                     size="80"
                             />
                         </div>
-
                     )
                 }
-
-
-
-
-
-
-
-
             </div>
         );
     }
-
-
 }
 
 export default Browse;
