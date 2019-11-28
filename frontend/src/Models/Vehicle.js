@@ -1,3 +1,5 @@
+import {Service} from "./Service"
+
 export class Vehicle {
     _id;
     _make;
@@ -9,6 +11,7 @@ export class Vehicle {
     _initials;
     _created;
     _updated;
+    _services = [];
 
     constructor(make, model, release_year, registration, fuel, tank_size, initials, id = null, created = null, updated = null) {
         this._id = id;
@@ -22,6 +25,13 @@ export class Vehicle {
         this._created = created;
         this._updated = updated;
     }
+
+
+
+    addService(newService) {
+        this.services.push(newService);
+    }
+
 
     get id() {
         return this._id;
@@ -102,4 +112,23 @@ export class Vehicle {
     set updated(value) {
         this._updated = value;
     }
+
+
+
+    get services() {
+        return this._services;
+    }
+
+    set services(value) {
+        this._services = value;
+    }
+
+    showDetails() {
+        return ({
+            'Vehicle': `${this.make} ${this.model} (${this.release_year})`,
+            'Registration': `${this.registration}`,
+            'Services': Service.getServices(this.services)
+        })
+    }
+
 }
