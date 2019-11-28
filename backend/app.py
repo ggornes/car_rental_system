@@ -279,7 +279,7 @@ def get_rentals_by_vehicle_id(id):
 
 	# list of rentals
 	rentals = db.session.query(Rentals.id, Rentals.date_start, Rentals.odometer_start, Rentals.odometer_end, (Rentals.odometer_end - Rentals.odometer_start).label('distance'), Rentals.date_end, Rentals.rental_type, func.IF(Rentals.rental_type == "D", (func.datediff(Rentals.date_end, Rentals.date_start)+1)*100, (Rentals.odometer_end - Rentals.odometer_start)).label('rental_cost')).filter(Rentals.vehicle_id == id).order_by(desc(Rentals.date_start)).all()
-	print(rentals)
+	#print(rentals)
 	rentals_list = rentals_schema_more.jsonify(rentals)
 	
 	return (rentals_list)
@@ -371,7 +371,7 @@ def get_services_sum_by_vehicle_id(id):
 	for service in services:
 		services_count += 1
 		
-	print(services_count)
+	#print(services_count)
 	
 	services_summary = {"total_services": services_count}
 	
