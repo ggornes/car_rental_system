@@ -6,6 +6,7 @@ import RentalModal from "../Modal/RentalModal";
 import FuelModal from "../Modal/FuelModal";
 import ServicesModal from "../Modal/ServicesModal";
 import {Service} from "../../Models/Service"
+import {Vehicle} from "../../Models/Vehicle";
 
 
 class Details extends Component {
@@ -18,6 +19,7 @@ class Details extends Component {
             showModal: false,
             vehicleId: null,
             vehicle: '',
+            myVehicle: null,
             rentals: null,
             fuel_purchases: null,
             services: null,
@@ -62,6 +64,7 @@ class Details extends Component {
                 [res1, res_API_rentals, res_API_fuelPurchases, res_API_services, res_API_rentals_sum, res_API_services_sum, res_API_fuelPurchases_sum]) => Promise.all([res1.json(), res_API_rentals.json(), res_API_fuelPurchases.json(), res_API_services.json(), res_API_rentals_sum.json(), res_API_services_sum.json(), res_API_fuelPurchases_sum.json()]))
             .then(([data1, data_API_rentals, data_API_fuelPurchases, data_API_services, data_API_rentals_sum, data_API_services_sum, data_API_fuelPurchases_sum]) => this.setState({
                 vehicle: data1[0],
+                myVehicle: new Vehicle(data1[0].make, data1[0].model, data1[0].release_year, data1[0].registration, data1[0].fuel, data1[0].tank_size, data1[0].initials),
                 rentals: data_API_rentals,
                 rentals_summary: data_API_rentals_sum,
                 fuel_purchases: data_API_fuelPurchases,
@@ -85,6 +88,27 @@ class Details extends Component {
                 <h1>
                     {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                 </h1>
+                <small>
+                    <div>
+                        {this.state.myVehicle !== null &&
+                        <div>
+                            {this.state.myVehicle.showDetails().Vehicle}
+                        </div>
+                        }
+                    </div>
+                </small>
+
+                <small>
+                    <div>
+                        {this.state.myVehicle !== null &&
+                        <div>
+                            {this.state.myVehicle.addService(this.state.services)}
+                            {this.state.myVehicle.addService(this.state.services)}
+                            {this.state.myVehicle.showDetails().Services}
+                        </div>
+                        }
+                    </div>
+                </small>
 
                 <Tab.Container id="left-tabs-example" defaultActiveKey="details">
                     <Row>
