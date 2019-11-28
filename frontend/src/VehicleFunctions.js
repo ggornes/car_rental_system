@@ -1,17 +1,8 @@
 import axios from 'axios'
 
 
-export const getVehicleById = async item => {
-    return await axios
-        .get(`vehicles/show/${item}`, {
-            headers: {"Content-type": "application/json"}
-        })
-        .then(res => {
-            console.log(res.data[0]);
-        })
-};
 
-export const getVehicleById2 = async item => {
+export const getVehicleById = async item => {
     try {
         return await axios.get(`vehicles/show/${item}`, { //note: I had to rewrite the @app.route on app.py
             headers: {"Content-type": "application/json"}
@@ -22,6 +13,16 @@ export const getVehicleById2 = async item => {
         return e;
     }
 
+};
+
+export const getServicesByVehicleId = async item => {
+    try {
+        return await axios.get(`vehicles/services/${item}`, { //note: I had to rewrite the @app.route on app.py
+            headers: {"Content-type": "application/json"}
+        });
+    } catch (e) {
+        return e;
+    }
 };
 
 
