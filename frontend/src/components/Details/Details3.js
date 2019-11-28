@@ -7,6 +7,8 @@ import FuelModal from "../Modal/FuelModal";
 import ServicesModal from "../Modal/ServicesModal";
 import {Service} from "../../Models/Service"
 import {Vehicle} from "../../Models/Vehicle";
+import {getVehicleById, getServicesByVehicleId} from "../../VehicleFunctions";
+import axios from 'axios';
 
 
 class Details extends Component {
@@ -19,10 +21,13 @@ class Details extends Component {
             showModal: false,
             vehicleId: null,
             vehicle: '',
+            newDetails: '',
+            vehicle2: null,
             myVehicle: null,
             rentals: null,
             fuel_purchases: null,
             services: null,
+            services2: null,
             rentals_summary: '',
             fuel_purchases_summary: '',
             services_summary: '',
@@ -42,6 +47,98 @@ class Details extends Component {
 
         const vehicleId = myid;
         this.setState({vehicleId : myid});
+
+        // new code *************************************************************************************************
+/*
+        const fetchVehicleDetails = Details.fetchVehicleData(vehicleId);
+        console.log(fetchVehicleDetails);
+        fetchVehicleDetails.then( value => {
+            console.log(value[0].make);
+            this.setState({
+                newDetails: value[0],
+                myVehicle2: new Vehicle(value[0].make, value[0].model, value[0].release_year, value[0].registration, value[0].fuel, value[0].tank_size, value[0].initials)
+            });
+        });
+
+        this.setState({newDetails: fetchVehicleDetails});
+*/
+/*
+
+        const fetchVehicleDetails = this.fetchVehicleData(vehicleId);
+        console.log("testing: ", fetchVehicleDetails);
+        fetchVehicleDetails.then( value => {
+            console.log("testing: ", value.data[0].make);
+        });
+*/
+
+        /**
+         * Fetch vehicle information from API,
+         * then instantiate the Vehicle class,
+         * then store vehicle information on state.
+         * @type {Promise<*|undefined>}
+         */
+        const fetchVehicleDetails = getVehicleById(vehicleId);
+        fetchVehicleDetails.then( value => {
+            //console.log("this is fetch3: ", value.data[0].make);
+            this.setState({
+                vehicle2: new Vehicle(
+                    value.data[0].make,
+                    value.data[0].model,
+                    value.data[0].release_year,
+                    value.data[0].registration,
+                    value.data[0].fuel,
+                    value.data[0].tank_size,
+                    value.data[0].initials,
+                    value.data[0].id
+                )
+            })
+        });
+
+        const fetchServo = getServicesByVehicleId(vehicleId);
+        fetchServo.then(value => {
+            console.log("servo: ", value);
+
+        });
+
+        /**
+         * fecth services that match the vehicleId.
+         * Then instantiate each service and store them on state.services2.
+         * Then add each service to vehicle object
+         * @type {Promise<*|undefined>}
+         */
+        const fetchServices = this.fetchServicesData2(vehicleId);
+        console.log("testing: ", fetchServices);
+        fetchServices.then( value => {
+            console.log("f services: ", value.data);
+            const services_list = value.data;
+            this.setState({
+                services2: services_list.map((service) =>
+                    new Service(service.vehicle_id, service.odometer, service.serviced_at, service.id)
+                )
+            });
+            console.log(this.state.services2);
+            this.state.services2.map((service) =>
+                this.state.vehicle2.addService(service) //problem: if services promise is resolved before vehicles promise then this trows an error
+            );
+            console.log("Vehicle object services:", this.state.vehicle2.services)
+
+        });
+
+
+
+
+
+
+        const fetchAllRentals = Details.fetchRentalsData(vehicleId);
+        console.log(fetchAllRentals);
+
+        const fetchAllFuelPurchases = this.fetchFuelData(vehicleId);
+        console.log(fetchAllFuelPurchases);
+
+        const fetchAllServices = this.fetchServicesData(vehicleId);
+        console.log(fetchAllServices);
+
+        // end of new code *************************************************************************************************
 
         const API = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
         const API_rentals = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
@@ -82,17 +179,107 @@ class Details extends Component {
             }));
     }
 
+    // new code *************************************************************************************************
+
+// Option 1: using fetch api
+/*    static async fetchVehicleData(vehicleId) {
+
+        const vehicle_details = 'http://127.0.0.1:5000/vehicles/show/' + `${vehicleId}`;
+        try {
+            const response = await fetch(vehicle_details); // 1
+            return await response.json(); // 2
+        } catch (error) {
+            // ... gracefully handle error
+        }
+    }*/
+
+
+// Option 2: using axios
+/*    async fetchVehicleData(vehicleId) {
+        try {
+            const response = await axios.get(`vehicles/show/${vehicleId}`,{
+                headers: {"Content-type": "application/json"}
+            });
+            console.log(response);
+            return response;
+        } catch (e) {
+            console.log(e);
+        }
+    }*/
+
+    async fetchServicesData2(vehicleId) {
+        try {
+            const response = await axios.get(`vehicles/services/${vehicleId}`,{
+                headers: {"Content-type": "application/json"}
+            });
+            console.log(response);
+            return response;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+    static async fetchRentalsData(vehicleId) {
+        const rentals = 'http://127.0.0.1:5000/vehicles/rentals/' + `${vehicleId}`;
+        try {
+            const response = await fetch(rentals); // 1
+            return await response.json(); // 2
+        } catch (error) {
+            // ... gracefully handle error
+        }
+    }
+
+    async fetchFuelData(vehicleId) {
+        const fuel_purchases = 'http://127.0.0.1:5000/vehicles/fuel_purchases/' + `${vehicleId}`;
+        try {
+            const response = await fetch(fuel_purchases); // 1
+            return await response.json(); // 2
+        } catch (error) {
+            // ... gracefully handle error
+        }
+    }
+
+    async fetchServicesData(vehicleId) {
+        const services = 'http://127.0.0.1:5000/vehicles/services/' + `${vehicleId}`;
+        try {
+            const response = await fetch(services);
+            return await response.json();
+        } catch (error) {
+
+        }
+
+    }
+    // end of new code *************************************************************************************************
+
     render() {
         return(
             <div className="container">
                 <h1>
                     {this.state.vehicle.make + ' ' + this.state.vehicle.model + ' ' + this.state.vehicle.release_year}
                 </h1>
+                <h6>
+                    {this.state.vehicle2 !== null &&
+                    <div>
+                        {this.state.vehicle2.make + ' ' + this.state.vehicle2.model + ' ' + this.state.vehicle2.release_year}
+                    </div>
+                    }
+                </h6>
                 <small>
                     <div>
                         {this.state.myVehicle !== null &&
                         <div>
                             {this.state.myVehicle.showDetails().Vehicle}
+                        </div>
+                        }
+                    </div>
+                </small>
+
+                <small>
+                    <div>
+                        {this.state.vehicle2 !== null &&
+                        <div>
+                            {this.state.vehicle2.showDetails().Vehicle}
                         </div>
                         }
                     </div>
@@ -460,6 +647,18 @@ class Details extends Component {
                                         columns={
                                             [
                                                 {
+                                                    label: 'Id',
+                                                    field: 'id',
+                                                    sort: 'asc',
+                                                    width: 150
+                                                },
+                                                {
+                                                    label: 'Vehicle id',
+                                                    field: 'vehicle_id',
+                                                    sort: 'asc',
+                                                    width: 150
+                                                },
+                                                {
                                                     label: 'Date',
                                                     field: 'created',
                                                     sort: 'asc',
@@ -473,7 +672,7 @@ class Details extends Component {
                                                 }
                                             ]
                                         }
-                                        rows={this.state.services}/>
+                                        rows={this.state.services2}/>
 
                                 </Tab.Pane>
                             </Tab.Content>
