@@ -255,6 +255,11 @@ def get_vehicle(id):
 	vehicle = Vehicles.query.filter(Vehicles.id == id).all()
 	return vehicles_schema.jsonify(vehicle) # returns an array of objects
 
+# ###### get a single VEHICLE from vehicles table
+@app.route('/details3/vehicles/show/<id>', methods=['GET'])
+def get_vehicle2(id):
+	vehicle = Vehicles.query.filter(Vehicles.id == id).all()
+	return vehicles_schema.jsonify(vehicle) # returns an array of objects
 
 
 # ######     Rentals
