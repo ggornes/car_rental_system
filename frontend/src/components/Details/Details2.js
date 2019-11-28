@@ -213,16 +213,7 @@ class Details2 extends Component {
                                                                     <th>Total Services: </th>
                                                                     <td>{this.state.services_summary.total_services}</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th>Total Services 2: </th>
-                                                                    <td>
-                                                                        {this.state.services !== null && this.state.services.length > 0 &&
-                                                                        <div>
-                                                                            {Service.getServices(this.state.services)}
-                                                                        </div>
-                                                                        }
-                                                                    </td>
-                                                                </tr>
+
                                                                 <tr>
                                                                     <th>Odometer reading: </th>
                                                                     <td>
@@ -243,16 +234,7 @@ class Details2 extends Component {
                                                                         }
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th>Last Service Odo 2: </th>
-                                                                    <td>
-                                                                        {this.state.services !== null && this.state.services.length > 0 &&
-                                                                        <div>
-                                                                            {Service.getLastServiceOdo(this.state.services)}
-                                                                        </div>
-                                                                        }
-                                                                    </td>
-                                                                </tr>
+
                                                                 <tr>
                                                                     <th>Needs Service
                                                                         <div className="small">(Every 1,000 km)</div>
