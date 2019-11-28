@@ -13,10 +13,9 @@ export const getVehicleById = async item => {
 
 export const getVehicleById2 = async item => {
     try {
-        const response = await axios.get(`vehicles/show/${item}`,{
+        return await axios.get(`vehicles/show/${item}`, { //note: I had to rewrite the @app.route on app.py
             headers: {"Content-type": "application/json"}
         });
-        return response;
 
 
     } catch (e) {
