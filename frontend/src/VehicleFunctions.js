@@ -1,14 +1,28 @@
 import axios from 'axios'
 
 
-export const getVehicleById = item => {
-    return axios
-        .get(`vehicles/show/${item}`,{
+export const getVehicleById = async item => {
+    return await axios
+        .get(`vehicles/show/${item}`, {
             headers: {"Content-type": "application/json"}
         })
         .then(res => {
             console.log(res.data[0]);
         })
+};
+
+export const getVehicleById2 = async item => {
+    try {
+        const response = await axios.get(`vehicles/show/${item}`,{
+            headers: {"Content-type": "application/json"}
+        });
+        return response;
+
+
+    } catch (e) {
+        return e;
+    }
+
 };
 
 
