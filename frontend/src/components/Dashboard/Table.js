@@ -63,7 +63,7 @@ const TablePage = (props) => {
             btns:
                 <MDBRow>
                     <MDBCol><Link to={`/vehicle/edit/${obj.id}`}><FontAwesomeIcon icon={faEdit} /></Link></MDBCol>
-                    <MDBCol><Link to={`/details3/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
+                    <MDBCol><Link to={`/details2/${obj.id}`}><FontAwesomeIcon icon={faInfoCircle} /></Link></MDBCol>
                     <MDBCol id="trash"><FontAwesomeIcon icon={faTrashAlt} onClick={() => vehicle_delete(obj.id)}/></MDBCol>
                 </MDBRow>
 
