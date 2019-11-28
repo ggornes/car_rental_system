@@ -206,6 +206,11 @@ class ServicesSchema(ma.Schema):
 		ordered = True
 		fields = ('serviced_at', 'odometer')
 
+class ServicesSchema_more(ma.Schema):
+	class Meta:
+		ordered = True
+		fields = ('id', 'vehicle_id', 'serviced_at', 'odometer')
+
 
 # init schemas
 vehicle_schema = VehicleSchema()
@@ -225,6 +230,9 @@ fuel_purchases_schema = Fuel_PurchaseSchema(many=True)
 
 service_schema = ServicesSchema()
 services_schema = ServicesSchema(many=True)
+
+service_schema_more = ServicesSchema_more()
+services_schema_more = ServicesSchema_more(many=True)
 
 
 # ################################################
@@ -343,6 +351,13 @@ def get_fuel_purchases_sum_by_vehicle_id(id):
 def get_services_by_vehicle_id(id):
 	services = Services.query.filter(Services.vehicle_id == id).order_by(desc(Services.serviced_at)).all()
 	services_list = services_schema.jsonify(services)
+	return (services_list)
+
+# ###### get all SERVICES for certain vehicle
+@app.route('/details3/vehicles/services/<id>', methods=['GET'])
+def get_services_by_vehicle_id2(id):
+	services = Services.query.filter(Services.vehicle_id == id).order_by(desc(Services.serviced_at)).all()
+	services_list = services_schema_more.jsonify(services)
 	return (services_list)
 
 
