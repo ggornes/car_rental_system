@@ -109,17 +109,29 @@ class Details extends Component {
         const fetchServices = this.fetchServicesData2(vehicleId);
         console.log("testing: ", fetchServices);
         fetchServices.then( value => {
+
             console.log("f services: ", value.data);
+
             const services_list = value.data;
+
             this.setState({
                 services2: services_list.map((service) =>
                     new Service(service.vehicle_id, service.odometer, service.serviced_at, service.id)
                 )
             });
+
             console.log(this.state.services2);
-            this.state.services2.map((service) =>
-                this.state.vehicle2.addService(service) //problem: if services promise is resolved before vehicles promise then this trows an error
-            );
+
+            // Check that fetchServices promise is resolved
+            if (this.state.vehicle2 !== null) {
+                this.state.services2.map((service) =>
+                    this.state.vehicle2.addService(service)
+                );
+            }
+
+
+
+
             console.log("Vehicle object services:", this.state.vehicle2.services)
 
         });
