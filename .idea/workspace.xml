@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7be6809-36a9-41a1-95ff-3114201883fa" name="Default Changelist" comment="" />
+    <list default="true" id="a7be6809-36a9-41a1-95ff-3114201883fa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/g@round_documentation.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/g@round_documentation.md" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,9 +16,11 @@
   </component>
   <component name="ProjectId" id="1Swu9h32Wbg1MVcnq32nS2d3KeW" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../food-app" />
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="ts.external.directory.path" value="C:\Users\StudyPC\CertIV\git_repos\CAR_MANAGEMENT_SYSTEM\car_rental_v1\frontend\node_modules\typescript\lib" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -40,6 +45,8 @@
       <option name="presentableId" value="Default" />
       <updated>1572486829966</updated>
       <workItem from="1572486831465" duration="29000" />
+      <workItem from="1575264742798" duration="5902000" />
+      <workItem from="1575507228955" duration="52000" />
     </task>
     <servers />
   </component>
@@ -51,7 +58,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

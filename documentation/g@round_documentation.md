@@ -226,11 +226,15 @@ Virtualenv is the easiest and recommended way to configure a custom Python envir
 ##### Install:
 ``` bash
 pip install virtualenv
+or
+pip3 install virtualenv
 ```
 
 ##### Create virtual environment:
 ``` bash
 virtualenv ENV
+or
+virtualenv -p python3 ENV
 ```
 Where ENV is a directory in which to place the new virtual environment (example: C:\documents\my_env_folder).
 
