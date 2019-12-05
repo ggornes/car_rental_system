@@ -15,7 +15,7 @@ class TestConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'mysql://nmt_fleet_manager@localhost/nmt_fleet_manager_test'
+    SQLALCHEMY_DATABASE_URI = 'mysql://nmt_fleet_manager:Fleet2019S2@localhost/nmt_fleet_manager_test'
 	#SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 	#SQLALCHEMY_DATABASE_URI = 'mysql:///:memory:'
 	
