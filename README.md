@@ -211,7 +211,7 @@ Note: MySQL server must be running (default port is 3306)
 
 ### STEP 2: clone the repo
 ```bash
-git clone -b v3.0 https://github.com/ggornes/car_rental_system.git
+git clone https://github.com/ggornes/car_rental_system.git
 ```
 
 ### STEP 3: Install Python (Python 3) dependencies
