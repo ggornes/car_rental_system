@@ -31,16 +31,16 @@ app = Flask(__name__)
 
 
 # Database
-app.config['MYSQL_USER'] = 'rental_db_admin'
+app.config['MYSQL_USER'] = 'nmt_fleet_manager'
 #app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
-app.config['MYSQL_PASSWORD'] = 'Password1'
-app.config['MYSQL_DB'] = 'rental_db'
+app.config['MYSQL_PASSWORD'] = 'Fleet2019S2'
+app.config['MYSQL_DB'] = 'nmt_fleet_manager'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JSON_SORT_KEYS'] = False
-app.config['SQLALCHEMY_DATABASE'] = 'rental_db'
+app.config['SQLALCHEMY_DATABASE'] = 'nmt_fleet_manager'
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rental_db_admin:Password1@localhost/rental_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://nmt_fleet_manager:Fleet2019S2@localhost/nmt_fleet_manager'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Init db
