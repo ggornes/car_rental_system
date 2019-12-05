@@ -8,6 +8,7 @@
   - [Models](#Models)
   - [Methods](#Methods)
 - [Installation](#Installation)
+- [Testing](#Testing)
 - [Screenshots](#Screenshots)
 
 ## Description
@@ -328,6 +329,20 @@ yarn install
 yarn start
 ```
 The app should be running now (localhost:3000)
+
+## Testing
+### Backend
+```bash
+cd frontend
+yarn test
+```
+
+### Frontend
+```bash
+cd backend
+python test.py
+```
+
 
 ## Screenshots
 ![Home](./documentation/screenshots/home.png)
