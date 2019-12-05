@@ -39,9 +39,8 @@ A BREAD web app tool to manage a vehicle rental business.
 
 
 ### Testing Framework:
-  + <b>pytest</b>: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing for applications and libraries. ([pytest: helps you write better 
-programs — pytest documentation](https://docs.pytest.org/en/latest/))
-  + ([Testing Flask Applications — Flask Documentation (1.1.x)](https://flask.palletsprojects.com/en/1.1.x/testing/))
+  + <b>Flask Testing</b>: [Testing Flask Applications — Flask Documentation (1.1.x)](https://flask.palletsprojects.com/en/1.1.x/testing/)
+  + <b>Jest</b>: [Jest](https://jestjs.io/)
 
 
 ## Design
@@ -193,16 +192,16 @@ mysql -u root
 ```
 
 ```sql
-CREATE DATABASE rental_db CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
-CREATE DATABASE rental_db_test CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+CREATE DATABASE nmt_fleet_manager CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+CREATE DATABASE nmt_fleet_manager_test CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
-CREATE USER 'rental_db_admin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password1'; 
+CREATE USER 'nmt_fleet_manager'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Fleet2019S2'; 
 
-GRANT ALL PRIVILEGES ON rental_db.* TO 'rental_db_admin'@'localhost';
+GRANT ALL PRIVILEGES ON nmt_fleet_manager.* TO 'nmt_fleet_manager'@'localhost';
 
-GRANT ALL PRIVILEGES ON rental_db_test.* TO 'rental_db_admin'@'localhost';
+GRANT ALL PRIVILEGES ON nmt_fleet_manager_test.* TO 'nmt_fleet_manager'@'localhost';
 
-GRANT USAGE ON *.* TO 'rental_db_admin'@'localhost';
+GRANT USAGE ON *.* TO 'nmt_fleet_manager'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
@@ -307,18 +306,6 @@ six==1.13.0
 SQLAlchemy==1.3.11
 Werkzeug==0.16.0
 ```
-#### 3.3 Create .env file
-```bash
-cd backend
-touch .env
-```
-Edit the .env file and add these two lines:
-```bash
-MYSQL_PASSWORD='Password1'
-SQLALCHEMY_DATABASE_URI='mysql://rental_db_admin:Password1@localhost/rental_db'
-```
-For security reasons, this values should be hidden, but for demonstration purposes I expose the values.
-
 
 ### STEP 4: Initialize the database
 cd into /backend and run python script to initialize the database and seed the tables:
@@ -330,6 +317,7 @@ python init_db.py
 
 ### STEP 5: start the API server (localhost:5000)
 ```bash
+cd backend
 python app.py
 ```
 
